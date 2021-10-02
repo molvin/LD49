@@ -61,6 +61,11 @@ public class Player : MonoBehaviour
 
         cycleTimer += Time.unscaledDeltaTime;
     }
+    
+    public List<Item> getItems()
+    {
+        return Items;
+    }
 
     private void UpdateMoveState()
     {
