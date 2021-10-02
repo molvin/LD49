@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Splitter : PressurisedEnitity
+public class Valve : PressurisedEnitity
 {
+    public float Gate;
+
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
     {
         if (TryEdge.Other == null && IncommingEdge.Self != TryEdge.Self)
@@ -23,35 +25,21 @@ public class Splitter : PressurisedEnitity
     public override int GetEdgeIndex(Vector3 WorldPosition)
     {
         Vector3 Delta = WorldPosition - transform.position;
-        if (Mathf.Abs(Delta.x) > Mathf.Abs(Delta.y))
+        if (Delta.x > 0)
         {
-            if (Delta.x > 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return 2;
-            }
+            return 0;
         }
         else
         {
-            if (Delta.y > 0)
-            {
-                return 3;
-            }
-            else
-            {
-                return 1;
-            }
+            return 1;
         }
     }
 
     void Awake()
     {
-        Edges = new List<Edge>(4);
+        Edges = new List<Edge>(2);
         Edge Edge = new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             Edge.SelfSocket = i;
             Edges.Add(Edge);

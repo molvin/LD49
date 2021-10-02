@@ -121,7 +121,7 @@ public class Grid
                     return;
                 }
                 Pressurised.Type = Parent.Type;
-                Pressurised.Pressure = Parent.Pressure;
+                Pressurised.Pressure = (Entity is Valve Valve) ? Mathf.Min(Parent.Pressure, Valve.Gate) : Parent.Pressure;
                 Pressurised.Edges.ForEach(Edge => Recurr(Edge.Other, Pressurised));
             }
             else
