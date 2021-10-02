@@ -269,7 +269,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -293,13 +293,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045875469}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1045875473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,10 +361,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5bb5eb86e34ac46a33a49bd6002302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Resources:
+  EntityEntries:
   - Button: 119
-    Resource: {fileID: 8129150490485527682, guid: e1370d8412da24840a92387d2ef29691, type: 3}
-  Demands: []
+    Prefab: {fileID: 8129150490485527682, guid: e1370d8412da24840a92387d2ef29691, type: 3}
+  - Button: 104
+    Prefab: {fileID: 2147880628178293390, guid: df6e60de84c419947ac4ab4c2643846a, type: 3}
+  - Button: 115
+    Prefab: {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
+  - Button: 118
+    Prefab: {fileID: 8129150490485527682, guid: ad44bddaea75d6d4786fc133c70f2a31, type: 3}
+  - Button: 103
+    Prefab: {fileID: 8129150490485527682, guid: 7f8651668234541428ed7dba32c96d2a, type: 3}
+  - Button: 114
+    Prefab: {fileID: 8129150490485527682, guid: 1e5d2d64bccaddb4eaa59a2caf6bd153, type: 3}
   SizeX: 10
   SizeY: 10
 --- !u!4 &1993585393

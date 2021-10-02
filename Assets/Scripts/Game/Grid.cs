@@ -2,11 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using System.Linq;
 
 public enum ResourceType
 {
     None,
-    Water,
+    Red,
+    Green,
+    Blue,
+}
+
+public struct Edge
+{
+    public Entity Self;
+    public Entity Other;
+    public int SelfSocket;
+    public int OtherSocket;
+
+    public Edge Cleared()
+    {
+        Edge Edge = this;
+        Edge.Other = null;
+        Edge.OtherSocket = -1;
+        return Edge;
+    }
 }
 
 public class Grid 
@@ -27,16 +46,16 @@ public class Grid
     public Vector2Int WorldToGrid(Vector3 Position)
     {
         Position.x += SizeX * 0.5f;
-        Position.z += SizeY * 0.5f;
-        return new Vector2Int((int)Position.x, (int)Position.z);
+        Position.y += SizeY * 0.5f;
+        return new Vector2Int((int)Position.x, (int)Position.y);
     }
 
     public Vector3 GridToWorld(Vector2Int Position)
     {
         return new Vector3(
             Position.x + 0.5f - SizeX * 0.5f,
-            0.0f,
-            Position.y + 0.5f - SizeY * 0.5f
+            Position.y + 0.5f - SizeY * 0.5f,
+            0.0f
         );
     }
 
@@ -59,13 +78,69 @@ public class Grid
         return false;
     }
 
+    public bool TryGet(out Entity Entity, Vector2Int GridPosition)
+    {
+        Entity = null;
+        if (GridPosition.x >= 0 && GridPosition.x < SizeX
+            && GridPosition.y >= 0 && GridPosition.y < SizeY)
+        {
+            int Position = GridPosition.x + GridPosition.y * SizeX;
+            if (Entities[Position])
+            {
+                Entity = Entities[Position];
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void Tick()
     {
+        Entities.ForEach(e => e?.Clear());
 
+        List<Demand> Demands = Entities.Where(e => e != null && e is Demand).Select(e => e as Demand).ToList();
+        List<Resource> Resources = Entities.Where(e => e is Resource).Select(e => e as Resource).ToList();
+
+        void Recurr(Entity Entity, PressurisedEnitity Parent)
+        {
+            if (Entity == null)
+            {
+                return;
+            }
+
+            if (Entity is Demand Demand)
+            {
+                Demand.UpdatePressureLevel(Parent.Type, Parent.Pressure);
+            }
+            //else if (Entity is Combinator Combinator)
+            else if (Entity is Resource){}
+            else if (Entity is PressurisedEnitity Pressurised)
+            {
+                if ((Pressurised.Type != ResourceType.None && Pressurised.Type != Parent.Type) || Pressurised.Pressure >= Parent.Pressure)
+                {
+                    return;
+                }
+                Pressurised.Type = Parent.Type;
+                Pressurised.Pressure = Parent.Pressure;
+                Pressurised.Edges.ForEach(Edge => Recurr(Edge.Other, Pressurised));
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+        }
+
+        foreach (var Resource in Resources)
+        {
+            Resource.Edges.ForEach(Edge => Recurr(Edge.Other, Resource));
+        }
+
+        Entities.ForEach(e => e?.Tick());
     }
+
+
     public void Reset()
     {
-        Test();
         if (Entities != null)
         {
             foreach (var Entity in Entities)
@@ -77,12 +152,5 @@ public class Grid
             }
         }
         Entities = new List<Entity>(new Entity[SizeX * SizeY]);
-    }
-
-    public void Test()
-    {
-        Vector3 v = new Vector3(13.2f, 12.2f, 3.0f);
-        Vector3 v2 = GridToWorld(WorldToGrid(v));
-        Assert.IsTrue(v2 == new Vector3(13.5f, 0.0f, 3.5f));
     }
 }
