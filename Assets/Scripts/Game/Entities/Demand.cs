@@ -17,6 +17,8 @@ public class Demand : Entity
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
 
+    protected ResourceWorldUI DemandUI;
+
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
 
     public override void Tick()
@@ -24,7 +26,7 @@ public class Demand : Entity
         base.Tick();
 
         //If no time has changed don't care about the need
-        if (Time.time == LastSatisfiedTime)
+        if (Time.time == LastSatisfiedTime || DemandUI == null)
             return;
 
         IsSatisfied = true;
@@ -32,14 +34,21 @@ public class Demand : Entity
         {
             if(PressureLevels.ContainsKey(need.Type))
             {
-                if(Mathf.Abs(need.Value - PressureLevels[need.Type]) <= NeedLeniency)
-                    continue;
-                
-            }
+                float pressure_value = PressureLevels[need.Type];
+                if (Mathf.Abs(need.Value - pressure_value) >= NeedLeniency)
+                    IsSatisfied = false;
 
-            IsSatisfied = false;
-            break;
+                DemandUI.SetValue(pressure_value);
+            }
+            else if (IsSatisfied)
+            {
+                IsSatisfied = false;
+                DemandUI.SetValue(0);
+            }
+                
         }
+
+    
 
         if (IsSatisfied)
         {
@@ -91,7 +100,14 @@ public class Demand : Entity
     {
         Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
         LastSatisfiedTime = Time.time;
+        DemandUI = GetComponentInChildren<ResourceWorldUI>();
+
+        foreach(Need need in Needs)
+        {
+            DemandUI.SetDemand(need.Value);
+        }
     }
+
     private void Update()
     {
        // print(GetDebugInfo());
