@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f932ec5402b8b4d4cacf4e3edc941e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  radialImage: {fileID: 6917382634047563880}
   offsetPercentOfScreenX: 10
   offsetPercentOfScreenY: 10
 --- !u!1 &6917382634920176044
