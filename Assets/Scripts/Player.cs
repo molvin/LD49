@@ -374,5 +374,10 @@ public class Player : MonoBehaviour
             Data.StateEntered = false;
             Data.StateExited = true;
         }
+        else
+        {
+            Data.StateEntered = false;
+            Data.StateExited = false;
+        }
     }
 }
