@@ -531,7 +531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11019b4aa8897a449c29f265e1c5f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PressurisedEnititiesPrefabs: []
+  m_DemandEntity: {fileID: 0}
+  m_ResourceScaling: []
 --- !u!1 &365777847 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8598795658063933039, guid: e1370d8412da24840a92387d2ef29691, type: 3}
@@ -1035,6 +1036,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   CycleTickTime: 0.2
+  HosePrefab: {fileID: 2058503112061502657, guid: 8aa6dd1186768274787e9203f99031e8, type: 3}
 --- !u!58 &1444968626
 CircleCollider2D:
   m_ObjectHideFlags: 0

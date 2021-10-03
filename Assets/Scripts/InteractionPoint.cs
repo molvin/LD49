@@ -48,21 +48,16 @@ public class InteractionPoint : MonoBehaviour
                     {
                         Debug.Log("Picking up hose");
 
-                        Hose hose = Instantiate(player.HosePrefab, transform.position, Quaternion.identity);
-                        bool added = player.Grid.TryAdd(player.HosePrefab, transform.position);
+                        Hose hose = player.m_EntityManager.Add(player.HosePrefab, transform.position) as Hose;
 
-                        if (!added)
-                        {
-                            Destroy(hose.gameObject);
-                            Debug.Log("Failed to create hose");
-                            return;
-                        }
                         edge.Other = hose;
                         edge.OtherSocket = 0;
                         Edge hoseEdge = hose.Edges[0];
                         hoseEdge.Other = ParentEntity;
                         hoseEdge.OtherSocket = edge.SelfSocket;
                         hose.Edges[0] = hoseEdge;
+
+                        hose.Socket0.position = transform.position;
 
                         //Create new hose
                         player.CurrentState = Player.State.Hose;

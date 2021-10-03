@@ -48,7 +48,7 @@ public class DebugGameManager : MonoBehaviour
                 if (Input.GetKeyDown(Entry.Button))
                 {
                     Debug.Log("Hit: " + HitPoint);
-                    m_EntityManager.TryAdd(Entry.Prefab, HitPoint);
+                    m_EntityManager.Add(Entry.Prefab, HitPoint);
                 }
             }
 
@@ -104,8 +104,19 @@ public class DebugGameManager : MonoBehaviour
 
     void SelectThing(Vector3 WorldPosition)
     {
-        Entity Entity;
-        if (m_EntityManager.TryGet(out Entity, m_EntityManager.WorldToGrid(WorldPosition)))
+        Entity Entity = null;
+        float distance = 2.0f;
+        foreach(var entity in m_EntityManager.Entities)
+        {
+            float d = (entity.transform.position - WorldPosition).magnitude;
+            if (d < distance)
+            {
+                distance = d;
+                Entity = entity;
+            }
+        }
+
+        if (Entity)
         {
             Debug.Log($"Selected {Entity.name}");
 
@@ -155,7 +166,7 @@ public class DebugGameManager : MonoBehaviour
     public void Reset()
     {
         if (m_EntityManager != null) m_EntityManager.Reset();
-        m_EntityManager = new EntityManager(SizeX, SizeY);
+        m_EntityManager = new EntityManager();
 
         List<LineRenderer> Renderers = GetComponentsInChildren<LineRenderer>().ToList();
         foreach (var Ren in Renderers)

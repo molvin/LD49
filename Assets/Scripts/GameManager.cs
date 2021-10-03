@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     EntityManager m_EntityManager;
     private void Start()
     {
-        m_EntityManager = new EntityManager(100, 100);
+        m_EntityManager = new EntityManager();
 
         foreach (ResourceScaling scaling in m_ResourceScaling)
         {
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     private void SpawnBuilding(ResourceScaling scaling, float delta_need)
     {
 
-        Entity spawned_entity = m_EntityManager.TryAdd(m_DemandEntity, Vector3.zero);
+        Entity spawned_entity = m_EntityManager.Add(m_DemandEntity, Vector3.zero);
         if (spawned_entity is Demand spawned_demand)
         {
             Demand.Need need = new Demand.Need{ Type = scaling.GetResourceType(), Value = delta_need };

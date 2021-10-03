@@ -46,4 +46,11 @@ public class Hose : PressurisedEnitity
             Edges.Add(Edge);
         }
     }
+
+    private void Update()
+    {
+        //Temp
+        LineRenderer lr = GetComponent<LineRenderer>();
+        lr.SetPositions(new Vector3[]{ Socket0.position, Socket1.position });
+    }
 }
