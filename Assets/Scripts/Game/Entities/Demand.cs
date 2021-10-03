@@ -46,6 +46,10 @@ public class Demand : Entity
     {
         Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
     }
+    private void Update()
+    {
+        print(GetDebugInfo());
+    }
 
     public override string GetDebugInfo()
     {

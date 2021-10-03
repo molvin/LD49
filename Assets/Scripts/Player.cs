@@ -222,7 +222,10 @@ public class Player : MonoBehaviour
 
     private void UpdateHoseState()
     {
-        (Interaction.Entity as Hose).Socket1.position = transform.position;
+        if(Interaction.Edge.Value.SelfSocket == 0)
+            (Interaction.Entity as Hose).Socket0.position = transform.position;
+        else
+            (Interaction.Entity as Hose).Socket1.position = transform.position;
 
         if (Input.GetButtonDown("Interact"))
             Interact();
