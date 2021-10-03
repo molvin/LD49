@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Socket: 0
+  Socket: 3
   InteractType: 0
 --- !u!1 &2744301593840908909
 GameObject:
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Socket: 0
+  Socket: 2
   InteractType: 0
 --- !u!1 &6350151942851079856
 GameObject:
@@ -570,5 +570,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Socket: 0
+  Socket: 1
   InteractType: 0

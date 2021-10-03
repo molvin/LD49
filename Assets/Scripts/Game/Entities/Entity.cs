@@ -17,10 +17,11 @@ public abstract class Entity : MonoBehaviour
         foreach (var ip in InteractionPoints)
         {
             float d = (WorldPosition - ip.transform.position).magnitude;
-            if (d < distance && ip.GetComponent<InteractionPoint>().InteractType == InteractionPoint.Interactable.Socket)
+            var i = ip.GetComponent<InteractionPoint>();
+            if (d < distance && (i.InteractType == InteractionPoint.Interactable.Socket || i.InteractType == InteractionPoint.Interactable.Hose))
             {
                 distance = d;
-                closest = ip.GetComponent<InteractionPoint>();
+                closest = i;
             }
         }
         return closest.Socket;

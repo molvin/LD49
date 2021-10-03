@@ -85,7 +85,7 @@ public class InteractionPoint : MonoBehaviour
                         player.Interaction.Entity = hose;
                         player.Interaction.Edge = hose.Edges[edge.OtherSocket];
                         player.CurrentState = Player.State.Hose;
-                        foreach (var point in ParentEntity.InteractionPoints)
+                        foreach (var point in hose.InteractionPoints)
                             point.SetActive(false);
 
                     }
