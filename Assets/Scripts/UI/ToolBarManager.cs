@@ -93,7 +93,7 @@ public class ToolBarManager : MonoBehaviour
     void doBulldowseAnim()
     {
         bulldowseAnimTimer += bulldowseIsHidden ? Time.deltaTime : -Time.deltaTime;
-        bulldowseAnimTimer = Mathf.Clamp(animTimer, 0, animTime);
+        bulldowseAnimTimer = Mathf.Clamp(bulldowseAnimTimer, 0, bulldowseAnimTime);
         float posModi = hideAnimCurve.Evaluate(bulldowseAnimTimer / bulldowseAnimTime);
         bulldowseObjectbarObj.transform.position = new Vector3(bulldowsStartPos.x, bulldowsStartPos.y - (200 * posModi), bulldowsStartPos.z);
     }
