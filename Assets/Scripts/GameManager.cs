@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public ParticleSystem Kablaam;
+    private bool doKablaam;
 
     [System.Serializable]
     public class ResourceScaling
@@ -75,6 +77,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         m_EntityManager = new EntityManager();
 
+        doKablaam = false;
+
         foreach (ResourceScaling scaling in m_ResourceScaling)
         {
             scaling.GenerateExedeRate();
@@ -101,8 +105,16 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (!doKablaam)
+        {
+            Kablaam = ParticleSystem.Instantiate(Kablaam, FindObjectOfType<Player>().gameObject.transform);
+            Kablaam.Play();
+            doKablaam = true;
+        }
+
         Debug.Log("Game Over!!");
         Time.timeScale = 0;
+        
     }
 
     private void SpawnBuilding(ResourceScaling scaling)

@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     private GameObject[] Ghosts;
     public Hose HosePrefab;
+    public ParticleSystem FootStepDustRight, FootStepDustLeft;
+    private bool footstepRight;
     public StateData HoseStateData = new StateData
     {
         State = State.Hose,
@@ -107,6 +109,12 @@ public class Player : MonoBehaviour
         }
 
         GetComponentInChildren<ToolBarManager>().Init();
+        FootStepDustRight = ParticleSystem.Instantiate(FootStepDustRight, this.transform);
+        FootStepDustLeft = ParticleSystem.Instantiate(FootStepDustLeft, this.transform);
+        
+        FootStepDustRight.transform.localPosition = new Vector3(-0.8f, -0.94f, 0f);
+        FootStepDustLeft.transform.localPosition = new Vector3(0.7f, -0.94f, 0f);
+        footstepRight = false;
     }
 
     private void Update()
@@ -114,7 +122,10 @@ public class Player : MonoBehaviour
         Instance = this;
 
         DestructionCube.SetActive(false);
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log(footstepRight);
+        }
         foreach (var g in Ghosts) g.SetActive(false);
         switch(CurrentState)
         {
@@ -269,6 +280,22 @@ public class Player : MonoBehaviour
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
             //Visual Rotation
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
+            if (footstepRight && !FootStepDustRight.isPlaying && !FootStepDustLeft.isPlaying)
+            {
+                Debug.Log(FootStepDustRight);
+                FootStepDustRight.Play();
+                footstepRight = false;
+            }
+            else
+            {
+                if (!FootStepDustLeft.isPlaying && !FootStepDustRight.isPlaying)
+                {
+                    FootStepDustLeft.Play();
+                    footstepRight = true;
+                }
+
+            }
+            
         }
         else
         {

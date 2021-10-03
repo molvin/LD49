@@ -112,6 +112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e1fbc407ce60b4ab407d3a51524b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulldowserAnimCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bulldowseAnimTime: 1
   hideAnimCurve:
     serializedVersion: 2
     m_Curve:
@@ -355,8 +362,8 @@ GameObject:
   - component: {fileID: 2049299637924425349}
   - component: {fileID: 2049299637924425350}
   - component: {fileID: 1444968624}
-  m_Layer: 7
   - component: {fileID: -7729619038657056895}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,6 +422,9 @@ MonoBehaviour:
     m_Bits: 64
   CycleTickTime: 0.2
   HosePrefab: {fileID: 2058503112061502657, guid: 8aa6dd1186768274787e9203f99031e8, type: 3}
+  FootStepDustRight: {fileID: 1564885329245430659, guid: ffd72f9019f3a5d469163a3301fb1af8, type: 3}
+  FootStepDustLeft: {fileID: 1564885329245430659, guid: ffd72f9019f3a5d469163a3301fb1af8, type: 3}
+  Hinge: {fileID: -7729619038657056895}
   DestructionCube: {fileID: 610733300}
   DestructionOffset: 1
   DestructionRadius: 3
@@ -422,7 +432,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   DragSpeed: 0.5
-  Hinge: {fileID: -7729619038657056895}
 --- !u!58 &2049299637924425350
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -554,7 +563,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -561067561
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cd7bd7f6353b1174fac58939997e6267, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
