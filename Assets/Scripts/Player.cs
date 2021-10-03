@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
+    public struct StateData
+    {
+        public State State;
+        public bool WasInState;
+        public bool StateEntered;
+        public bool StateExited;
+    }
     //States
     public enum State
     {
@@ -14,13 +22,14 @@ public class Player : MonoBehaviour
         Hose = 3,
         Valve = 4
     }
+    public static Player Instance;
     public State CurrentState;
     //Movement
     public float AccelerationTime;
     public float DecelerationTime;
     public float MaxSpeed;
     public float MinInput;
-    public Vector3 Veloctiy;
+    public Vector3 Velocity;
     public Transform SpriteHolder;
     public Animator Animator;
     public Rigidbody2D Rb;
@@ -42,12 +51,32 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     private GameObject[] Ghosts;
     public Hose HosePrefab;
+    public StateData HoseStateData = new StateData
+    {
+        State = State.Hose,
+        WasInState = false,
+        StateEntered = false,
+        StateExited = false
+    };
+    public HingeJoint2D Hinge;
+    
+
+    //Destruction
+    public GameObject DestructionCube;
+    public float DestructionOffset;
+    public float DestructionRadius;
+    public LayerMask EntityLayer;
     
     //Interact
     public struct InteractionData
     {
         public Entity Entity;
         public Edge? Edge;
+        public Transform Handle;
+        public Transform OtherHandle;
+        public Vector3 StartPosition;
+        public float StartDistance;
+        public Vector3 PreviousPosition;
 
         public void Clear()
         {
@@ -56,9 +85,11 @@ public class Player : MonoBehaviour
         }
     }
     public InteractionData Interaction;
+    public float DragSpeed = 0.5f;
 
     private void Start()
     {
+
         Rb = GetComponent<Rigidbody2D>();
         GameManager.Instance.m_EntityManager = new EntityManager();
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
@@ -80,6 +111,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        Instance = this;
+
+        DestructionCube.SetActive(false);
+
         foreach (var g in Ghosts) g.SetActive(false);
         switch(CurrentState)
         {
@@ -92,18 +127,20 @@ public class Player : MonoBehaviour
                 break;
             case State.Destroy:
                 UpdateDestroyState();
-                Move();
                 break;
             case State.Hose:
                 UpdateHoseState();
                 break;
             case State.Valve:
+                UpdateValveState();
                 break;
         }
 
+        UpdateStateMachineData(ref HoseStateData);
+
         cycleTimer += Time.unscaledDeltaTime;
     }
-    
+
     public List<Item> getItems()
     {
         return Items;
@@ -158,10 +195,40 @@ public class Player : MonoBehaviour
     }
     private void UpdateDestroyState()
     {
-        //TODO: highlight the relevant cell
+        Move();
+
+        if (Input.GetButtonDown("Destroy"))
+        {
+            CurrentState = State.Move;
+            return;
+        }
+
+       //Overlap check infront of you
+        Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
+        var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
+        Entity closest = null;
+        float dist = 10000000000.0f;
+        Debug.Log($"Found entities {colliders.Length}");
+        foreach (var coll in colliders)
+        {
+            float d = (position - coll.transform.position).magnitude;
+            if (d < dist)
+            {
+                dist = d;
+                closest = coll.GetComponent<Entity>();
+            }
+        }
+        if (closest == null || closest is Resource || closest is Demand)
+            return;
+
+        DestructionCube.SetActive(true);
+        DestructionCube.transform.position = closest.transform.position;
+
         if (Input.GetButtonDown("Interact"))
         {
             Debug.Log("Destroying Item");
+            GameManager.Instance.m_EntityManager.Destroy(closest);
+            //TODO: regain one item
         }
     }
     private void Interact()
@@ -199,33 +266,34 @@ public class Player : MonoBehaviour
 
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
-            Veloctiy = Vector3.SmoothDamp(Veloctiy, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
+            Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
             //Visual Rotation
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
         }
         else
         {
-            Veloctiy = Vector3.SmoothDamp(Veloctiy, Vector3.zero, ref acceleration, DecelerationTime);
+            Velocity = Vector3.SmoothDamp(Velocity, Vector3.zero, ref acceleration, DecelerationTime);
         }
 
         //Rb.MovePosition(transform.position + Veloctiy * Time.deltaTime);
 
         //Animation
-        Animator.SetFloat("Speed", Veloctiy.magnitude / MaxSpeed);
-        Animator.speed = Veloctiy.magnitude / MaxSpeed;
+        Animator.SetFloat("Speed", Velocity.magnitude / MaxSpeed);
+        Animator.speed = Velocity.magnitude / MaxSpeed;
     }
     private void FixedUpdate()
     {
-        Rb.velocity = Veloctiy;
+        Rb.velocity = Velocity;
     }
 
 
     private void UpdateHoseState()
     {
+        Hose Hose = Interaction.Entity as Hose;
         if(Interaction.Edge.Value.SelfSocket == 0)
-            (Interaction.Entity as Hose).Socket0.position = transform.position;
+            Hose.Socket0.position = transform.position;
         else
-            (Interaction.Entity as Hose).Socket1.position = transform.position;
+            Hose.Socket1.position = transform.position;
 
         if (Input.GetButtonDown("Interact"))
             Interact();
@@ -239,5 +307,55 @@ public class Player : MonoBehaviour
         }
 
         Move();
+    }
+
+    private void UpdateValveState()
+    {
+        Velocity = Vector3.zero;
+        Valve valve = Interaction.Entity as Valve;
+
+        Vector3 direction = (Interaction.Handle.GetChild(0).position - Interaction.Entity.transform.position).normalized;
+        float distance = (Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction);
+        Interaction.Handle.localPosition = direction * distance;
+        Interaction.OtherHandle.localPosition = -direction * distance;
+
+        Interaction.PreviousPosition = transform.position;
+        valve.Gate = Mathf.Lerp(0, 100, distance);
+        
+        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        float dot = Vector3.Dot(direction, input);
+
+        if (input.magnitude > MinInput && dot > 0.7f && distance < 1.0f)
+        {
+            Velocity = direction * DragSpeed;
+        }
+        if (input.magnitude > MinInput && dot < -0.7f && distance > 0.0f)
+        {
+            Velocity = -direction * DragSpeed;
+
+        }
+
+        if (Input.GetButtonDown("Destroy") || Input.GetButtonDown("Interact"))
+        {
+            CurrentState = State.Move;
+            Interaction.Clear();
+        }
+
+    }
+
+    private void UpdateStateMachineData(ref StateData Data)
+    {
+        if (CurrentState == Data.State)
+        {
+            Data.StateEntered = !Data.WasInState;
+            Data.WasInState = true;
+            Data.StateExited = false;
+        }
+        else if (Data.WasInState)
+        {
+            Data.WasInState = false;
+            Data.StateEntered = false;
+            Data.StateExited = true;
+        }
     }
 }

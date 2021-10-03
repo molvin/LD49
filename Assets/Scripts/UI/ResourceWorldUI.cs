@@ -8,14 +8,15 @@ public class ResourceWorldUI : MonoBehaviour
 
     public Image wantedValueImage;
     public Image currentValueImage;
-    [Range(0,10)]
-    public float value;
+    [Range(0,100)]
+    public float m_Value;
     private float realValue;
-    [Range(0, 10)]
+    [Range(0, 100)]
     public float demand;
     public float animTime;
     private float time;
-    
+
+    private float m_Leniency;
 
     // Start is called before the first frame update
     void Start()
@@ -31,30 +32,32 @@ public class ResourceWorldUI : MonoBehaviour
         if(time < animTime)
         {
             time += Time.deltaTime;
-            currentValueImage.fillAmount = Mathf.Lerp(realValue, value, time / animTime) / 10;
+            currentValueImage.fillAmount = Mathf.Lerp(realValue, m_Value, time / animTime) / 100;
+
+            currentValueImage.color = Mathf.Abs(currentValueImage.fillAmount * 100f - demand) <= m_Leniency ? Color.green : Color.red;
         }
    
     }
 
-    public void SetDemand(float value)
+    public void SetDemand(float value, float leniency)
     {
-        if (value < 0 || value > 10)
+        if (value < 0 || value > 100)
         {
-            throw new System.Exception("0-10 please bitchboy!");
+            throw new System.Exception("0-100 please bitchboy!");
         }
         demand = value;
-        wantedValueImage.transform.GetComponent<RectTransform>().localPosition = new Vector2(0, ((demand / 10) * 2) - 1);
-
+        wantedValueImage.transform.GetComponent<RectTransform>().localPosition = new Vector2(0, ((demand / 100) * 2) - 1);
+        m_Leniency = leniency;
     }
 
     public void SetValue(float inValue)
     {
-        if(value < 0 || value > 10)
+        if(m_Value < 0 || m_Value > 100)
         {
-            throw new System.Exception("0-10 please bitchboy!");
+            throw new System.Exception("0-100 please bitchboy!");
         }
-        realValue = currentValueImage.fillAmount * 10;
-        value = inValue;
+        realValue = currentValueImage.fillAmount * 100;
+        m_Value = inValue;
         time = 0;
 
 

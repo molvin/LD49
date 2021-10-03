@@ -104,4 +104,22 @@ public class EntityManager
         Entities = new List<Entity>();
         Entities.AddRange(GameObject.FindObjectsOfType<Entity>());
     }
+
+    public void Destroy(Entity entity)
+    {
+        for(int i = 0; i < entity.Edges.Count; i++)
+        {
+            Edge edge = entity.Edges[i];
+            if (edge.Other == null) 
+                continue;
+            Entity hose = edge.Other;
+            int hoseSocket = edge.OtherSocket;
+            hose.Edges[hoseSocket] = hose.Edges[hoseSocket].Cleared();
+            foreach (var point in hose.InteractionPoints)
+                point.SetActive(true);
+        }
+
+        Entities.Remove(entity);
+        GameObject.Destroy(entity.gameObject);
+    }
 }

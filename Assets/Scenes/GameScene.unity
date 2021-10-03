@@ -282,32 +282,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1444968623 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2049299637924425371, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
-  m_PrefabInstance: {fileID: 2049299638698251828}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1444968624
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444968623}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!1001 &1476458734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -420,6 +394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BluResource
       objectReference: {fileID: 0}
+    - target: {fileID: 8598795658063933039, guid: e1370d8412da24840a92387d2ef29691, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1370d8412da24840a92387d2ef29691, type: 3}
 --- !u!1001 &1556529903
@@ -476,6 +454,10 @@ PrefabInstance:
     - target: {fileID: 6809289963830441300, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
       propertyPath: m_Name
       value: BlueDemand (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809289963830441300, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
@@ -534,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueDemand (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6809289963830441300, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
 --- !u!1001 &2049299638698251828
@@ -543,6 +529,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2049299637145408492, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049299637145408492, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
+      propertyPath: orthographic size
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2049299637924425348, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -586,14 +580,6 @@ PrefabInstance:
     - target: {fileID: 2049299637924425348, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2049299637924425349, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
-      propertyPath: MaxSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2049299637924425349, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
-      propertyPath: PlaceDistance
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2049299637924425371, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
       propertyPath: m_Name
@@ -655,6 +641,10 @@ PrefabInstance:
     - target: {fileID: 6809289963830441300, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
       propertyPath: m_Name
       value: BlueDemand
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809289963830441300, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}

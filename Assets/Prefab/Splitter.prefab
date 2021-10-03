@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9072732521057341000}
   - component: {fileID: 6498287418015186982}
   - component: {fileID: 1471954121493008690}
-  - component: {fileID: 2822733037372036814}
   - component: {fileID: 806268144731122190}
-  m_Layer: 0
+  - component: {fileID: 3604942701808478124}
+  m_Layer: 8
   m_Name: Splitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,19 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2822733037372036814
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575028130607999723}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &806268144731122190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +101,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54d80f08c0eff94da0d739064f5b043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionPoints:
+  - {fileID: 7647123778500103964}
+  - {fileID: 5837344106049669412}
+  - {fileID: 1582121931899054319}
+  - {fileID: 2744301593840908909}
   Type: 0
   Pressure: 0
+--- !u!61 &3604942701808478124
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575028130607999723}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &1582121931899054319
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &2744301593840908909
 GameObject:
@@ -237,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &5837344106049669412
 GameObject:
@@ -298,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &6350151942851079856
 GameObject:
@@ -549,4 +570,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0

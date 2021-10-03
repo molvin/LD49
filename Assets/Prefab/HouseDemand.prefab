@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2245573189792147586}
   - component: {fileID: 1643525597826138600}
   - component: {fileID: 2147880628178293390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HouseDemand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c125c977e1c124a4fb90c3c8ee2a139b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionPoints: []
   Needs:
   - Type: 3
     Value: 4

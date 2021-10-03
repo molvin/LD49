@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &8598795658063933039
 GameObject:
@@ -74,7 +75,7 @@ GameObject:
   - component: {fileID: 3838047807171058686}
   - component: {fileID: 8129150490485527682}
   - component: {fileID: 365777848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BluResource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,6 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056df438ef3b47547b858e6ffd0c1f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionPoints:
+  - {fileID: 807117147}
   Type: 3
   Pressure: 10
 --- !u!61 &365777848
