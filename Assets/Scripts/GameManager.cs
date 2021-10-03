@@ -83,6 +83,12 @@ public class GameManager : MonoBehaviour
         m_EntityManager.Tick();
     }
 
+    public void GameOver()
+    {
+        Debug.Log("Game Over!!");
+        Time.timeScale = 0;
+    }
+
     private void SpawnBuilding(ResourceScaling scaling)
     {
         Quaternion random_rot = Random.rotation;
