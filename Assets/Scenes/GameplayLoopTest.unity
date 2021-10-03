@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1444968624, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1444968624, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2049299637924425348, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -400,6 +392,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 908933788789297450, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6392249783439580555, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
       propertyPath: m_RootOrder
       value: 1

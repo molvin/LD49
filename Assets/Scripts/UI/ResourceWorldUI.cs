@@ -15,7 +15,8 @@ public class ResourceWorldUI : MonoBehaviour
     public float demand;
     public float animTime;
     private float time;
-    
+
+    private float m_Leniency;
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +33,13 @@ public class ResourceWorldUI : MonoBehaviour
         {
             time += Time.deltaTime;
             currentValueImage.fillAmount = Mathf.Lerp(realValue, m_Value, time / animTime) / 100;
+
+            currentValueImage.color = Mathf.Abs(currentValueImage.fillAmount * 100f - demand) <= m_Leniency ? Color.green : Color.red;
         }
    
     }
 
-    public void SetDemand(float value)
+    public void SetDemand(float value, float leniency)
     {
         if (value < 0 || value > 100)
         {
@@ -44,7 +47,7 @@ public class ResourceWorldUI : MonoBehaviour
         }
         demand = value;
         wantedValueImage.transform.GetComponent<RectTransform>().localPosition = new Vector2(0, ((demand / 100) * 2) - 1);
-
+        m_Leniency = leniency;
     }
 
     public void SetValue(float inValue)
