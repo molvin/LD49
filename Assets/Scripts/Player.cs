@@ -40,11 +40,7 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     private GameObject[] Ghosts;
     public Hose HosePrefab;
-
-
-    //TODO: SHOULD BE OWNED GAMEMANAGER
-    public EntityManager m_EntityManager;
-
+    
     //Interact
     public struct InteractionData
     {
@@ -59,9 +55,9 @@ public class Player : MonoBehaviour
     }
     public InteractionData Interaction;
 
-    private void Awake()
+    private void Start()
     {
-        m_EntityManager = new EntityManager();
+        GameManager.Instance.m_EntityManager = new EntityManager();
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
         Ghosts = new GameObject[Items.Count];
         for(int i = 0; i < Items.Count; i++)
@@ -73,6 +69,8 @@ public class Player : MonoBehaviour
             go.name += "-Ghost";
             go.SetActive(false);
         }
+
+        GetComponentInChildren<ToolBarManager>().Init();
     }
 
     private void Update()
@@ -146,7 +144,7 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonDown("Interact"))
         {
-            m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
+            GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
         }
 
         if (Input.GetButtonDown("Build"))
@@ -215,7 +213,7 @@ public class Player : MonoBehaviour
 
     private void UpdateHoseState()
     {
-        //LineRenderer
+        (Interaction.Entity as Hose).Socket1.position = transform.position;
 
         if (Input.GetButtonDown("Interact"))
             Interact();
