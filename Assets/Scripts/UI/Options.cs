@@ -28,6 +28,18 @@ public class Options : MonoBehaviour
         musicSlider.onValueChanged.AddListener(MusicSliderValueChanged);
         SFXSlider.onValueChanged.AddListener(SFXSliderValueChanged);
         UISlider.onValueChanged.AddListener(UISliderValueChanged);
+        float masterStartValue;
+        float musicStartValue;
+        float SFXStartValue;
+        float UISliderStartValue;
+        mixer.GetFloat("UI", out UISliderStartValue);
+        mixer.GetFloat("SFX", out SFXStartValue);
+        mixer.GetFloat("Music", out musicStartValue);
+        mixer.GetFloat("Master", out masterStartValue);
+        UISlider.SetValueWithoutNotify(Mathf.Pow(10, UISliderStartValue / 20));
+        SFXSlider.SetValueWithoutNotify(Mathf.Pow(10, SFXStartValue / 20));
+        musicSlider.SetValueWithoutNotify(Mathf.Pow(10, musicStartValue / 20));
+        masterSlider.SetValueWithoutNotify(Mathf.Pow(10, masterStartValue / 20));
 
         startPos = this.transform.position;
         timer = animTime;
