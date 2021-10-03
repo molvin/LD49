@@ -27,25 +27,34 @@ public class Options : MonoBehaviour
 
     private void UISliderValueChanged(float arg0)
     {
-        mixer.SetFloat("UI", arg0);
+        setVolume("UI", arg0);
     }
 
     private void SFXSliderValueChanged(float arg0)
     {
-        mixer.SetFloat("SFX", arg0);
+        setVolume("SFX", arg0);
     }
 
     private void MusicSliderValueChanged(float arg0)
     {
-        mixer.SetFloat("Music", arg0);
+        setVolume("Music", arg0);
     }
 
     private void MasterSliderValueChanged(float arg0)
     {
-        mixer.SetFloat("Master", arg0);
+        setVolume("Master", arg0);
+    }
+    private void setVolume(string mixerName, float arg)
+    {
+        float actualValue = Mathf.Log10(arg) * 20;
+        actualValue = Mathf.Clamp(actualValue, -80, 0);
+        Debug.Log(actualValue);
+        mixer.SetFloat(mixerName, actualValue);
+       
+
     }
 
-    
+
     // Update is called once per frame
     void Update()
     {
