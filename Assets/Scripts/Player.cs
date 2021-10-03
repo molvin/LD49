@@ -39,10 +39,11 @@ public class Player : MonoBehaviour
     private List<Item> Items;
     private float cycleTimer;
     private GameObject[] Ghosts;
+    public Hose HosePrefab;
 
 
     //TODO: SHOULD BE OWNED GAMEMANAGER
-    private Grid Grid;
+    public Grid Grid;
 
     //Interact
     public struct InteractionData
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
                 Move();
                 break;
             case State.Hose:
+                UpdateHoseState();
                 break;
             case State.Valve:
                 break;
@@ -166,7 +168,9 @@ public class Player : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
-        foreach(var coll in colliders)
+        Debug.Log($"Try Interact {colliders.Length}");
+
+        foreach (var coll in colliders)
         {
             float d = (position - coll.transform.position).magnitude;
             if(d < dist)
@@ -178,6 +182,7 @@ public class Player : MonoBehaviour
         
         if(closest != null)
         {
+            Debug.Log($"Interacting with {closest}");
             closest.Interact(this);
         }
 
@@ -190,7 +195,7 @@ public class Player : MonoBehaviour
         Vector3 acceleration = Vector3.zero;
 
         if (input.sqrMagnitude > MinInput * MinInput)
-        {
+        { 
             Veloctiy = Vector3.SmoothDamp(Veloctiy, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
             //Visual Rotation
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
@@ -212,7 +217,8 @@ public class Player : MonoBehaviour
     {
         //LineRenderer
 
-        Interact();      
+        if (Input.GetButtonDown("Interact"))
+            Interact();
         Move();
     }
 }
