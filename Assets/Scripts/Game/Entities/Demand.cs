@@ -51,6 +51,8 @@ public class Demand : Entity
         if (IsSatisfied)
         {
             LastSatisfiedTime = Time.time;
+            if (WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))
+                WarningSystem.Instance.CancelWarningObject(gameObject.GetInstanceID());
         }    
         else
         {
