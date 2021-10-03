@@ -82,8 +82,14 @@ public class GameManager : MonoBehaviour
 
     private void SpawnBuilding(ResourceScaling scaling)
     {
+        Quaternion random_rot = Random.rotation;
+        Vector3 random_direction = random_rot * Vector3.forward;
+        random_direction.z = 0;
+        random_direction.Normalize();
 
-        Entity spawned_entity = m_EntityManager.Add(m_DemandEntity, Vector3.zero);
+        float random_distance = Random.Range(1f, 15f);
+
+        Entity spawned_entity = m_EntityManager.Add(m_DemandEntity, random_direction * random_distance);
         if (spawned_entity is Demand spawned_demand)
         {
             Demand.Need need = new Demand.Need{ Type = scaling.GetResourceType(), Value = scaling.GetExedeDelta() };
