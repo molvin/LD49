@@ -5,21 +5,23 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
 
-    public Grid Grid;
+    [SerializeField]
+    private List<PressurisedEnitity> m_PressurisedEnititiesPrefabs;
+
+  //  private Dictionary<T, PressurisedEnitity> m_PlasedPressurizedEntities;
 
     private void Start()
     {
-        Instance = this;
+        foreach(PressurisedEnitity pressurized_entity in m_PressurisedEnititiesPrefabs)
+        {
+
+        }
     }
 
     private void Update()
     {
-        //Tick Grid
-        //Spawn new entities
-        //Do other garbage
+ 
 
-        Grid.Tick();
     }
 }
