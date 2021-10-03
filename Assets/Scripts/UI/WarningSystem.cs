@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class WarningSystem : MonoBehaviour
 {
-    string prefabPath = "Prefabs/warning";
+    string prefabPath = "Prefabs/UIWarning";
     Dictionary<int, GameObject> warnings = new Dictionary<int, GameObject>();
 
     public static WarningSystem Instance;
 
     public GameObject testItem;
-
+    public Transform parentCanvas;
+    public float WarningTime = 10f;
     private void Awake()
     {
         Instance = this;
@@ -27,9 +28,9 @@ public class WarningSystem : MonoBehaviour
 
     public void CreateWarningObject(GameObject target, int id, float time)
     {
-        GameObject obj = (GameObject)Instantiate(Resources.Load(prefabPath));
+        GameObject obj = (GameObject)Instantiate(Resources.Load(prefabPath), parentCanvas);
         obj.GetComponent<WarningObject>().constructor(target.transform, time);
-        warnings.Add(id, target);
+        warnings.Add(id, obj);
     }
 
     public void CancelWarningObject(int id)

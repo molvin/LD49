@@ -13,7 +13,9 @@ public class Demand : Entity
 
     public List<Need> Needs;
     public float TimeToDestroy;
+    public float NeedLeniency = 10;
     protected float LastSatisfiedTime;
+    public bool IsSatisfied;
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
 
@@ -25,21 +27,21 @@ public class Demand : Entity
         if (Time.time == LastSatisfiedTime)
             return;
 
-        bool has_what_it_needs = true;
+        IsSatisfied = true;
         foreach(Need need in Needs)
         {
             if(PressureLevels.ContainsKey(need.Type))
             {
-                if(need.Value <= PressureLevels[need.Type])
+                if(Mathf.Abs(need.Value - PressureLevels[need.Type]) <= NeedLeniency)
                     continue;
                 
             }
 
-            has_what_it_needs = false;
+            IsSatisfied = false;
             break;
         }
 
-        if (has_what_it_needs)
+        if (IsSatisfied)
         {
             LastSatisfiedTime = Time.time;
         }    
@@ -51,7 +53,7 @@ public class Demand : Entity
             {
                 GameManager.Instance.GameOver();
             }
-            else if(time_under_need / TimeToDestroy > 0.9 && !WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))
+            else if(TimeToDestroy - (TimeToDestroy - time_under_need) > WarningSystem.Instance.WarningTime && !WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))
             {
                 WarningSystem.Instance.CreateWarningObject(gameObject, gameObject.GetInstanceID(), TimeToDestroy - time_under_need);
             }

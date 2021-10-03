@@ -7,7 +7,10 @@ public class WarningObject : MonoBehaviour
     float timeInSeconds;
     float currentTime;
     private Image radialImage;
-
+    [Range(0, 100)]
+    public float offsetPercentOfScreenX = 10;
+    [Range(0, 100)]
+    public float offsetPercentOfScreenY = 10;
     private Transform target;
 
     public void constructor(Transform target, float timeInSeconds)
@@ -20,6 +23,7 @@ public class WarningObject : MonoBehaviour
 
     void Update()
     {
+  
         moveIndicator();
         TickTime();
     }
@@ -62,15 +66,17 @@ public class WarningObject : MonoBehaviour
         {
             this.SetRenderesEnabled(true);
             Vector3 center = Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 10));
-            float offset = 100;
-            float y = Mathf.Clamp(screenpos.y, center.y - (Screen.height / 2) + offset, center.y + (Screen.height / 2) - offset);
-            float x = Mathf.Clamp(screenpos.x, center.x - (Screen.width / 2) + offset, center.x + (Screen.width / 2) - offset);
+            float xOffset = (offsetPercentOfScreenX / 100) * Screen.width;
+            float yOffset = (offsetPercentOfScreenY / 100) * Screen.height;
+            float y = Mathf.Clamp(screenpos.y, center.y - (Screen.height / 2) + xOffset, center.y + (Screen.height / 2) - xOffset);
+            float x = Mathf.Clamp(screenpos.x, center.x - (Screen.width / 2) + yOffset, center.x + (Screen.width / 2) - yOffset);
             Vector3 clampedPos = new Vector3(x, y, 0);
-            this.transform.position = Camera.main.ScreenToWorldPoint(clampedPos);
-            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+            this.transform.position = clampedPos;
+            //this.transform.position = Camera.main.ScreenToWorldPoint(clampedPos,Camera.MonoOrStereoscopicEye.Mono);
+            //this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 0);
             Vector3 dir = center - clampedPos;
             float rot = Mathf.Atan2(dir.y, dir.x);
-            this.transform.rotation = Quaternion.Euler(90, 0, rot * Mathf.Rad2Deg);
+            this.transform.rotation = Quaternion.Euler(0, 0, rot * Mathf.Rad2Deg);
 
             return;
 
