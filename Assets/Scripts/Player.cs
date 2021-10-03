@@ -34,10 +34,16 @@ public class Player : MonoBehaviour
     public float CycleTickTime;
     private List<Item> Items;
     private float cycleTimer;
+    private GameObject[] Ghosts;
 
     private void Awake()
     {
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
+        Ghosts = new GameObject[Items.Count];
+        for(int i = 0; i < Items.Count; i++)
+        {
+            Ghosts[i] = Placeables[i];
+        }
     }
 
     private void Update()
@@ -101,11 +107,13 @@ public class Player : MonoBehaviour
         }
 
         //Render Ghost
+        Vector3 targetPosition = transform.position + SpriteHolder.up;
 
-        //TODO: show ghost for thing you are trying to place
+
         if(Input.GetButtonDown("Interact"))
         {
             Debug.Log("Placing Item");
+            GameManager.Instance.Grid.TryAdd(Placeables[SelectedItem], targetPosition);
         }
 
         if (Input.GetButtonDown("Build"))

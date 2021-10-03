@@ -5,10 +5,13 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     public Grid Grid;
 
     private void Start()
     {
+        Instance = this;
     }
 
     private void Update()
