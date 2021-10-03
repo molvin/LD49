@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1471954121493008690}
   - component: {fileID: 2822733037372036814}
   - component: {fileID: 806268144731122190}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Splitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54d80f08c0eff94da0d739064f5b043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionPoints: []
   Type: 0
   Pressure: 0
 --- !u!1 &1582121931899054319

@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 1471954121493008690}
   - component: {fileID: 2822733037372036814}
   - component: {fileID: 1567843312167693674}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Valve
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f6267f32f10d41b406773e53a7324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionPoints: []
   Type: 0
   Pressure: 0
   Gate: 3

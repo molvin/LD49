@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2058503112061502658}
   - component: {fileID: 2058503112061502657}
   - component: {fileID: 3277614525950895094}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hose
   m_TagString: Untagged
   m_Icon: {fileID: 0}

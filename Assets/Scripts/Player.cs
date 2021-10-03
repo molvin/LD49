@@ -42,6 +42,12 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     private GameObject[] Ghosts;
     public Hose HosePrefab;
+
+    //Destruction
+    public GameObject DestructionCube;
+    public float DestructionOffset;
+    public float DestructionRadius;
+    public LayerMask EntityLayer;
     
     //Interact
     public struct InteractionData
@@ -80,6 +86,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        DestructionCube.SetActive(false);
+
         foreach (var g in Ghosts) g.SetActive(false);
         switch(CurrentState)
         {
@@ -92,7 +100,6 @@ public class Player : MonoBehaviour
                 break;
             case State.Destroy:
                 UpdateDestroyState();
-                Move();
                 break;
             case State.Hose:
                 UpdateHoseState();
@@ -103,7 +110,7 @@ public class Player : MonoBehaviour
 
         cycleTimer += Time.unscaledDeltaTime;
     }
-    
+
     public List<Item> getItems()
     {
         return Items;
@@ -158,10 +165,34 @@ public class Player : MonoBehaviour
     }
     private void UpdateDestroyState()
     {
-        //TODO: highlight the relevant cell
+        Move();
+
+        //Overlap check infront of you
+        Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
+        var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
+        Entity closest = null;
+        float dist = 10000000000.0f;
+        Debug.Log($"Found entities {colliders.Length}");
+        foreach (var coll in colliders)
+        {
+            float d = (position - coll.transform.position).magnitude;
+            if (d < dist)
+            {
+                dist = d;
+                closest = coll.GetComponent<Entity>();
+            }
+        }
+        if (closest == null || closest is Resource || closest is Demand)
+            return;
+
+        DestructionCube.SetActive(true);
+        DestructionCube.transform.position = closest.transform.position;
+
         if (Input.GetButtonDown("Interact"))
         {
             Debug.Log("Destroying Item");
+            GameManager.Instance.m_EntityManager.Destroy(closest);
+            //TODO: regain one item
         }
     }
     private void Interact()
