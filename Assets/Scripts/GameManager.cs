@@ -6,10 +6,6 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
 
-<<<<<<< Updated upstream
-    private void Start()
-    {
-=======
     [SerializeField]
     private List<PressurisedEnitity> m_PressurisedEnititiesPrefabs;
 
@@ -21,7 +17,6 @@ public class GameManager : MonoBehaviour
         {
 
         }
->>>>>>> Stashed changes
     }
 
     private void Update()
