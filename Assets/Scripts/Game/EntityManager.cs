@@ -28,70 +28,23 @@ public struct Edge
     }
 }
 
-public class Grid 
+public class EntityManager 
 {
     // ENTITY GRID SIZE :: 1
-    private int SizeX, SizeY;
-
     public List<Entity> Entities;
 
-    public Grid(int SizeX, int SizeY)
+    public EntityManager()
     {
-        this.SizeX = SizeX;
-        this.SizeY = SizeY;
-
         Reset();
     }
 
-    public Vector2Int WorldToGrid(Vector3 Position)
+    public Entity Add(Entity Entity, Vector3 WorldLocation)
     {
-        Position.x += SizeX * 0.5f;
-        Position.y += SizeY * 0.5f;
-        return new Vector2Int((int)Position.x, (int)Position.y);
-    }
-
-    public Vector3 GridToWorld(Vector2Int Position)
-    {
-        return new Vector3(
-            Position.x + 0.5f - SizeX * 0.5f,
-            Position.y + 0.5f - SizeY * 0.5f,
-            0.0f
-        );
-    }
-
-    public bool TryAdd(Entity Entity, Vector3 WorldLocation)
-    {
-        Vector2Int GridPosition = WorldToGrid(WorldLocation);
-        if (GridPosition.x >= 0 && GridPosition.x < SizeX
-            && GridPosition.y >= 0 && GridPosition.y < SizeY)
-        {
-            int Position = GridPosition.x + GridPosition.y * SizeX;
-            if (!Entities[Position])
-            {
-                Entities[Position] = GameObject.Instantiate(
-                    Entity,
-                    GridToWorld(GridPosition),
-                    Quaternion.identity);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public bool TryGet(out Entity Entity, Vector2Int GridPosition)
-    {
-        Entity = null;
-        if (GridPosition.x >= 0 && GridPosition.x < SizeX
-            && GridPosition.y >= 0 && GridPosition.y < SizeY)
-        {
-            int Position = GridPosition.x + GridPosition.y * SizeX;
-            if (Entities[Position])
-            {
-                Entity = Entities[Position];
-                return true;
-            }
-        }
-        return false;
+        Entities.Add(GameObject.Instantiate(
+            Entity,
+            WorldLocation,
+            Quaternion.identity));
+        return Entities[Entities.Count - 1];
     }
 
     public void Tick()
@@ -145,12 +98,28 @@ public class Grid
         {
             foreach (var Entity in Entities)
             {
-                if (Entity)
-                {
-                    GameObject.Destroy(Entity.gameObject);
-                }
+                GameObject.Destroy(Entity.gameObject);
             }
         }
-        Entities = new List<Entity>(new Entity[SizeX * SizeY]);
+        Entities = new List<Entity>();
+        Entities.AddRange(GameObject.FindObjectsOfType<Entity>());
+    }
+
+    public void Destroy(Entity entity)
+    {
+        for(int i = 0; i < entity.Edges.Count; i++)
+        {
+            Edge edge = entity.Edges[i];
+            if (edge.Other == null) 
+                continue;
+            Entity hose = edge.Other;
+            int hoseSocket = edge.OtherSocket;
+            hose.Edges[hoseSocket] = hose.Edges[hoseSocket].Cleared();
+            foreach (var point in hose.InteractionPoints)
+                point.SetActive(true);
+        }
+
+        Entities.Remove(entity);
+        GameObject.Destroy(entity.gameObject);
     }
 }

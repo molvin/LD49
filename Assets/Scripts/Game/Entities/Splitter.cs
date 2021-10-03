@@ -20,33 +20,6 @@ public class Splitter : PressurisedEnitity
         return false;
     }
     
-    public override int GetEdgeIndex(Vector3 WorldPosition)
-    {
-        Vector3 Delta = WorldPosition - transform.position;
-        if (Mathf.Abs(Delta.x) > Mathf.Abs(Delta.y))
-        {
-            if (Delta.x > 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return 2;
-            }
-        }
-        else
-        {
-            if (Delta.y > 0)
-            {
-                return 3;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-    }
-
     void Awake()
     {
         Edges = new List<Edge>(4);

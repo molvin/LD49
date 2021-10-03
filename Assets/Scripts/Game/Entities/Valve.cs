@@ -21,19 +21,6 @@ public class Valve : PressurisedEnitity
         }
         return false;
     }
-    
-    public override int GetEdgeIndex(Vector3 WorldPosition)
-    {
-        Vector3 Delta = WorldPosition - transform.position;
-        if (Delta.x > 0)
-        {
-            return 0;
-        }
-        else
-        {
-            return 1;
-        }
-    }
 
     void Awake()
     {

@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class ToolBarManager : MonoBehaviour
 {
+    
+    string bulldowsePath = "prefabs/Bulldowse";
+    public AnimationCurve bulldowserAnimCurve;
+    GameObject bulldowseObjectbarObj;
+    private bool bulldowseIsHidden = false;
+    public float bulldowseAnimTime = 1f;
+    private float bulldowseAnimTimer;
+    private Vector3 bulldowsStartPos;
 
     string toolbarPath = "prefabs/toolbar";
     string iconPath = "prefabs/toolbarIcon";
@@ -21,17 +29,22 @@ public class ToolBarManager : MonoBehaviour
     Dictionary<Player.Item, GameObject> items = new Dictionary<Player.Item, GameObject>();
 
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
-        animTimer = animTime;        
-
+        animTimer = animTime;
+        bulldowseAnimTimer = bulldowseAnimTime;
         toolbarObj = (GameObject)Instantiate(Resources.Load(toolbarPath), this.transform);
         startPos = toolbarObj.transform.position;
 
-        player = FindObjectOfType<Player>();
+        bulldowseObjectbarObj = (GameObject)Instantiate(Resources.Load(bulldowsePath), this.transform);
+        bulldowsStartPos = bulldowseObjectbarObj.transform.position;
+
+
+        player = GetComponentInParent<Player>();
         GenerateItems(player.getItems());
         
     }
+
     //dummyinput
     private void Update()
     {
@@ -41,7 +54,7 @@ public class ToolBarManager : MonoBehaviour
 
         doAnim();
         updatePlayerGui();
-
+        doBulldowseAnim();
     }
 
     private void updatePlayerGui()
@@ -55,6 +68,7 @@ public class ToolBarManager : MonoBehaviour
             SetToolbarHidden(true);
             DisableAllItems();
         }
+        bulldowseIsHidden = player.CurrentState != Player.State.Destroy; 
 
     }
 
@@ -73,6 +87,15 @@ public class ToolBarManager : MonoBehaviour
         animTimer = Mathf.Clamp(animTimer, 0, animTime);
         float posModi = hideAnimCurve.Evaluate(animTimer / animTime);
         toolbarObj.transform.position = new Vector3(startPos.x, startPos.y + (200 * posModi), startPos.z);
+
+
+    }
+    void doBulldowseAnim()
+    {
+        bulldowseAnimTimer += bulldowseIsHidden ? Time.deltaTime : -Time.deltaTime;
+        bulldowseAnimTimer = Mathf.Clamp(bulldowseAnimTimer, 0, bulldowseAnimTime);
+        float posModi = hideAnimCurve.Evaluate(bulldowseAnimTimer / bulldowseAnimTime);
+        bulldowseObjectbarObj.transform.position = new Vector3(bulldowsStartPos.x, bulldowsStartPos.y - (200 * posModi), bulldowsStartPos.z);
     }
 
     public void SetToolbarHidden(bool hidden)
