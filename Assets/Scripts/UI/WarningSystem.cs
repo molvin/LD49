@@ -12,6 +12,7 @@ public class WarningSystem : MonoBehaviour
 
     public GameObject testItem;
     public Transform parentCanvas;
+    public float WarningTime = 10f;
     private void Awake()
     {
         Instance = this;
