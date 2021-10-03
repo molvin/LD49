@@ -15,6 +15,13 @@ public class Options : MonoBehaviour
     public Slider UISlider;
 
 
+
+    public AnimationCurve animCurve;
+    public bool isHidden = true;
+    public float animTime = 1.5f;
+    private float timer;
+
+    private Vector3 startPos;
     void Start()
     {
         masterSlider.onValueChanged.AddListener(MasterSliderValueChanged);
@@ -22,7 +29,25 @@ public class Options : MonoBehaviour
         SFXSlider.onValueChanged.AddListener(SFXSliderValueChanged);
         UISlider.onValueChanged.AddListener(UISliderValueChanged);
 
-        
+        startPos = this.transform.position;
+        timer = animTime;
+    }
+    private void Update()
+    {
+        Animate();
+    }
+
+    private void Animate()
+    {
+        timer += isHidden ? Time.deltaTime : -Time.deltaTime;
+        timer = Mathf.Clamp(timer, 0, animTime);
+        float posModi = animCurve.Evaluate(timer / animTime);
+        this.transform.position = new Vector3(startPos.x + (1500 * posModi), startPos.y, startPos.z);
+    }
+
+    public void SetHidden(bool hidden)
+    {
+        this.isHidden = hidden;
     }
 
     private void UISliderValueChanged(float arg0)
@@ -47,17 +72,10 @@ public class Options : MonoBehaviour
     private void setVolume(string mixerName, float arg)
     {
         float actualValue = Mathf.Log10(arg) * 20;
-        actualValue = Mathf.Clamp(actualValue, -80, 0);
         Debug.Log(actualValue);
         mixer.SetFloat(mixerName, actualValue);
        
 
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
