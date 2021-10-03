@@ -29,13 +29,6 @@ public class Hose : PressurisedEnitity
         return false;
     }
 
-    public override int GetEdgeIndex(Vector3 WorldPosition)
-    {
-        float dist0 = (WorldPosition - Socket0.position).sqrMagnitude;
-        float dist1 = (WorldPosition - Socket1.position).sqrMagnitude;
-        return dist0 < dist1 ? 0 : 1;
-    }
-
     void Awake()
     {
         Edges = new List<Edge>(2);

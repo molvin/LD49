@@ -10,7 +10,21 @@ public abstract class Entity : MonoBehaviour
     public virtual void Tick() { }
 
     public virtual void Clear() {}
-    public virtual int GetEdgeIndex(Vector3 WorldPosition) => 0;
+    public int GetEdgeIndex(Vector3 WorldPosition)
+    {
+        float distance = 10000000000.0f;
+        InteractionPoint closest = null;
+        foreach (var ip in InteractionPoints)
+        {
+            float d = (WorldPosition - ip.transform.position).magnitude;
+            if (d < distance && ip.GetComponent<InteractionPoint>().InteractType == InteractionPoint.Interactable.Socket)
+            {
+                distance = d;
+                closest = ip.GetComponent<InteractionPoint>();
+            }
+        }
+        return closest.Socket;
+    }
     public Edge GetEdge(Vector3 WorldPosition) => Edges[GetEdgeIndex(WorldPosition)];
     public void SetEdge(int index, Edge edge) => Edges[index] = edge;
 

@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &6809289963830441300
 GameObject:
@@ -157,9 +158,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c125c977e1c124a4fb90c3c8ee2a139b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionPoints: []
+  InteractionPoints:
+  - {fileID: 164283624}
   Needs: []
   TimeToDestroy: 20
+  NeedLeniency: 10
+  IsSatisfied: 0
 --- !u!61 &8116255831138041146
 BoxCollider2D:
   m_ObjectHideFlags: 0

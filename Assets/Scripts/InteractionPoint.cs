@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InteractionPoint : MonoBehaviour
 {
+    public int Socket;
+
     public enum Interactable
     {
         Socket,

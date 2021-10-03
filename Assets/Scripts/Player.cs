@@ -294,7 +294,6 @@ public class Player : MonoBehaviour
 
         Vector3 direction = (Interaction.Handle.GetChild(0).position - Interaction.Entity.transform.position).normalized;
         float distance = (Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction);
-        Debug.Log((transform.position - Interaction.PreviousPosition).magnitude);
         Interaction.Handle.localPosition = direction * distance;
         Interaction.OtherHandle.localPosition = -direction * distance;
 

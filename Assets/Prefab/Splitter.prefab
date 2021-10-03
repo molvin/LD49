@@ -101,7 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54d80f08c0eff94da0d739064f5b043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionPoints: []
+  InteractionPoints:
+  - {fileID: 7647123778500103964}
+  - {fileID: 5837344106049669412}
+  - {fileID: 1582121931899054319}
+  - {fileID: 2744301593840908909}
   Type: 0
   Pressure: 0
 --- !u!61 &3604942701808478124
@@ -190,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &2744301593840908909
 GameObject:
@@ -251,6 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &5837344106049669412
 GameObject:
@@ -312,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
 --- !u!1 &6350151942851079856
 GameObject:
@@ -563,4 +570,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Socket: 0
   InteractType: 0
