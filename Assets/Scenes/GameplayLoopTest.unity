@@ -361,7 +361,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11019b4aa8897a449c29f265e1c5f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PressurisedEnititiesPrefabs: []
+  m_DemandEntity: {fileID: 7884806379286398817, guid: 438c86cccf008864f9b57daea6cbdbf7, type: 3}
+  m_ResourceScaling:
+  - name: Blue
+    m_ResourceType: 3
+    m_Scaling:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MaxCurveTime: 10
+    m_MaxNeed: 100
+    m_MaxExedeRate: 3
+    m_MinExedeRate: 1
+    m_CurrentExedeRate: 0
 --- !u!4 &1650709612
 Transform:
   m_ObjectHideFlags: 0
