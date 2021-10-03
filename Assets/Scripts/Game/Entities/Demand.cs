@@ -48,8 +48,6 @@ public class Demand : Entity
                 
         }
 
-    
-
         if (IsSatisfied)
         {
             LastSatisfiedTime = Time.time;
@@ -104,7 +102,7 @@ public class Demand : Entity
 
         foreach(Need need in Needs)
         {
-            DemandUI.SetDemand(need.Value);
+            DemandUI.SetDemand(need.Value, NeedLeniency);
         }
     }
 
