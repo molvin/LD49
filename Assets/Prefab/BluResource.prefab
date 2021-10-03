@@ -161,7 +161,7 @@ MonoBehaviour:
   InteractionPoints:
   - {fileID: 807117147}
   Type: 3
-  Pressure: 10
+  Pressure: 100
 --- !u!61 &365777848
 BoxCollider2D:
   m_ObjectHideFlags: 0

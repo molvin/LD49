@@ -5,6 +5,8 @@ using UnityEngine;
 public class Valve : PressurisedEnitity
 {
     public float Gate;
+    public GameObject[] Handles;
+    public float MaxDistance;
 
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
     {
@@ -31,5 +33,12 @@ public class Valve : PressurisedEnitity
             Edge.SelfSocket = i;
             Edges.Add(Edge);
         }
+    }
+
+    private void Update()
+    {
+        Handles[0].transform.localPosition = transform.up * MaxDistance * Gate / 100.0f;
+        Handles[1].transform.localPosition = -transform.up * MaxDistance * Gate / 100.0f;
+
     }
 }
