@@ -163,6 +163,11 @@ public class Player : MonoBehaviour
 
     private void UpdateBuildState()
     {
+        if (Input.GetButtonDown("Destroy"))
+        {
+            CurrentState = State.Destroy;
+            return;
+        }
         float cycle = Input.GetAxisRaw("Cycle");
         if (Mathf.Abs(cycle) > MinInput && cycleTimer > CycleTickTime)
         {
@@ -205,8 +210,13 @@ public class Player : MonoBehaviour
             CurrentState = State.Move;
             return;
         }
+        if (Input.GetButtonDown("Build"))
+        {
+            CurrentState = State.Build;
+            return;
+        }
 
-       //Overlap check infront of you
+        //Overlap check infront of you
         Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
         var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
         Entity closest = null;
@@ -233,6 +243,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.m_EntityManager.Destroy(closest);
             //TODO: regain one item
         }
+
     }
     private void Interact()
     {
