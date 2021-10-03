@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public struct StateData
+    {
+        public State State;
+        public bool WasInState;
+        public bool StateEntered;
+        public bool StateExited;
+    }
     //States
     public enum State
     {
@@ -15,6 +22,7 @@ public class Player : MonoBehaviour
         Hose = 3,
         Valve = 4
     }
+    public static Player Instance;
     public State CurrentState;
     //Movement
     public float AccelerationTime;
@@ -43,6 +51,15 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     private GameObject[] Ghosts;
     public Hose HosePrefab;
+    public StateData HoseStateData = new StateData
+    {
+        State = State.Hose,
+        WasInState = false,
+        StateEntered = false,
+        StateExited = false
+    };
+    public HingeJoint2D Hinge;
+    
 
     //Destruction
     public GameObject DestructionCube;
@@ -94,6 +111,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        Instance = this;
+
         DestructionCube.SetActive(false);
 
         foreach (var g in Ghosts) g.SetActive(false);
@@ -116,6 +135,8 @@ public class Player : MonoBehaviour
                 UpdateValveState();
                 break;
         }
+
+        UpdateStateMachineData(ref HoseStateData);
 
         cycleTimer += Time.unscaledDeltaTime;
     }
@@ -268,10 +289,11 @@ public class Player : MonoBehaviour
 
     private void UpdateHoseState()
     {
+        Hose Hose = Interaction.Entity as Hose;
         if(Interaction.Edge.Value.SelfSocket == 0)
-            (Interaction.Entity as Hose).Socket0.position = transform.position;
+            Hose.Socket0.position = transform.position;
         else
-            (Interaction.Entity as Hose).Socket1.position = transform.position;
+            Hose.Socket1.position = transform.position;
 
         if (Input.GetButtonDown("Interact"))
             Interact();
@@ -320,5 +342,21 @@ public class Player : MonoBehaviour
             Interaction.Clear();
         }
 
+    }
+
+    private void UpdateStateMachineData(ref StateData Data)
+    {
+        if (CurrentState == Data.State)
+        {
+            Data.StateEntered = !Data.WasInState;
+            Data.WasInState = true;
+            Data.StateExited = false;
+        }
+        else if (Data.WasInState)
+        {
+            Data.WasInState = false;
+            Data.StateEntered = false;
+            Data.StateExited = true;
+        }
     }
 }

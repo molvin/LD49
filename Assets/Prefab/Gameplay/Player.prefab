@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 2049299637924425350}
   - component: {fileID: 1444968624}
   m_Layer: 7
+  - component: {fileID: -7729619038657056895}
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,6 +422,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   DragSpeed: 0.5
+  Hinge: {fileID: -7729619038657056895}
 --- !u!58 &2049299637924425350
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -458,6 +460,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!233 &-7729619038657056895
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049299637924425371}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
 --- !u!1 &2049299637976178875
 GameObject:
   m_ObjectHideFlags: 0

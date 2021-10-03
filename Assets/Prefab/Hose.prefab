@@ -53,6 +53,8 @@ MonoBehaviour:
   Pressure: 0
   Socket0: {fileID: 2058503112378897778}
   Socket1: {fileID: 2058503112856507245}
+  HoseStickPrefab: {fileID: 6874849641001274216, guid: 928763475ce4a214eba73665d2dec309, type: 3}
+  HoseJointPrefab: {fileID: 2366843704579490734, guid: d2519f95680255643834111856250129, type: 3}
 --- !u!120 &3277614525950895094
 LineRenderer:
   m_ObjectHideFlags: 0
