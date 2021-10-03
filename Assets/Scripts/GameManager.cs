@@ -90,11 +90,8 @@ public class GameManager : MonoBehaviour
             float total_resource_demand = scaling.EvaluateTotalNeed(m_Timer);
             float exede_rate = scaling.GetExedeRate();
 
-            Debug.Log("Exede rate: " + exede_rate + ", Time: " + total_resource_demand);
-
             if (total_resource_demand >= exede_rate)
             {
-                Debug.Log("Exeedededdddd");
                 SpawnBuilding(scaling);
             }
         }
