@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
         Move = 0, 
         Build = 1,
         Destroy = 2,
-        Interact = 3
+        Hose = 3,
+        Valve = 4
     }
     public State CurrentState;
     //Movement
@@ -31,23 +32,51 @@ public class Player : MonoBehaviour
     }
     public int SelectedItem;
     public List<PressurisedEnitity> Placeables;
+    public float InteractionRadius = 3;
+    public float InteractionDistance = 1;
+    public LayerMask InteractionLayer;
     public float CycleTickTime;
     private List<Item> Items;
     private float cycleTimer;
     private GameObject[] Ghosts;
 
+
+    //TODO: SHOULD BE OWNED GAMEMANAGER
+    private Grid Grid;
+
+    //Interact
+    public struct InteractionData
+    {
+        public Entity Entity;
+        public Edge? Edge;
+
+        public void Clear()
+        {
+            Entity = null;
+            Edge = null;
+        }
+    }
+    public InteractionData Interaction;
+
     private void Awake()
     {
+        Grid = new Grid(100, 100);
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
         Ghosts = new GameObject[Items.Count];
         for(int i = 0; i < Items.Count; i++)
         {
-            Ghosts[i] = Placeables[i];
+            var ent = Instantiate(Placeables[i]);
+            var go = ent.gameObject;
+            Destroy(ent);
+            Ghosts[i] = go;
+            go.name += "-Ghost";
+            go.SetActive(false);
         }
     }
 
     private void Update()
     {
+        foreach (var g in Ghosts) g.SetActive(false);
         switch(CurrentState)
         {
             case State.Move:
@@ -61,8 +90,9 @@ public class Player : MonoBehaviour
                 UpdateDestroyState();
                 Move();
                 break;
-            case State.Interact:
-                UpdateInteractState();
+            case State.Hose:
+                break;
+            case State.Valve:
                 break;
         }
 
@@ -83,7 +113,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Destroy"))
             CurrentState = State.Destroy;
         if (Input.GetButtonDown("Interact"))
-            TryInteract();
+            Interact();
     }
 
     private void UpdateBuildState()
@@ -108,12 +138,13 @@ public class Player : MonoBehaviour
 
         //Render Ghost
         Vector3 targetPosition = transform.position + SpriteHolder.up;
+        Ghosts[SelectedItem].SetActive(true);
+        Ghosts[SelectedItem].transform.position = targetPosition;
 
 
         if(Input.GetButtonDown("Interact"))
         {
-            Debug.Log("Placing Item");
-            GameManager.Instance.Grid.TryAdd(Placeables[SelectedItem], targetPosition);
+            Grid.TryAdd(Placeables[SelectedItem], targetPosition);
         }
 
         if (Input.GetButtonDown("Build"))
@@ -128,27 +159,41 @@ public class Player : MonoBehaviour
             Debug.Log("Destroying Item");
         }
     }
-    private void UpdateInteractState()
+    private void Interact()
     {
-        //Do something
-    }
-    
-    private void TryInteract()
-    {
+        //Overlap check infront of you
+        Vector3 position = transform.position + SpriteHolder.up;
+        var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
+        InteractionPoint closest = null;
+        float dist = 10000000000.0f;
+        foreach(var coll in colliders)
+        {
+            float d = (position - coll.transform.position).magnitude;
+            if(d < dist)
+            {
+                dist = d;
+                closest = coll.GetComponent<InteractionPoint>();
+            }
+        }
+        
+        if(closest != null)
+        {
+            closest.Interact(this);
+        }
 
     }
 
     private void Move()
     {
         //Movement
-        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
+        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector3 acceleration = Vector3.zero;
 
         if (input.sqrMagnitude > MinInput * MinInput)
         {
             Veloctiy = Vector3.SmoothDamp(Veloctiy, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
             //Visual Rotation
-            SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.forward, input.normalized);
+            SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
         }
         else
         {
@@ -162,4 +207,12 @@ public class Player : MonoBehaviour
         Animator.speed = Veloctiy.magnitude / MaxSpeed;
     }
 
+
+    private void UpdateHoseState()
+    {
+        //LineRenderer
+
+        Interact();      
+        Move();
+    }
 }
