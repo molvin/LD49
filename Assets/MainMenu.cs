@@ -43,7 +43,7 @@ public class MainMenu : MonoBehaviour
         float timer = 0;
         while(seconds > timer)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime;  
             float factor = fadeOutCurve.Evaluate(timer/seconds);
             fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b,factor);
             yield return null;
