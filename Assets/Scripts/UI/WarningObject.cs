@@ -6,7 +6,7 @@ public class WarningObject : MonoBehaviour
     string id;
     float timeInSeconds;
     float currentTime;
-    private Image radialImage;
+    public Image radialImage;
     [Range(0, 100)]
     public float offsetPercentOfScreenX = 10;
     [Range(0, 100)]
@@ -18,7 +18,6 @@ public class WarningObject : MonoBehaviour
         this.target = target;
         this.timeInSeconds = timeInSeconds;
         this.currentTime = 0;
-        this.radialImage = this.transform.GetComponentInChildren<Image>();
     }
 
     void Update()
@@ -46,7 +45,7 @@ public class WarningObject : MonoBehaviour
     {
         currentTime += Time.deltaTime;
         float factor = currentTime / timeInSeconds;
-        radialImage.fillAmount =1- factor;
+        radialImage.fillAmount = 1 - factor;
         if(factor >= 1)
         {
             Debug.Log("DIE, YOU DIE!");
