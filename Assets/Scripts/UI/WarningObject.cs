@@ -4,13 +4,13 @@ using UnityEngine;
 public class WarningObject : MonoBehaviour
 {
     string id;
-    int timeInSeconds;
+    float timeInSeconds;
     float currentTime;
     private Image radialImage;
 
     private Transform target;
 
-    public void constructor(Transform target, int timeInSeconds)
+    public void constructor(Transform target, float timeInSeconds)
     {
         this.target = target;
         this.timeInSeconds = timeInSeconds;

@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public Vector3 Veloctiy;
     public Transform SpriteHolder;
     public Animator Animator;
+    public Rigidbody2D Rb;
     //Building
     public enum Item
     {
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     }
     public int SelectedItem;
     public List<PressurisedEnitity> Placeables;
+    public float PlaceDistance;
     public float InteractionRadius = 3;
     public float InteractionDistance = 1;
     public LayerMask InteractionLayer;
@@ -57,6 +59,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Rb = GetComponent<Rigidbody2D>();
         GameManager.Instance.m_EntityManager = new EntityManager();
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
         Ghosts = new GameObject[Items.Count];
@@ -65,6 +68,8 @@ public class Player : MonoBehaviour
             var ent = Instantiate(Placeables[i]);
             var go = ent.gameObject;
             Destroy(ent);
+            foreach (var coll in go.GetComponentsInChildren<Collider2D>())
+                Destroy(coll);
             Ghosts[i] = go;
             go.name += "-Ghost";
             go.SetActive(false);
@@ -137,7 +142,7 @@ public class Player : MonoBehaviour
         }
 
         //Render Ghost
-        Vector3 targetPosition = transform.position + SpriteHolder.up;
+        Vector3 targetPosition = transform.position + SpriteHolder.up * PlaceDistance;
         Ghosts[SelectedItem].SetActive(true);
         Ghosts[SelectedItem].transform.position = targetPosition;
 
@@ -203,20 +208,36 @@ public class Player : MonoBehaviour
             Veloctiy = Vector3.SmoothDamp(Veloctiy, Vector3.zero, ref acceleration, DecelerationTime);
         }
 
-        transform.position += Veloctiy * Time.deltaTime;
+        //Rb.MovePosition(transform.position + Veloctiy * Time.deltaTime);
 
         //Animation
         Animator.SetFloat("Speed", Veloctiy.magnitude / MaxSpeed);
         Animator.speed = Veloctiy.magnitude / MaxSpeed;
     }
+    private void FixedUpdate()
+    {
+        Rb.velocity = Veloctiy;
+    }
 
 
     private void UpdateHoseState()
     {
-        (Interaction.Entity as Hose).Socket1.position = transform.position;
+        if(Interaction.Edge.Value.SelfSocket == 0)
+            (Interaction.Entity as Hose).Socket0.position = transform.position;
+        else
+            (Interaction.Entity as Hose).Socket1.position = transform.position;
 
         if (Input.GetButtonDown("Interact"))
             Interact();
+
+        if(Input.GetButtonDown("Destroy"))
+        {
+            foreach (var point in Interaction.Entity.InteractionPoints)
+                point.SetActive(true);
+            Interaction.Clear();
+            CurrentState = State.Move;
+        }
+
         Move();
     }
 }

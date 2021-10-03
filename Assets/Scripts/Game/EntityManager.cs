@@ -102,5 +102,6 @@ public class EntityManager
             }
         }
         Entities = new List<Entity>();
+        Entities.AddRange(GameObject.FindObjectsOfType<Entity>());
     }
 }
