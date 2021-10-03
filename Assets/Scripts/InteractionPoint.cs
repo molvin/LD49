@@ -31,24 +31,26 @@ public class InteractionPoint : MonoBehaviour
 
                     //Player is holding a hose, try to connect it
                     Edge edge = ParentEntity.GetEdge(transform.position);
-                    bool success = ParentEntity.TryConnect(player.Interaction.Edge.Value, edge);
+                    bool success = ParentEntity.TryConnect(edge, player.Interaction.Entity.Edges[1]);
                     if(success)
                     {
                         Debug.Log("Connected hose");
 
+                        (player.Interaction.Entity as Hose).Socket1.position = transform.position;
                         player.Interaction.Clear();
                         player.CurrentState = Player.State.Move;
                     }
                 }
-                else
+                else if(player.CurrentState is Player.State.Move)
                 {
+                    int edgeIndex = ParentEntity.GetEdgeIndex(transform.position);
                     Edge edge = ParentEntity.GetEdge(transform.position);
 
                     if (edge.Other == null)
                     {
                         Debug.Log("Picking up hose");
 
-                        Hose hose = player.m_EntityManager.Add(player.HosePrefab, transform.position) as Hose;
+                        Hose hose = GameManager.Instance.m_EntityManager.Add(player.HosePrefab, transform.position) as Hose;
 
                         edge.Other = hose;
                         edge.OtherSocket = 0;
@@ -57,6 +59,7 @@ public class InteractionPoint : MonoBehaviour
                         hoseEdge.OtherSocket = edge.SelfSocket;
                         hose.Edges[0] = hoseEdge;
 
+                        ParentEntity.SetEdge(edgeIndex, edge);
                         hose.Socket0.position = transform.position;
 
                         //Create new hose
@@ -67,6 +70,11 @@ public class InteractionPoint : MonoBehaviour
                     else
                     {
                         //Pick up Hose
+                        Debug.Log("Disconnecting hose");
+                        //TODO: only the hoses interact points should be usable
+
+                        //TODO: 
+
                     }
                 }
                 

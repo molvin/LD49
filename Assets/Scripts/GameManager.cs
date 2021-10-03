@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [System.Serializable]
     public class ResourceScaling
     {
@@ -51,9 +53,10 @@ public class GameManager : MonoBehaviour
     //Hiden varables
     private float m_Timer = 0f;
 
-    EntityManager m_EntityManager;
-    private void Start()
+    public EntityManager m_EntityManager;
+    private void Awake()
     {
+        Instance = this;
         m_EntityManager = new EntityManager();
 
         foreach (ResourceScaling scaling in m_ResourceScaling)

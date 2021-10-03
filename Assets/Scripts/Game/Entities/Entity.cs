@@ -11,6 +11,7 @@ public abstract class Entity : MonoBehaviour
     public virtual void Clear() {}
     public virtual int GetEdgeIndex(Vector3 WorldPosition) => 0;
     public Edge GetEdge(Vector3 WorldPosition) => Edges[GetEdgeIndex(WorldPosition)];
+    public void SetEdge(int index, Edge edge) => Edges[index] = edge;
 
     public bool TryConnect(Edge TryEdge, Edge IncommingEdge)
     {

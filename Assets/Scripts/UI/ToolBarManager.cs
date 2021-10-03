@@ -21,14 +21,14 @@ public class ToolBarManager : MonoBehaviour
     Dictionary<Player.Item, GameObject> items = new Dictionary<Player.Item, GameObject>();
 
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         animTimer = animTime;        
 
         toolbarObj = (GameObject)Instantiate(Resources.Load(toolbarPath), this.transform);
         startPos = toolbarObj.transform.position;
 
-        player = FindObjectOfType<Player>();
+        player = GetComponentInParent<Player>();
         GenerateItems(player.getItems());
         
     }
