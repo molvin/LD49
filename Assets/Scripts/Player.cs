@@ -281,7 +281,8 @@ public class Player : MonoBehaviour
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
-            //Visual Rotation
+            Animator.GetComponent<SpriteRenderer>().flipX = input.x < 0;
+            //Visual Rotation, now just save last input rotation for interaction checks
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
         }
         else

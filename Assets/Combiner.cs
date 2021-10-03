@@ -9,13 +9,13 @@ public class Combiner : PressurisedEnitity
         Debug.Log($"{TryEdge.Other}, {IncommingEdge.Self}, {TryEdge.Self}");
         if (TryEdge.Other == null && IncommingEdge.Self != TryEdge.Self)
         {
-            if (IncommingEdge.Self is Demand)
+            Debug.Log("here");
+            if (IncommingEdge.Self is Demand && TryEdge.SelfSocket == 0)
             {
                 return true;
             }
             if (IncommingEdge.Self is PressurisedEnitity Press)
             {
-                return true;
                 return Type == ResourceType.None || Press.Type != Type;
             }
         }

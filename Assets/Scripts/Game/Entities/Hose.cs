@@ -22,7 +22,7 @@ public class Hose : PressurisedEnitity
     {
         if (TryEdge.Other == null && IncommingEdge.Self != TryEdge.Self)
         {
-            if (IncommingEdge.Self is Demand)
+            if (IncommingEdge.Self is Demand || IncommingEdge.Self is Combiner)
             {
                 return true;
             }
