@@ -28,14 +28,14 @@ public struct Edge
     }
 }
 
-public class Grid 
+public class EntityManager 
 {
     // ENTITY GRID SIZE :: 1
     private int SizeX, SizeY;
 
     public List<Entity> Entities;
 
-    public Grid(int SizeX, int SizeY)
+    public EntityManager(int SizeX, int SizeY)
     {
         this.SizeX = SizeX;
         this.SizeY = SizeY;
@@ -59,7 +59,7 @@ public class Grid
         );
     }
 
-    public bool TryAdd(Entity Entity, Vector3 WorldLocation)
+    public Entity TryAdd(Entity Entity, Vector3 WorldLocation)
     {
         Vector2Int GridPosition = WorldToGrid(WorldLocation);
         if (GridPosition.x >= 0 && GridPosition.x < SizeX
@@ -72,10 +72,10 @@ public class Grid
                     Entity,
                     GridToWorld(GridPosition),
                     Quaternion.identity);
-                return true;
+                return Entities[Position];
             }
         }
-        return false;
+        return null;
     }
 
     public bool TryGet(out Entity Entity, Vector2Int GridPosition)

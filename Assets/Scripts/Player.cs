@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
 
     //TODO: SHOULD BE OWNED GAMEMANAGER
-    private Grid Grid;
+    private EntityManager m_EntityManager;
 
     //Interact
     public struct InteractionData
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        Grid = new Grid(100, 100);
+        m_EntityManager = new EntityManager(100, 100);
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
         Ghosts = new GameObject[Items.Count];
         for(int i = 0; i < Items.Count; i++)
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonDown("Interact"))
         {
-            Grid.TryAdd(Placeables[SelectedItem], targetPosition);
+            m_EntityManager.TryAdd(Placeables[SelectedItem], targetPosition);
         }
 
         if (Input.GetButtonDown("Build"))
