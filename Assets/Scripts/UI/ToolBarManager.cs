@@ -23,7 +23,8 @@ public class ToolBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        animTimer = animTime;        
+
         toolbarObj = (GameObject)Instantiate(Resources.Load(toolbarPath), this.transform);
         startPos = toolbarObj.transform.position;
 

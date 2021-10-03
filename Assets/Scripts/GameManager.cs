@@ -7,12 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public Grid Grid;
 
-
-
     private void Start()
     {
-        List<int> list = new List<int>();
-        var l = list.Select(x => 1);
     }
 
     private void Update()

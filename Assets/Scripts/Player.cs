@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
         Combiner = 2,
     }
     public int SelectedItem;
+    public List<PressurisedEnitity> Placeables;
     public float CycleTickTime;
     private List<Item> Items;
     private float cycleTimer;
@@ -99,6 +100,8 @@ public class Player : MonoBehaviour
             }
         }
 
+        //Render Ghost
+
         //TODO: show ghost for thing you are trying to place
         if(Input.GetButtonDown("Interact"))
         {
@@ -149,7 +152,6 @@ public class Player : MonoBehaviour
         //Animation
         Animator.SetFloat("Speed", Veloctiy.magnitude / MaxSpeed);
         Animator.speed = Veloctiy.magnitude / MaxSpeed;
-
     }
 
 }
