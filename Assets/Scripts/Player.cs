@@ -252,7 +252,7 @@ public class Player : MonoBehaviour
         
         if(closest != null)
         {
-            Debug.Log($"Interacting with {closest}");
+            Debug.Log($"Interacting with {closest} {closest.transform.root.gameObject.name}");
             closest.Interact(this);
         }
 
@@ -301,7 +301,12 @@ public class Player : MonoBehaviour
         if(Input.GetButtonDown("Destroy"))
         {
             foreach (var point in Interaction.Entity.InteractionPoints)
-                point.SetActive(true);
+            {
+                //Should be active if their edge is not connected to anything
+                var ip = point.GetComponent<InteractionPoint>();
+                bool shouldBeActive = Hose.Edges[ip.Socket].Other == null;
+                point.SetActive(shouldBeActive);
+            }
             Interaction.Clear();
             CurrentState = State.Move;
         }

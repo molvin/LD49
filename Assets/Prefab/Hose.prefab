@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b9ea422b8f2646bdd04d906e7fe02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Socket: 0
+  Socket: 1
   InteractType: 2
 --- !u!58 &8172607215873721878
 CircleCollider2D:
