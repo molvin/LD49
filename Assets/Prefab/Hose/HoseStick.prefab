@@ -181,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftSocket: {fileID: 2553032084922018925}
   RightSocket: {fileID: 5642566414428763801}
+  Rigidbody2D: {fileID: 8625626408424504415}
 --- !u!70 &1667984907095596700
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
