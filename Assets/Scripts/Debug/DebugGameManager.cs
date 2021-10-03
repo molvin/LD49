@@ -17,7 +17,7 @@ public class DebugGameManager : MonoBehaviour
     public List<DebugEntityInput> EntityEntries;
 
     [Header("Grid")]    
-    public Grid Grid;
+    public EntityManager m_EntityManager;
     public int SizeX, SizeY;
 
     private Entity SelectedThing;
@@ -48,7 +48,7 @@ public class DebugGameManager : MonoBehaviour
                 if (Input.GetKeyDown(Entry.Button))
                 {
                     Debug.Log("Hit: " + HitPoint);
-                    Grid.TryAdd(Entry.Prefab, HitPoint);
+                    m_EntityManager.Add(Entry.Prefab, HitPoint);
                 }
             }
 
@@ -64,7 +64,7 @@ public class DebugGameManager : MonoBehaviour
         DrawConnections();
 
 
-        Grid.Tick();
+        m_EntityManager.Tick();
     }
 
     void DrawConnections()
@@ -76,7 +76,7 @@ public class DebugGameManager : MonoBehaviour
         }
 
         int RenI = 0;
-        foreach (var Entity in Grid.Entities)
+        foreach (var Entity in m_EntityManager.Entities)
         {
             if (Entity)
             {
@@ -104,8 +104,19 @@ public class DebugGameManager : MonoBehaviour
 
     void SelectThing(Vector3 WorldPosition)
     {
-        Entity Entity;
-        if (Grid.TryGet(out Entity, Grid.WorldToGrid(WorldPosition)))
+        Entity Entity = null;
+        float distance = 2.0f;
+        foreach(var entity in m_EntityManager.Entities)
+        {
+            float d = (entity.transform.position - WorldPosition).magnitude;
+            if (d < distance)
+            {
+                distance = d;
+                Entity = entity;
+            }
+        }
+
+        if (Entity)
         {
             Debug.Log($"Selected {Entity.name}");
 
@@ -139,7 +150,7 @@ public class DebugGameManager : MonoBehaviour
             GUI.Label(Rect, "SELECTED");
         }
 
-        foreach (var Entity in Grid.Entities)
+        foreach (var Entity in m_EntityManager.Entities)
         {
             if (Entity)
             {
@@ -154,8 +165,8 @@ public class DebugGameManager : MonoBehaviour
 
     public void Reset()
     {
-        if (Grid != null) Grid.Reset();
-        Grid = new Grid(SizeX, SizeY);
+        if (m_EntityManager != null) m_EntityManager.Reset();
+        m_EntityManager = new EntityManager();
 
         List<LineRenderer> Renderers = GetComponentsInChildren<LineRenderer>().ToList();
         foreach (var Ren in Renderers)
