@@ -51,6 +51,8 @@ public class InteractionPoint : MonoBehaviour
                         Debug.Log("Picking up hose");
 
                         Hose hose = GameManager.Instance.m_EntityManager.Add(player.HosePrefab, transform.position) as Hose;
+                        foreach (var point in hose.InteractionPoints)
+                            point.SetActive(false);
 
                         edge.Other = hose;
                         edge.OtherSocket = 0;
@@ -71,9 +73,13 @@ public class InteractionPoint : MonoBehaviour
                     {
                         //Pick up Hose
                         Debug.Log("Disconnecting hose");
-                        //TODO: only the hoses interact points should be usable
 
-                        //TODO: 
+                        Hose hose = edge.Other as Hose;
+                        ParentEntity.Edges[edge.SelfSocket] = edge.Cleared();
+                        player.Interaction.Entity = hose;
+                        player.CurrentState = Player.State.Hose;
+                        foreach (var point in ParentEntity.InteractionPoints)
+                            point.SetActive(false);
 
                     }
                 }
@@ -89,7 +95,12 @@ public class InteractionPoint : MonoBehaviour
             case Interactable.Hose:
                 if (!(player.CurrentState is Player.State.Move))
                     break;
-                //DUNNO WHAT TO DO HERE
+
+                player.Interaction.Entity = ParentEntity;
+                player.CurrentState = Player.State.Hose;
+                foreach (var point in ParentEntity.InteractionPoints)
+                    point.SetActive(false);
+
                 break;
         }
     }

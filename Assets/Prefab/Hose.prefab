@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1175836310fbb44488f80d6d76f08289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionPoints:
+  - {fileID: 2058503112378897779}
+  - {fileID: 2058503112856507246}
   Type: 0
   Pressure: 0
   Socket0: {fileID: 2058503112378897778}
@@ -158,7 +161,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2058503112378897778}
   - component: {fileID: 2058503112378897777}
-  m_Layer: 0
+  - component: {fileID: 47482651774557297}
+  m_Layer: 6
   m_Name: Socket0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,6 +196,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractType: 2
+--- !u!58 &47482651774557297
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058503112378897779}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2058503112856507246
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +222,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2058503112856507245}
   - component: {fileID: 2058503112856507244}
-  m_Layer: 0
+  - component: {fileID: 8172607215873721878}
+  m_Layer: 6
   m_Name: Socket1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,3 +257,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractType: 2
+--- !u!58 &8172607215873721878
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058503112856507246}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

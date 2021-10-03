@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     public List<Edge> Edges;
+    public List<GameObject> InteractionPoints;
 
     public virtual void Tick() { }
 
