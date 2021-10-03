@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 2049299637924425348}
   - component: {fileID: 2049299637924425349}
   - component: {fileID: 2049299637924425350}
+  - component: {fileID: 1444968624}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -312,16 +313,18 @@ MonoBehaviour:
   CurrentState: 0
   AccelerationTime: 0.05
   DecelerationTime: 0.02
-  MaxSpeed: 10
+  MaxSpeed: 15
   MinInput: 0.15
   Veloctiy: {x: 0, y: 0, z: 0}
   SpriteHolder: {fileID: 2049299638995214278}
   Animator: {fileID: 2049299637976178854}
+  Rb: {fileID: 0}
   SelectedItem: 0
   Placeables:
   - {fileID: 1567843312167693674, guid: 98fad03ad8a7be140a35b16ef746274c, type: 3}
   - {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
   - {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
+  PlaceDistance: 2
   InteractionRadius: 3
   InteractionDistance: 1
   InteractionLayer:
@@ -345,6 +348,27 @@ CircleCollider2D:
   m_Offset: {x: 0.025491834, y: -0.07371676}
   serializedVersion: 2
   m_Radius: 0.8492086
+--- !u!50 &1444968624
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049299637924425371}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &2049299637976178875
 GameObject:
   m_ObjectHideFlags: 0
