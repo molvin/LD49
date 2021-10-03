@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour
 {
     //States
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
     public float DecelerationTime;
     public float MaxSpeed;
     public float MinInput;
-    public Vector3 Veloctiy;
+    public Vector3 Velocity;
     public Transform SpriteHolder;
     public Animator Animator;
     public Rigidbody2D Rb;
@@ -54,6 +55,11 @@ public class Player : MonoBehaviour
     {
         public Entity Entity;
         public Edge? Edge;
+        public Transform Handle;
+        public Transform OtherHandle;
+        public Vector3 StartPosition;
+        public float StartDistance;
+        public Vector3 PreviousPosition;
 
         public void Clear()
         {
@@ -62,9 +68,11 @@ public class Player : MonoBehaviour
         }
     }
     public InteractionData Interaction;
+    public float DragSpeed = 0.5f;
 
     private void Start()
     {
+
         Rb = GetComponent<Rigidbody2D>();
         GameManager.Instance.m_EntityManager = new EntityManager();
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
@@ -105,6 +113,7 @@ public class Player : MonoBehaviour
                 UpdateHoseState();
                 break;
             case State.Valve:
+                UpdateValveState();
                 break;
         }
 
@@ -167,7 +176,13 @@ public class Player : MonoBehaviour
     {
         Move();
 
-        //Overlap check infront of you
+        if (Input.GetButtonDown("Destroy"))
+        {
+            CurrentState = State.Move;
+            return;
+        }
+
+       //Overlap check infront of you
         Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
         var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
         Entity closest = null;
@@ -230,24 +245,24 @@ public class Player : MonoBehaviour
 
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
-            Veloctiy = Vector3.SmoothDamp(Veloctiy, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
+            Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
             //Visual Rotation
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
         }
         else
         {
-            Veloctiy = Vector3.SmoothDamp(Veloctiy, Vector3.zero, ref acceleration, DecelerationTime);
+            Velocity = Vector3.SmoothDamp(Velocity, Vector3.zero, ref acceleration, DecelerationTime);
         }
 
         //Rb.MovePosition(transform.position + Veloctiy * Time.deltaTime);
 
         //Animation
-        Animator.SetFloat("Speed", Veloctiy.magnitude / MaxSpeed);
-        Animator.speed = Veloctiy.magnitude / MaxSpeed;
+        Animator.SetFloat("Speed", Velocity.magnitude / MaxSpeed);
+        Animator.speed = Velocity.magnitude / MaxSpeed;
     }
     private void FixedUpdate()
     {
-        Rb.velocity = Veloctiy;
+        Rb.velocity = Velocity;
     }
 
 
@@ -270,5 +285,40 @@ public class Player : MonoBehaviour
         }
 
         Move();
+    }
+
+    private void UpdateValveState()
+    {
+        Velocity = Vector3.zero;
+        Valve valve = Interaction.Entity as Valve;
+
+        Vector3 direction = (Interaction.Handle.GetChild(0).position - Interaction.Entity.transform.position).normalized;
+        float distance = (Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction);
+        Debug.Log((transform.position - Interaction.PreviousPosition).magnitude);
+        Interaction.Handle.localPosition = direction * distance;
+        Interaction.OtherHandle.localPosition = -direction * distance;
+
+        Interaction.PreviousPosition = transform.position;
+        valve.Gate = Mathf.Lerp(0, 100, distance);
+        
+        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        float dot = Vector3.Dot(direction, input);
+
+        if (input.magnitude > MinInput && dot > 0.7f && distance < 1.0f)
+        {
+            Velocity = direction * DragSpeed;
+        }
+        if (input.magnitude > MinInput && dot < -0.7f && distance > 0.0f)
+        {
+            Velocity = -direction * DragSpeed;
+
+        }
+
+        if (Input.GetButtonDown("Destroy") || Input.GetButtonDown("Interact"))
+        {
+            CurrentState = State.Move;
+            Interaction.Clear();
+        }
+
     }
 }

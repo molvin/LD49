@@ -110,11 +110,13 @@ public class EntityManager
         for(int i = 0; i < entity.Edges.Count; i++)
         {
             Edge edge = entity.Edges[i];
-            if (edge.Other == null)
+            if (edge.Other == null) 
                 continue;
-            edge.Other.Edges[edge.OtherSocket] = edge.Other.Edges[edge.OtherSocket].Cleared();
-            foreach (var point in edge.Other.InteractionPoints)
-                point.SetActive(true);            
+            Entity hose = edge.Other;
+            int hoseSocket = edge.OtherSocket;
+            hose.Edges[hoseSocket] = hose.Edges[hoseSocket].Cleared();
+            foreach (var point in hose.InteractionPoints)
+                point.SetActive(true);
         }
 
         Entities.Remove(entity);

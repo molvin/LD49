@@ -95,7 +95,17 @@ public class InteractionPoint : MonoBehaviour
                 if (!(player.CurrentState is Player.State.Move))
                     break;
 
-                //GOTO VALVE STATE
+                player.CurrentState = Player.State.Valve;
+                player.Interaction.Entity = ParentEntity;
+                player.Interaction.Handle = transform.parent;
+                var handles = ParentEntity.GetComponentsInChildren<DragThing>();
+                foreach (var handle in handles)
+                    if (handle.transform != transform.parent)
+                        player.Interaction.OtherHandle = handle.transform;
+
+                player.Interaction.StartPosition = player.transform.position;
+                player.Interaction.StartDistance = (transform.parent.position - player.transform.position).magnitude;
+                player.Interaction.PreviousPosition = player.transform.position;
                 break;
             case Interactable.Hose:
                 if (!(player.CurrentState is Player.State.Move))
