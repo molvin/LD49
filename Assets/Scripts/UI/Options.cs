@@ -148,7 +148,7 @@ public class Options : MonoBehaviour
 public void SetHidden(bool hidden)
     {
         this.isHidden = hidden;
-        if(!this.isHidden)
+        if(!this.isHidden && Input.GetJoystickNames().Length > 1)
         {
             FindObjectOfType<EventSystem>().SetSelectedGameObject(masterSlider.gameObject);
 

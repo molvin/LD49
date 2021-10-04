@@ -515,7 +515,7 @@ TextureImporter:
       name: Tiles_4
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 480
         width: 32
         height: 32
@@ -542,7 +542,7 @@ TextureImporter:
       name: Tiles_5
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 480
         width: 32
         height: 32
@@ -694,7 +694,7 @@ TextureImporter:
       name: Tiles_11
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 448
         width: 32
         height: 32
@@ -721,7 +721,7 @@ TextureImporter:
       name: Tiles_12
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 448
         width: 32
         height: 32
@@ -903,7 +903,7 @@ TextureImporter:
       name: Tiles_29
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 352
         width: 32
         height: 32
@@ -924,7 +924,7 @@ TextureImporter:
       name: Tiles_30
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 352
         width: 32
         height: 32
@@ -1045,7 +1045,7 @@ TextureImporter:
       name: Tiles_35
       rect:
         serializedVersion: 2
-        x: 448
+        x: 450
         y: 352
         width: 32
         height: 32
@@ -1072,7 +1072,7 @@ TextureImporter:
       name: Tiles_36
       rect:
         serializedVersion: 2
-        x: 480
+        x: 482
         y: 352
         width: 32
         height: 32
@@ -1162,7 +1162,7 @@ TextureImporter:
       name: Tiles_40
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 320
         width: 32
         height: 32
@@ -1183,7 +1183,7 @@ TextureImporter:
       name: Tiles_41
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 320
         width: 32
         height: 32
@@ -1279,7 +1279,7 @@ TextureImporter:
       name: Tiles_45
       rect:
         serializedVersion: 2
-        x: 448
+        x: 450
         y: 320
         width: 32
         height: 32
@@ -1306,7 +1306,7 @@ TextureImporter:
       name: Tiles_46
       rect:
         serializedVersion: 2
-        x: 480
+        x: 482
         y: 320
         width: 32
         height: 32
@@ -1555,7 +1555,7 @@ TextureImporter:
       name: Tiles_57
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 224
         width: 32
         height: 32
@@ -1576,7 +1576,7 @@ TextureImporter:
       name: Tiles_58
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 224
         width: 32
         height: 32
@@ -1793,7 +1793,7 @@ TextureImporter:
       name: Tiles_63
       rect:
         serializedVersion: 2
-        x: 448
+        x: 450
         y: 224
         width: 32
         height: 32
@@ -1820,7 +1820,7 @@ TextureImporter:
       name: Tiles_64
       rect:
         serializedVersion: 2
-        x: 480
+        x: 482
         y: 224
         width: 32
         height: 32
@@ -1910,7 +1910,7 @@ TextureImporter:
       name: Tiles_68
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 192
         width: 32
         height: 32
@@ -1931,7 +1931,7 @@ TextureImporter:
       name: Tiles_69
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 192
         width: 32
         height: 32
@@ -2027,7 +2027,7 @@ TextureImporter:
       name: Tiles_73
       rect:
         serializedVersion: 2
-        x: 448
+        x: 450
         y: 192
         width: 32
         height: 32
@@ -2054,7 +2054,7 @@ TextureImporter:
       name: Tiles_74
       rect:
         serializedVersion: 2
-        x: 480
+        x: 482
         y: 192
         width: 32
         height: 32
@@ -2303,7 +2303,7 @@ TextureImporter:
       name: Tiles_85
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 96
         width: 32
         height: 32
@@ -2324,7 +2324,7 @@ TextureImporter:
       name: Tiles_86
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 96
         width: 32
         height: 32
@@ -2408,7 +2408,7 @@ TextureImporter:
       name: Tiles_90
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 64
         width: 32
         height: 32
@@ -2429,7 +2429,7 @@ TextureImporter:
       name: Tiles_91
       rect:
         serializedVersion: 2
-        x: 224
+        x: 226
         y: 64
         width: 32
         height: 32

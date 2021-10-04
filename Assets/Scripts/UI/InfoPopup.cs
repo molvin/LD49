@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class InfoPopup : MonoBehaviour
 {
 
-    public Text infoBody;
-    public Text infoTitle;
+    public TextMeshProUGUI infoBody;
+    public TextMeshProUGUI infoTitle;
     public Image infoImage;
 
     public AnimationCurve animCurve;
