@@ -29,14 +29,12 @@ public class InteractionPoint : MonoBehaviour
             case Interactable.Socket:
                 if(player.CurrentState is Player.State.Hose)
                 {
-                    Debug.Log("Connecting hose");
 
                     //Player is holding a hose, try to connect it
                     Edge edge = ParentEntity.GetEdge(transform.position);
                     bool success = ParentEntity.TryConnect(edge, player.Interaction.Edge.Value);
                     if(success)
                     {
-                        Debug.Log("Connected hose");
                         if(player.Interaction.Edge.Value.SelfSocket == 0)
                             (player.Interaction.Entity as Hose).Socket0.position = transform.position;
                         if (player.Interaction.Edge.Value.SelfSocket == 1)
@@ -52,7 +50,6 @@ public class InteractionPoint : MonoBehaviour
 
                     if (edge.Other == null)
                     {
-                        Debug.Log("Picking up hose");
 
                         Hose hose = GameManager.Instance.m_EntityManager.Add(player.HosePrefab, transform.position) as Hose;
                         foreach (var point in hose.InteractionPoints)

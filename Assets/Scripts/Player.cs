@@ -287,7 +287,6 @@ public class Player : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
-        Debug.Log($"Try Interact {colliders.Length}");
 
         foreach (var coll in colliders)
         {
@@ -301,7 +300,6 @@ public class Player : MonoBehaviour
         
         if(closest != null)
         {
-            Debug.Log($"Interacting with {closest} {closest.transform.root.gameObject.name}");
             closest.Interact(this);
         }
 
