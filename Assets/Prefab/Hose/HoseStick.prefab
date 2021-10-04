@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4921244698070742775}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4367417650284819142}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 8625626408424504415}
   - component: {fileID: 6874849641001274216}
   - component: {fileID: 1667984907095596700}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HoseStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 100000
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 29f6f5fe54e7aa6479dd1f37f699c34d, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
