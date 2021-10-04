@@ -125,7 +125,7 @@ public class Demand : Entity
         foreach (Need need in Needs)
         {
            // DemandUI.SetDemand(need.Value, NeedLeniency
-            indicators[j].SetDemand(need.Value, NeedLeniency);
+            indicators[j].SetDemand(need.Value, NeedLeniency, need.Type);
             Indicators.Add(need.Type, indicators[j++]);
         }
     }
