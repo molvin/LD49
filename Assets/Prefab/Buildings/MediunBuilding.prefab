@@ -1222,6 +1222,7 @@ MonoBehaviour:
   InteractionPoints:
   - {fileID: 720461538}
   - {fileID: 281355484}
+  Id: 41
   Needs: []
   TimeToDestroy: 100
   NeedLeniency: 10

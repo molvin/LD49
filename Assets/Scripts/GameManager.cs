@@ -175,11 +175,13 @@ public class GameManager : MonoBehaviour
                 max_color_index++;
             }
 
+            ResourceType[] items = (ResourceType[])Enum.GetValues(typeof(ResourceType));
+
             List<ResourceType> resource_pool = new List<ResourceType>();
 
             for (int i = 1; i < max_color_index; i++)
             {
-                ResourceType resource = (ResourceType)i;
+                ResourceType resource = items[i];
                 if (needs.TrueForAll((need) => need.Type != resource))
                     resource_pool.Add(resource);
             }
