@@ -17,16 +17,16 @@ public class Demand : Entity
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
 
-    protected ResourceWorldUI DemandUI;
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
+    protected Dictionary<ResourceType, ResourceIndicator> Indicators = new Dictionary<ResourceType, ResourceIndicator>();
 
     public override void Tick()
     {
         base.Tick();
 
         //If no time has changed don't care about the need
-        if (Time.time == LastSatisfiedTime || DemandUI == null)
+        if (Time.time == LastSatisfiedTime)
             return;
 
         IsSatisfied = true;
@@ -38,15 +38,23 @@ public class Demand : Entity
                 if (Mathf.Abs(need.Value - pressure_value) >= NeedLeniency)
                     IsSatisfied = false;
 
-                DemandUI.SetValue(pressure_value);
             }
             else if (IsSatisfied)
             {
                 IsSatisfied = false;
-                DemandUI.SetValue(0);
             }
-                
+
+            var res = Indicators[need.Type];
+            Debug.Log("Setting");
+            if (PressureLevels.ContainsKey(need.Type))
+                res.SetValue(PressureLevels[need.Type]);
+            else
+                res.SetValue(0.0f);
+            
+
         }
+
+
 
         if (IsSatisfied)
         {
@@ -89,7 +97,9 @@ public class Demand : Entity
 
     public override void Clear()
     {
-        PressureLevels.Clear(); 
+        PressureLevels.Clear();
+        foreach (var res in Indicators.Values)
+            res.SetValue(0.0f);
     }
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
     {
@@ -98,13 +108,25 @@ public class Demand : Entity
 
     void Awake()
     {
-        Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
-        LastSatisfiedTime = Time.time;
-        DemandUI = GetComponentInChildren<ResourceWorldUI>();
-
-        foreach(Need need in Needs)
+        //Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
+        Edges = new List<Edge>();
+        Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
+        for (int i = 0; i < InteractionPoints.Count; i++)
         {
-            DemandUI.SetDemand(need.Value, NeedLeniency);
+            edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
+            Edges.Add(edge);
+        }
+
+        LastSatisfiedTime = Time.time;
+        //DemandUI = GetComponentInChildren<ResourceWorldUI>();
+
+        int j = 0;
+        var indicators = GetComponentsInChildren<ResourceIndicator>();
+        foreach (Need need in Needs)
+        {
+           // DemandUI.SetDemand(need.Value, NeedLeniency
+            indicators[j].SetDemand(need.Value, NeedLeniency);
+            Indicators.Add(need.Type, indicators[j++]);
         }
     }
 

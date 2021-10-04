@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     private List<int> m_OrderdUnlocks = new List<int>();
 
     public EntityManager m_EntityManager;
-    private void Awake()
+    protected void Awake()
     {
         m_OrderdUnlocks.Add(m_CyanSpawnCountUnlock);
         m_OrderdUnlocks.Add(m_MagentaSpawnCountUnlock);
