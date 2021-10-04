@@ -174,6 +174,11 @@ public class Player : MonoBehaviour
 
     private void UpdateBuildState()
     {
+        if (Input.GetButtonDown("Destroy"))
+        {
+            CurrentState = State.Destroy;
+            return;
+        }
         float cycle = Input.GetAxisRaw("Cycle");
         if (Mathf.Abs(cycle) > MinInput && cycleTimer > CycleTickTime)
         {
@@ -216,8 +221,13 @@ public class Player : MonoBehaviour
             CurrentState = State.Move;
             return;
         }
+        if (Input.GetButtonDown("Build"))
+        {
+            CurrentState = State.Build;
+            return;
+        }
 
-       //Overlap check infront of you
+        //Overlap check infront of you
         Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
         var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
         Entity closest = null;
@@ -244,6 +254,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.m_EntityManager.Destroy(closest);
             //TODO: regain one item
         }
+
     }
     private void Interact()
     {
@@ -281,7 +292,8 @@ public class Player : MonoBehaviour
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
-            //Visual Rotation
+            Animator.GetComponent<SpriteRenderer>().flipX = input.x < 0;
+            //Visual Rotation, now just save last input rotation for interaction checks
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
             if (footstepRight && !FootStepDustRight.isPlaying && !FootStepDustLeft.isPlaying)
             {

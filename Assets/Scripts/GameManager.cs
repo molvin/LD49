@@ -8,99 +8,71 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    //Editor variabels
+    [Header("Unlocks | Factory Type")]
+    public int m_LevelTwoSpawnCount;
+    public int m_LevelThreeSpawnCount;
     public ParticleSystem Kablaam;
     private bool doKablaam;
 
-    [System.Serializable]
-    public class ResourceScaling
-    {
-        //For editor
-        [SerializeField]
-        String name;
+    [Header("Unlocks | Factory Type")]
+    public int m_CyanSpawnCountUnlock     = 0;
+    public int m_MagentaSpawnCountUnlock  = 1;
+    public int m_YellowSpawnCountUnlock   = 2;
+    public int m_RedSpawnCountUnlock      = 3;
+    public int m_GreenSpawnCountUnlock    = 4;
+    public int m_BlueSpawnCountUnlock     = 5;
+    public int m_BlackSpawnCountUnlock    = 6;   
 
-        [SerializeField]
-        ResourceType m_ResourceType;
-        [Header("Spawn Rate")]
-        [SerializeField]
-        AnimationCurve m_SpawnRateScaling;
-        [SerializeField]
-        float m_MaxCurveTime;
-        [SerializeField]
-        float m_MaxNeed;
-        [SerializeField]
-        float m_MaxExedeRate;
-        [SerializeField]
-        float m_MinExedeRate;
+    [Header("Interval")]
+    public float m_MinSpawnInteval;
+    public float m_MaxSpawnInteval;
 
-        [SerializeField, Header("Need")]
-        AnimationCurve m_RanomdRateScaling;
-        [SerializeField]
-        float m_BaseNeed;
-        [SerializeField]
-        float m_MaxVariation;
+    [Header("Demand")]
+    public float m_MinDemand;
+    public float m_MaxDemand;
 
-        [SerializeField, HideInInspector]
-        private float m_CurrentExedeRate;
-        private float m_LastExedeRate;
+    [Header("Distance")]
+    public float m_MinSpawnDistance;
+    public float m_MaxSpawnDistance;
 
-        public ResourceType GetResourceType() { return m_ResourceType; }
-        public float EvaluateTotalNeed(float time) { return m_SpawnRateScaling.Evaluate(time / m_MaxCurveTime) * m_MaxNeed; }
-        public float GetExedeRate() { return m_CurrentExedeRate; }
-        public void GenerateExedeRate()
-        {
-            m_LastExedeRate = m_CurrentExedeRate;
-            m_CurrentExedeRate += Random.Range(m_MinExedeRate, m_MaxExedeRate);
-        }
-        public float GetExedeDelta() { return m_CurrentExedeRate - m_LastExedeRate; }
-        public float GetNeed(float time)
-        {
-            float random_need_variation = m_SpawnRateScaling.Evaluate(time / m_MaxCurveTime) * Random.Range(-m_MaxVariation, m_MaxVariation);
-            float need = m_BaseNeed + random_need_variation;
+    public float m_ClosestSpawnDistance;
 
-            return Mathf.Max(need, 0);
-        }
 
-    }
-
-    //Editor variabels
     [SerializeField]
     Demand m_DemandEntity;
 
-    [SerializeField]
-    List<ResourceScaling> m_ResourceScaling;
 
     //Hiden varables
     private float m_Timer = 0f;
+    private List<int> m_OrderdUnlocks = new List<int>();
 
     public EntityManager m_EntityManager;
     private void Awake()
     {
+        m_OrderdUnlocks.Add(m_CyanSpawnCountUnlock);
+        m_OrderdUnlocks.Add(m_MagentaSpawnCountUnlock);
+        m_OrderdUnlocks.Add(m_YellowSpawnCountUnlock);
+        m_OrderdUnlocks.Add(m_RedSpawnCountUnlock);
+        m_OrderdUnlocks.Add(m_GreenSpawnCountUnlock);
+        m_OrderdUnlocks.Add(m_BlueSpawnCountUnlock);
+        m_OrderdUnlocks.Add(m_BlackSpawnCountUnlock);
+
         Instance = this;
         m_EntityManager = new EntityManager();
-
-        doKablaam = false;
-
-        foreach (ResourceScaling scaling in m_ResourceScaling)
-        {
-            scaling.GenerateExedeRate();
-        }
+        m_Timer = Random.Range(m_MinSpawnInteval, m_MaxSpawnInteval);
     }
 
     private void Update()
     {
-        m_Timer += Time.deltaTime;
-
-        foreach (ResourceScaling scaling in m_ResourceScaling)
+        if(m_Timer <= 0)
         {
-            float total_resource_demand = scaling.EvaluateTotalNeed(m_Timer);
-            float exede_rate = scaling.GetExedeRate();
-
-            if (total_resource_demand >= exede_rate)
-            {
-                SpawnBuilding(scaling);
-            }
+            m_Timer = Random.Range(m_MinSpawnInteval, m_MaxSpawnInteval);
+            SpawnBuilding();
         }
 
+
+        m_Timer -= Time.deltaTime;
         m_EntityManager.Tick();
     }
 
@@ -131,22 +103,106 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void SpawnBuilding(ResourceScaling scaling)
+    private void SpawnBuilding()
     {
-        Quaternion random_rot = Random.rotation;
-        Vector3 random_direction = random_rot * Vector3.forward;
-        random_direction.z = 0;
-        random_direction.Normalize();
 
-        float random_distance = Random.Range(1f, 15f);
+        Vector3 spawn_pos = Vector3.negativeInfinity;
+        for (int i = 0; i < 1000; i++)
+        {
+            Quaternion random_rot = Random.rotation;
+            Vector3 random_direction = random_rot * Vector3.forward;
+            random_direction.z = 0;
+            random_direction.Normalize();
 
-        Entity spawned_entity = m_EntityManager.Add(m_DemandEntity, random_direction * random_distance);
+            float random_distance = Random.Range(m_MinSpawnDistance, m_MaxSpawnDistance);
+
+            Vector3 temp_pos = random_direction * random_distance;
+
+            if (IsPointAccesable(temp_pos, m_ClosestSpawnDistance))
+            {
+                spawn_pos = temp_pos;
+                break;
+            }
+        }
+
+        if (spawn_pos == Vector3.negativeInfinity)
+        {
+            Debug.LogError("There where no valid point to spawn entity at");
+            return;
+        }
+
+        
+
+        Entity spawned_entity = m_EntityManager.Add(m_DemandEntity, spawn_pos);
         if (spawned_entity is Demand spawned_demand)
         {
-            Demand.Need need = new Demand.Need{ Type = scaling.GetResourceType(), Value = scaling.GetNeed(m_Timer) };
-            spawned_demand.Needs.Add(need);
-            scaling.GenerateExedeRate();
+            int max_color_index = 1;
+
+            int demands_count = 0;
+
+            foreach (Entity entity in m_EntityManager.Entities)
+            {
+                if (entity is Demand)
+                    demands_count++;
+            }
+
+            
+
+            foreach (int unlock_count in m_OrderdUnlocks)
+            {
+                if (unlock_count > demands_count)
+                    break;
+
+                Debug.Log("Unlock count: " + unlock_count + ", current demand count: " + demands_count);
+
+                max_color_index++;
+            }
+
+            int resource_variants_count = 1;
+
+            if (demands_count >= m_LevelTwoSpawnCount)
+                resource_variants_count++;
+            if (demands_count >= m_LevelThreeSpawnCount)
+                resource_variants_count++;
+
+            spawned_demand.Needs.Clear();
+
+            List<ResourceType> resource_pool = new List<ResourceType>();
+
+            for (int i = 1; i < max_color_index; i++)
+            {
+                resource_pool.Add((ResourceType)i);
+            }
+
+            for (int i = 0; i < resource_variants_count; i++)
+            {
+                if (resource_pool.Count == 0)
+                    break;
+
+                int resource_index = Random.Range(0, resource_pool.Count);
+                Demand.Need need = new Demand.Need { Type = resource_pool[resource_index], Value = Random.Range(m_MinDemand, m_MaxDemand) };
+                spawned_demand.Needs.Add(need);
+                resource_pool.RemoveAt(resource_index);
+            }
         }
+    }
+
+    private bool IsPointAccesable(Vector3 origin, float distance)
+    {
+        List<Vector3> positions = new List<Vector3>();
+        foreach (Entity entity in m_EntityManager.Entities)
+        {
+           if( Vector3.Distance(origin, entity.transform.position) <= distance)
+            {
+                positions.Add(entity.transform.position);
+            }
+        }
+
+        if (positions.Count == 0)
+            return true;
+
+        return false;
+
     }
 
 }

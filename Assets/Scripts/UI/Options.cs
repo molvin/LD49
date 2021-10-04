@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 using System;
 
 public class Options : MonoBehaviour
@@ -22,6 +23,16 @@ public class Options : MonoBehaviour
     private float timer;
 
     private Vector3 startPos;
+
+
+    private Resolution[] resolutions;
+    private FullScreenMode[] WindowModes;
+    public Dropdown resDropDown;
+    public Dropdown modeDropDown;
+
+    Resolution selecterRes;
+    FullScreenMode selecterMode;
+
     void Start()
     {
         masterSlider.onValueChanged.AddListener(MasterSliderValueChanged);
@@ -41,12 +52,70 @@ public class Options : MonoBehaviour
         musicSlider.SetValueWithoutNotify(Mathf.Pow(10, musicStartValue / 20));
         masterSlider.SetValueWithoutNotify(Mathf.Pow(10, masterStartValue / 20));
 
+
         startPos = this.transform.position;
         timer = animTime;
+
+
+
+
+        SetupResolutionDropDown();
+        SetupWindowModeDropDown();
     }
     private void Update()
     {
         Animate();
+    }
+
+    private void SetupWindowModeDropDown()
+    {
+        WindowModes = ((FullScreenMode[])System.Enum.GetValues(typeof(FullScreenMode)));
+        List<String> options = new List<string>();
+        foreach (FullScreenMode mode in this.WindowModes)
+        {
+            options.Add(mode.ToString());
+        }
+        modeDropDown.ClearOptions();
+        modeDropDown.AddOptions(options);
+        modeDropDown.SetValueWithoutNotify((int)Screen.fullScreenMode);
+        
+        modeDropDown.onValueChanged.AddListener(delegate
+        {
+            SetWindowMode();
+        });
+
+    }
+    private void SetWindowMode()
+    {
+        selecterMode = this.WindowModes[modeDropDown.value];
+        Screen.SetResolution(selecterRes.width, selecterRes.height, selecterMode, selecterRes.refreshRate);
+
+    }
+    private void SetupResolutionDropDown()
+    {
+        this.resolutions = Screen.resolutions;
+        List<String> options = new List<string>();
+        foreach (Resolution res in this.resolutions)
+        {
+
+            options.Add(res.ToString());
+        }
+        resDropDown.ClearOptions();
+        resDropDown.AddOptions(options);
+        int index = options.FindIndex(a => a == Screen.currentResolution.ToString());
+        resDropDown.SetValueWithoutNotify(index);
+
+        resDropDown.onValueChanged.AddListener(delegate
+        {
+            SetResulution();
+        });
+    }
+   
+
+    private void SetResulution()
+    {
+        selecterRes = this.resolutions[resDropDown.value];
+        Screen.SetResolution(selecterRes.width,selecterRes.height, selecterMode, selecterRes.refreshRate);
     }
 
     private void Animate()

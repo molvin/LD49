@@ -37,8 +37,8 @@ public class Valve : PressurisedEnitity
 
     private void Update()
     {
-        Handles[0].transform.localPosition = transform.up * MaxDistance * Gate / 100.0f;
-        Handles[1].transform.localPosition = -transform.up * MaxDistance * Gate / 100.0f;
+        Handles[0].transform.localPosition = -transform.right * MaxDistance * Gate / 100.0f;
+        Handles[1].transform.localPosition = transform.right * MaxDistance * Gate / 100.0f;
 
     }
 }
