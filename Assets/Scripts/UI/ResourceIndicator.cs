@@ -24,6 +24,8 @@ public class ResourceIndicator : MonoBehaviour
 
     public SpriteRenderer demandMarker;
     public SpriteRenderer valueIndicator;
+    public SpriteRenderer mirrorDemandMarker;
+    public SpriteRenderer mirrorValueIndicator;
 
     private float maxValue = 100;
     private float leniency;
@@ -55,7 +57,9 @@ public class ResourceIndicator : MonoBehaviour
         demand = value;
 
         Vector3 localPos = demandMarker.transform.localPosition;
+        Vector3 mirrorLocalPos = mirrorDemandMarker.transform.localPosition;
         demandMarker.transform.localPosition = new Vector3(localPos.x, (demand / maxValue) * 2 -1, localPos.z);
+        mirrorDemandMarker.transform.localPosition = new Vector3(mirrorLocalPos.x, (demand / maxValue) * 2 - 1, mirrorLocalPos.z);
         this.leniency = leniency;
     }
 
@@ -77,6 +81,11 @@ public class ResourceIndicator : MonoBehaviour
               value
                , 0);
         valueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
+
+        mirrorValueIndicator.transform.localScale = new Vector3(1,
+              value
+               , 0);
+        mirrorValueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
 
     }
 

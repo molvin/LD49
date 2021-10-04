@@ -423,6 +423,8 @@ MonoBehaviour:
     m_Bits: 64
   CycleTickTime: 0.2
   HosePrefab: {fileID: 2058503112061502657, guid: 8aa6dd1186768274787e9203f99031e8, type: 3}
+  FootStepDustRight: {fileID: 1564885329245430659, guid: ffd72f9019f3a5d469163a3301fb1af8, type: 3}
+  FootStepDustLeft: {fileID: 1564885329245430659, guid: ffd72f9019f3a5d469163a3301fb1af8, type: 3}
   Hinge: {fileID: -7729619038657056895}
   DestructionCube: {fileID: 610733300}
   DestructionOffset: 1

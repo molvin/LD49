@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [Header("Unlocks | Factory Type")]
     public int m_LevelTwoSpawnCount;
     public int m_LevelThreeSpawnCount;
+    public ParticleSystem Kablaam;
+    private bool doKablaam;
 
     [Header("Unlocks | Factory Type")]
     public int m_CyanSpawnCountUnlock     = 0;
@@ -80,6 +82,13 @@ public class GameManager : MonoBehaviour
         if (IsGameOver)
             return;
         IsGameOver = true;
+
+        if (!doKablaam)
+        {
+            Kablaam = ParticleSystem.Instantiate(Kablaam, FindObjectOfType<Player>().gameObject.transform);
+            Kablaam.Play();
+            doKablaam = true;
+        }
 
         Debug.Log("Game Over!!");
         Time.timeScale = 0;
