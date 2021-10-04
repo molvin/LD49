@@ -241,6 +241,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
             if (!Place.isPlaying)
             {
+                Place.transform.position = targetPosition;
                 Place.Play();
             }
         }
@@ -256,10 +257,6 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Destroy"))
         {
             CurrentState = State.Move;
-            if (!PickUp.isPlaying)
-            {
-                PickUp.Play();
-            }
             return;
         }
         if (Input.GetButtonDown("Build"))
@@ -294,6 +291,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Interact"))
         {
+            if (!PickUp.isPlaying)
+            {
+                PickUp.Play();
+            }
             Debug.Log("Destroying Item");
             GameManager.Instance.m_EntityManager.Destroy(closest);
             //TODO: regain one item
