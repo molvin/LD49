@@ -61,6 +61,10 @@ public class FactoryManager : MonoBehaviour
 
             m_Factory.SetActive(active);
         }
+        public void MoveConnectionsTo(FactoryWithNeeds doner_factory)
+        {
+            doner_factory.m_Demand.TransferConnectionsTo(doner_factory.m_Demand);
+        }
     }
 
     public FactoryManager(Vector3 pos)
@@ -98,8 +102,10 @@ public class FactoryManager : MonoBehaviour
 
             if (factory.ShouldUpgrade())
             {
-                factory.SetActive(false, new List<Demand.Need>());
                 FactoryWithNeeds next_factory = m_FactoriesWithNeeds[i + 1];
+                next_factory.MoveConnectionsTo(factory);
+
+                factory.SetActive(false, new List<Demand.Need>());
                 next_factory.SetActive(true, factory.GetNeeds());
             }
         }
