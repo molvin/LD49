@@ -72,9 +72,13 @@ public class ResourceIndicator : MonoBehaviour
 
         foreach(var backgroundSprite in backGroundSprites)
         {
-            backgroundSprite.color = ResourceColor.TypeColor(type);
+            var c = ResourceColor.TypeColor(type) * 0.75f;
+            c.a = 1.0f;
+            backgroundSprite.color = c;
         }
+        demandMarker.color = type == ResourceType.Black ? Color.white : Color.black;
         this.leniency = leniency;
+        Type = type;
     }
 
     public void SetValue(float value)
@@ -89,18 +93,20 @@ public class ResourceIndicator : MonoBehaviour
         
     }
 
+    private ResourceType Type;
+
     private void SetVisualCurrentValue(float value)
     {
         currentValue = value * 100;
         valueIndicator.transform.localScale = new Vector3(1,
               value
                , 0);
-        valueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
-
+        //valueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
+        valueIndicator.color = mirrorValueIndicator.color = ResourceColor.TypeColor(Type);
         mirrorValueIndicator.transform.localScale = new Vector3(1,
             value
              , 0);
-        mirrorValueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
+      //  mirrorValueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
 
     }
 

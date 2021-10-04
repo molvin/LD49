@@ -68,7 +68,6 @@ public class Demand : Entity
         else
         {
             float time_under_need = GetTimeUnderNeed();
-            /*
             if (time_under_need > TimeToDestroy)
             {
                 GameManager.Instance.GameOver();
@@ -77,7 +76,6 @@ public class Demand : Entity
             {
                 WarningSystem.Instance.CreateWarningObject(gameObject, gameObject.GetInstanceID(), TimeToDestroy - time_under_need);
             }
-            */
            
         }
 
