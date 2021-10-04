@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using System;
 
 public class Options : MonoBehaviour
@@ -15,7 +15,7 @@ public class Options : MonoBehaviour
     public Slider SFXSlider;
     public Slider UISlider;
 
-
+    public Button closeButton;
 
     public AnimationCurve animCurve;
     public bool isHidden = true;
@@ -124,11 +124,35 @@ public class Options : MonoBehaviour
         timer = Mathf.Clamp(timer, 0, animTime);
         float posModi = animCurve.Evaluate(timer / animTime);
         this.transform.position = new Vector3(startPos.x + (1500 * posModi), startPos.y, startPos.z);
+        if(!isHidden)
+        {
+            enableAllChildren(true);
+        }
+        if (posModi < 0.1 && isHidden)
+        {
+            enableAllChildren(false);
+        }
     }
 
-    public void SetHidden(bool hidden)
+    private void enableAllChildren(bool enable)
+    {
+        masterSlider.gameObject.SetActive(enable);
+        musicSlider.gameObject.SetActive(enable);
+        SFXSlider.gameObject.SetActive(enable);
+        UISlider.gameObject.SetActive(enable);
+        modeDropDown.gameObject.SetActive(enable);
+        resDropDown.gameObject.SetActive(enable);
+        closeButton.gameObject.SetActive(enable);
+    }
+
+public void SetHidden(bool hidden)
     {
         this.isHidden = hidden;
+        if(!this.isHidden)
+        {
+            FindObjectOfType<EventSystem>().SetSelectedGameObject(masterSlider.gameObject);
+
+        }
     }
 
     private void UISliderValueChanged(float arg0)
@@ -153,10 +177,7 @@ public class Options : MonoBehaviour
     private void setVolume(string mixerName, float arg)
     {
         float actualValue = Mathf.Log10(arg) * 20;
-        Debug.Log(actualValue);
         mixer.SetFloat(mixerName, actualValue);
-       
-
     }
 
 }

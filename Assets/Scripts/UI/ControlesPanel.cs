@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ControlesPanel : MonoBehaviour
 {
@@ -31,5 +33,10 @@ public class ControlesPanel : MonoBehaviour
     public void SetHidden(bool hidden)
     {
         this.isHidden = hidden;
+        if(!this.isHidden)
+        {
+            FindObjectOfType<EventSystem>().SetSelectedGameObject(this.GetComponentInChildren<Button>().gameObject);
+
+        }
     }
 }

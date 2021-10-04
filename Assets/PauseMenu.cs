@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -31,6 +31,10 @@ public class PauseMenu : MonoBehaviour
         {
             Paused = !Paused;
             Parent.SetActive(Paused);
+            if(Paused)
+            {
+                FindObjectOfType<EventSystem>().SetSelectedGameObject(resumeButton.gameObject);
+            }
             Time.timeScale = Paused ? 0.0f : 1.0f;
         }
     }

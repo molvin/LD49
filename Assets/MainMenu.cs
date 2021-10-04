@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class MainMenu : MonoBehaviour
         PlayTutorialButton.gameObject.SetActive(PlayerPrefs.GetInt("playedTutorial") == 1);
         PlayTutorialButton.onClick.AddListener(StartTutAfterDelay);
         Time.timeScale = 1;
+        FindObjectOfType<EventSystem>().SetSelectedGameObject(StartButton.gameObject);
     }
 
     private void StartGame()
