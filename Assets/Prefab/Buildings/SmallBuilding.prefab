@@ -356,7 +356,7 @@ MonoBehaviour:
   InteractionPoints:
   - {fileID: 253497187}
   Needs: []
-  TimeToDestroy: 0
+  TimeToDestroy: 100
   NeedLeniency: 10
   IsSatisfied: 0
   ShouldAddOnActivation: 1
