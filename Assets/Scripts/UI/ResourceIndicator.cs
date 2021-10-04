@@ -13,7 +13,6 @@ public class ResourceIndicator : MonoBehaviour
     public float demoLeniency;
 
     public float animationTimeInSeconds = 0.3f;
-    public float animationSpeed = 0.3f;
     private float timer;
     
 
@@ -25,13 +24,10 @@ public class ResourceIndicator : MonoBehaviour
 
     public SpriteRenderer demandMarker;
     public SpriteRenderer valueIndicator;
-    public SpriteRenderer mirrorDemandMarker;
-    public SpriteRenderer mirrorValueIndicator;
 
     private float maxValue = 100;
     private float leniency;
 
-    public float TargetValue => targetValue;
 
     private void OnValidate()
     {
@@ -43,12 +39,10 @@ public class ResourceIndicator : MonoBehaviour
 
     private void Update()
     {
-        currentValue = Mathf.Lerp(currentValue, targetValue, animationSpeed);
-        SetVisualCurrentValue(currentValue / 100);
         if (timer < animationTimeInSeconds)
         {
             timer += Time.deltaTime;
-
+            SetVisualCurrentValue(Mathf.Lerp(valueAtStartOfAnim, targetValue, timer / animationTimeInSeconds) / 100);
         }
     }
 
@@ -61,9 +55,7 @@ public class ResourceIndicator : MonoBehaviour
         demand = value;
 
         Vector3 localPos = demandMarker.transform.localPosition;
-        Vector3 mirrorLocalPos = mirrorDemandMarker.transform.localPosition;
         demandMarker.transform.localPosition = new Vector3(localPos.x, (demand / maxValue) * 2 -1, localPos.z);
-        mirrorDemandMarker.transform.localPosition = new Vector3(mirrorLocalPos.x, (demand / maxValue) * 2 - 1, mirrorLocalPos.z);
         this.leniency = leniency;
     }
 
@@ -85,11 +77,6 @@ public class ResourceIndicator : MonoBehaviour
               value
                , 0);
         valueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
-
-        mirrorValueIndicator.transform.localScale = new Vector3(1,
-              value
-               , 0);
-        mirrorValueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
 
     }
 

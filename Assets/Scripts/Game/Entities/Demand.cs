@@ -17,7 +17,6 @@ public class Demand : Entity
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
 
-    protected ResourceWorldUI DemandUI;
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
     protected Dictionary<ResourceType, ResourceIndicator> Indicators = new Dictionary<ResourceType, ResourceIndicator>();
@@ -27,7 +26,7 @@ public class Demand : Entity
         base.Tick();
 
         //If no time has changed don't care about the need
-        if (Time.time == LastSatisfiedTime || DemandUI == null)
+        if (Time.time == LastSatisfiedTime)
             return;
 
         IsSatisfied = true;
@@ -39,15 +38,23 @@ public class Demand : Entity
                 if (Mathf.Abs(need.Value - pressure_value) >= NeedLeniency)
                     IsSatisfied = false;
 
-                DemandUI.SetValue(pressure_value);
             }
             else if (IsSatisfied)
             {
                 IsSatisfied = false;
-                DemandUI.SetValue(0);
             }
-                
+
+            var res = Indicators[need.Type];
+            Debug.Log("Setting");
+            if (PressureLevels.ContainsKey(need.Type))
+                res.SetValue(PressureLevels[need.Type]);
+            else
+                res.SetValue(0.0f);
+            
+
         }
+
+
 
         if (IsSatisfied)
         {
@@ -85,13 +92,6 @@ public class Demand : Entity
         else
         {
             PressureLevels.Add(Type, Pressure);
-        }
-
-        Debug.Log($"{Type}, {PressureLevels[Type]}");
-        if(Indicators.TryGetValue(Type, out ResourceIndicator res))
-        {
-            Debug.Log("Setting");
-            res.SetValue(PressureLevels[Type]);
         }
     }
 
