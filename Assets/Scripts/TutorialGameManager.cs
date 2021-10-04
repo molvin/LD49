@@ -15,6 +15,7 @@ public class TutorialGameManager : GameManager
     public string infoMessageTitle;
     [TextArea]
     public string infoMessageBody;
+    public Sprite inforMessageImage;
     private bool loadingNextScene = false;
     protected void Start()
     {
@@ -26,7 +27,7 @@ public class TutorialGameManager : GameManager
         {
             infoPopupManager = FindObjectOfType<InfoPopupManager>();
         }
-        infoPopupManager.AddInfo(infoMessageTitle, infoMessageBody);
+        infoPopupManager.AddInfo(infoMessageTitle, infoMessageBody, inforMessageImage);
     }
 
     private void Update()

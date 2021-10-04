@@ -368,6 +368,7 @@ MonoBehaviour:
   infoMessageTitle: Split the output
   infoMessageBody: There are now two buildings, place a splitter to enable the use
     of several hoses
+  inforMessageImage: {fileID: -5108360548988350930, guid: e2ebc4f1d59fd784a9cb9a4956c1e659, type: 3}
 --- !u!1001 &762943907
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -360,6 +360,7 @@ MonoBehaviour:
   infoMessageTitle: Add a Valve
   infoMessageBody: This building only requiers 50% pressure, place a valve between
     the building and the source to regulate the pressure
+  inforMessageImage: {fileID: 5065631796070425490, guid: e2ebc4f1d59fd784a9cb9a4956c1e659, type: 3}
 --- !u!1001 &1117104796
 PrefabInstance:
   m_ObjectHideFlags: 0

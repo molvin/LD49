@@ -8,6 +8,7 @@ public class InfoPopup : MonoBehaviour
 
     public Text infoBody;
     public Text infoTitle;
+    public Image infoImage;
 
     public AnimationCurve animCurve;
     public float animTime = 1;
@@ -19,10 +20,11 @@ public class InfoPopup : MonoBehaviour
     {
         startScale = this.transform.localScale;
     }
-    public void Init(string title, string body)
+    public void Init(string title, string body, Sprite sprite)
     {
         infoTitle.text = title;
         infoBody.text = body;
+        infoImage.sprite = sprite;
     }
     public void Update()
     {

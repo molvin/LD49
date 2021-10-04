@@ -389,6 +389,7 @@ MonoBehaviour:
   infoMessageTitle: Combind resources
   infoMessageBody: This building requiers a combination to two resources, use a combinder
     to combind the and meet the machines requierment
+  inforMessageImage: {fileID: 4462532979315700216, guid: e2ebc4f1d59fd784a9cb9a4956c1e659, type: 3}
 --- !u!1001 &919279863
 PrefabInstance:
   m_ObjectHideFlags: 0

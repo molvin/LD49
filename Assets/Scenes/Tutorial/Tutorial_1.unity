@@ -355,6 +355,7 @@ MonoBehaviour:
   infoPopupManager: {fileID: 0}
   infoMessageTitle: Supply the machine
   infoMessageBody: Connect the hose to the machine
+  inforMessageImage: {fileID: -4900077339660789354, guid: b092f5ef9125be843ab0fcffdd1b8f33, type: 3}
 --- !u!224 &545357785 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 371140402476402298, guid: 6b0c91d57b6b6a04fa824de15016c3d4, type: 3}

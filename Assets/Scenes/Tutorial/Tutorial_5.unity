@@ -453,6 +453,7 @@ MonoBehaviour:
   infoPopupManager: {fileID: 0}
   infoMessageTitle: Bigger building
   infoMessageBody: This building requeirs resources from multiple sources
+  inforMessageImage: {fileID: -4900077339660789354, guid: b092f5ef9125be843ab0fcffdd1b8f33, type: 3}
 --- !u!114 &1018510777 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 993232795, guid: 6883c425127f77849918da89ec7eb640, type: 3}
