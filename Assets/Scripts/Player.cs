@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 public class Player : MonoBehaviour
@@ -53,6 +54,8 @@ public class Player : MonoBehaviour
     public GameObject[] Ghosts;
     public Hose HosePrefab;
     public ParticleSystem FootStepDustRight, FootStepDustLeft, Place,  Drag, PickUp;
+
+    public AudioSource playerAudioSource;
     private bool footstepRight;
     public StateData HoseStateData = new StateData
     {
@@ -109,6 +112,7 @@ public class Player : MonoBehaviour
         FootStepDustRight.transform.localPosition = new Vector3(-0.8f, -0.94f, 0f);
         FootStepDustLeft.transform.localPosition = new Vector3(0.7f, -0.94f, 0f);
         footstepRight = false;
+        this.playerAudioSource = this.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -126,6 +130,10 @@ public class Player : MonoBehaviour
             Debug.Log(footstepRight);
         }
         foreach (var g in Ghosts) g.SetActive(false);
+        if(CurrentState != State.Move)
+        {
+            playerAudioSource.Pause();
+        }
         switch(CurrentState)
         {
             case State.Move:
@@ -357,7 +365,7 @@ public class Player : MonoBehaviour
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
             //Animator.GetComponent<SpriteRenderer>().flipX = CurrentState == State.Hose ? input.x > 0 : input.x < 0;
             Animator.transform.localScale = input.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
-            
+            if(!playerAudioSource.isPlaying) playerAudioSource.Play();
             //Visual Rotation, now just save last input rotation for interaction checks
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
             if (footstepRight && !FootStepDustRight.isPlaying && !FootStepDustLeft.isPlaying)
@@ -379,6 +387,9 @@ public class Player : MonoBehaviour
         else
         {
             Velocity = Vector3.SmoothDamp(Velocity, Vector3.zero, ref acceleration, DecelerationTime);
+            playerAudioSource.Pause();
+            Debug.Log("pausing");
+
         }
 
         //Rb.MovePosition(transform.position + Veloctiy * Time.deltaTime);

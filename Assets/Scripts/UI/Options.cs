@@ -143,9 +143,15 @@ public class Options : MonoBehaviour
         modeDropDown.gameObject.SetActive(enable);
         resDropDown.gameObject.SetActive(enable);
         closeButton.gameObject.SetActive(enable);
+
+
+        masterSlider.gameObject.SetActive(enable);
+        musicSlider.gameObject.SetActive(enable);
+        SFXSlider.gameObject.SetActive(enable);
+        UISlider.gameObject.SetActive(enable);
     }
 
-public void SetHidden(bool hidden)
+    public void SetHidden(bool hidden)
     {
         this.isHidden = hidden;
         if(!this.isHidden && Input.GetJoystickNames().Length > 1)
@@ -177,6 +183,7 @@ public void SetHidden(bool hidden)
     private void setVolume(string mixerName, float arg)
     {
         float actualValue = Mathf.Log10(arg) * 20;
+        actualValue = Mathf.Clamp(actualValue, -80, 0);
         mixer.SetFloat(mixerName, actualValue);
     }
 
