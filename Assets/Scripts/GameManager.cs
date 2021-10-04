@@ -197,4 +197,28 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public int AvailableResources()
+    {
+        int demands_count = 0;
+        int max_color_index = 0;
+        foreach (Entity entity in m_EntityManager.Entities)
+        {
+            if (entity is Demand)
+                demands_count++;
+        }
+        Debug.Log("dem" + demands_count);
+        foreach (int unlock_count in m_OrderdUnlocks)
+            {
+                if (unlock_count > demands_count)
+                    break;
+
+              //  Debug.Log("Unlock count: " + unlock_count + ", current demand count: " + demands_count);
+
+                max_color_index++;
+            }
+        Debug.Log("max " + max_color_index);
+
+        return max_color_index;
+    }
+
 }
