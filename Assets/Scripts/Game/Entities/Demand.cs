@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -78,6 +79,11 @@ public class Demand : Entity
            
         }
 
+    }
+
+    internal void TransferConnectionsTo(Demand doner_demand)
+    {
+        Debug.Log("Move connections to this");
     }
 
     public void UpdatePressureLevel(ResourceType Type, float Pressure)
