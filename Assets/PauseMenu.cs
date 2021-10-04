@@ -31,7 +31,7 @@ public class PauseMenu : MonoBehaviour
         {
             Paused = !Paused;
             Parent.SetActive(Paused);
-            if(Paused)
+            if(Paused && Input.GetJoystickNames().Length > 1)
             {
                 FindObjectOfType<EventSystem>().SetSelectedGameObject(resumeButton.gameObject);
             }

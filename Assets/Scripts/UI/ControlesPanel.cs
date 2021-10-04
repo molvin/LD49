@@ -33,8 +33,8 @@ public class ControlesPanel : MonoBehaviour
     public void SetHidden(bool hidden)
     {
         this.isHidden = hidden;
-        if(!this.isHidden)
-        {
+        if(!this.isHidden && Input.GetJoystickNames().Length > 1)
+        { 
             FindObjectOfType<EventSystem>().SetSelectedGameObject(this.GetComponentInChildren<Button>().gameObject);
 
         }
