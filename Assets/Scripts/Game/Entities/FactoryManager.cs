@@ -108,8 +108,9 @@ public class FactoryManager : MonoBehaviour
                 FactoryWithNeeds next_factory = m_FactoriesWithNeeds[i + 1];
                 next_factory.TransferConnectionsFrom(factory);
 
-                factory.SetActive(false, new List<Demand.Need>());
                 next_factory.SetActive(true, factory.GetNeeds());
+                factory.SetActive(false, new List<Demand.Need>());
+                
             }
         }
     }
