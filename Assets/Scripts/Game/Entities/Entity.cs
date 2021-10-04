@@ -9,11 +9,6 @@ public abstract class Entity : MonoBehaviour
     public List<GameObject> InteractionPoints;
     public int Id;
 
-    public Entity()
-    {
-        Id = IdCounter++;
-    }
-
     public virtual void Tick() { }
 
     public virtual void Clear() {}

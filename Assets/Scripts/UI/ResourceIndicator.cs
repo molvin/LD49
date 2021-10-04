@@ -76,7 +76,7 @@ public class ResourceIndicator : MonoBehaviour
             c.a = 1.0f;
             backgroundSprite.color = c;
         }
-        demandMarker.color = type == ResourceType.Black ? Color.white : Color.black;
+        demandMarker.color = mirrorDemandMarker.color = (type == ResourceType.Black ? Color.white : Color.black);
         this.leniency = leniency;
         Type = type;
     }
