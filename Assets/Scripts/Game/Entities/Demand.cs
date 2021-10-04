@@ -16,11 +16,11 @@ public class Demand : Entity
     public float NeedLeniency = 10;
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
-    ResourceIndicator[] indicators;
 
     protected ResourceWorldUI DemandUI;
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
+    protected Dictionary<ResourceType, ResourceIndicator> Indicators = new Dictionary<ResourceType, ResourceIndicator>();
 
     public override void Tick()
     {
@@ -86,11 +86,20 @@ public class Demand : Entity
         {
             PressureLevels.Add(Type, Pressure);
         }
+
+        Debug.Log($"{Type}, {PressureLevels[Type]}");
+        if(Indicators.TryGetValue(Type, out ResourceIndicator res))
+        {
+            Debug.Log("Setting");
+            res.SetValue(PressureLevels[Type]);
+        }
     }
 
     public override void Clear()
     {
-        PressureLevels.Clear(); 
+        PressureLevels.Clear();
+        foreach (var res in Indicators.Values)
+            res.SetValue(0.0f);
     }
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
     {
@@ -107,14 +116,17 @@ public class Demand : Entity
             edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
             Edges.Add(edge);
         }
-        indicators = GetComponentsInChildren<ResourceIndicator>();
 
         LastSatisfiedTime = Time.time;
-        DemandUI = GetComponentInChildren<ResourceWorldUI>();
+        //DemandUI = GetComponentInChildren<ResourceWorldUI>();
 
-        foreach(Need need in Needs)
+        int j = 0;
+        var indicators = GetComponentsInChildren<ResourceIndicator>();
+        foreach (Need need in Needs)
         {
-            DemandUI.SetDemand(need.Value, NeedLeniency);
+           // DemandUI.SetDemand(need.Value, NeedLeniency
+            indicators[j].SetDemand(need.Value, NeedLeniency);
+            Indicators.Add(need.Type, indicators[j++]);
         }
     }
 

@@ -301,6 +301,7 @@ MonoBehaviour:
   demoValue: 0.34
   demoLeniency: 62.6
   animationTimeInSeconds: 0.3
+  animationSpeed: 10
   demandMarker: {fileID: 2732784364231735046}
   valueIndicator: {fileID: 8315390266113625628}
   mirrorDemandMarker: {fileID: 920074941299984757}
