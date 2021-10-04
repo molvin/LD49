@@ -1249,7 +1249,7 @@ MonoBehaviour:
   - {fileID: 720461538}
   - {fileID: 281355484}
   Needs: []
-  TimeToDestroy: 0
+  TimeToDestroy: 100
   NeedLeniency: 10
   IsSatisfied: 0
   ShouldAddOnActivation: 1

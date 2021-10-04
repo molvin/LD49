@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
             {
                 positions.Add(entity.transform.position);
             }
+
         }
 
         if (positions.Count == 0)
