@@ -338,29 +338,34 @@ public class Player : MonoBehaviour
 
     private void UpdateHoseState()
     {
+        Move();
         Hose Hose = Interaction.Entity as Hose;
-        if(Interaction.Edge.Value.SelfSocket == 0)
-            Hose.Socket0.position = transform.position;
-        else
-            Hose.Socket1.position = transform.position;
 
-        if (Input.GetButtonDown("Interact"))
-            Interact();
-
-        if(Input.GetButtonDown("Destroy"))
+        if (Input.GetButton("Interact"))
         {
-            foreach (var point in Interaction.Entity.InteractionPoints)
+            if (Interaction.Edge.Value.SelfSocket == 0)
+                Hose.Socket0.position = transform.position;
+            else
+                Hose.Socket1.position = transform.position;
+
+        }
+        else
+        {
+            Interact();
+            if(CurrentState == State.Hose)
             {
-                //Should be active if their edge is not connected to anything
-                var ip = point.GetComponent<InteractionPoint>();
-                bool shouldBeActive = Hose.Edges[ip.Socket].Other == null;
-                point.SetActive(shouldBeActive);
+                foreach (var point in Interaction.Entity.InteractionPoints)
+                {
+                    //Should be active if their edge is not connected to anything
+                    var ip = point.GetComponent<InteractionPoint>();
+                    bool shouldBeActive = Hose.Edges[ip.Socket].Other == null;
+                    point.SetActive(shouldBeActive);
+                }
+                Interaction.Clear();
+                CurrentState = State.Move;
             }
-            Interaction.Clear();
-            CurrentState = State.Move;
         }
 
-        Move();
     }
 
     private void UpdateValveState()
