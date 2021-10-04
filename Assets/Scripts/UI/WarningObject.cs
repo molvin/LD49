@@ -58,8 +58,10 @@ public class WarningObject : MonoBehaviour
         Vector3 screenpos = Camera.main.WorldToScreenPoint(target.position);
         if (isTargetOnScreen(screenpos))
         {
-            this.SetRenderesEnabled(false);
-            //this.transform.position = Camera.main.ScreenToWorldPoint(screenpos);
+            //this.SetRenderesEnabled(false);
+            this.transform.position = new Vector3(screenpos.x, screenpos.y + 280, screenpos.z);
+            this.transform.rotation = Quaternion.Euler(0, 0, 90);
+
         }
         else
         {

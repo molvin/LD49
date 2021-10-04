@@ -229,13 +229,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 253497189, guid: 72c6f6e3756ad6f43a48237eed4973aa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7700145396854565368, guid: 72c6f6e3756ad6f43a48237eed4973aa, type: 3}
       propertyPath: m_Name
       value: SmallBuilding
       objectReference: {fileID: 0}
     - target: {fileID: 7700145396854565368, guid: 72c6f6e3756ad6f43a48237eed4973aa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7700145396854565369, guid: 72c6f6e3756ad6f43a48237eed4973aa, type: 3}
       propertyPath: m_RootOrder

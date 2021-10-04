@@ -17,6 +17,9 @@ TextureImporter:
   - first:
       213: 1563164317081397397
     second: LD49_Menu_Icons_4
+  - first:
+      213: 7851957083998970598
+    second: empty
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -242,6 +245,27 @@ TextureImporter:
       bones: []
       spriteID: 598e3351aa971b510800000000000000
       internalID: 1563164317081397397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: empty
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 486
+        width: 94
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2ee5fcd51c7fc60800000000000000
+      internalID: 7851957083998970598
       vertices: []
       indices: 
       edges: []

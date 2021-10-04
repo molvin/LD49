@@ -1410,6 +1410,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2512685956735782865}
+        m_TargetAssemblyTypeName: Options, Assembly-CSharp
+        m_MethodName: SetHidden
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!82 &1272111134075864601
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5632,6 +5644,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2512685956735782865}
+        m_TargetAssemblyTypeName: Options, Assembly-CSharp
+        m_MethodName: SetHidden
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &7289946466389075364
 GameObject:
   m_ObjectHideFlags: 0
@@ -6225,7 +6249,7 @@ MonoBehaviour:
   musicSlider: {fileID: 596884624638991201}
   SFXSlider: {fileID: 4170268465697992184}
   UISlider: {fileID: 4626436575895206171}
-  closeButton: {fileID: 0}
+  closeButton: {fileID: 2999301540088275553}
   animCurve:
     serializedVersion: 2
     m_Curve:
