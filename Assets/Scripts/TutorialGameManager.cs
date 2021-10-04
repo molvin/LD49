@@ -62,15 +62,15 @@ public class TutorialGameManager : GameManager
     }
     private IEnumerator NextLevelSoon()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         fader.FadeIn(false);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         Scene currentScene = SceneManager.GetActiveScene();
         int nextScene = currentScene.buildIndex + 1;
         if (nextScene > lastTutorialScene)
         {
             PlayerPrefs.SetInt("playedTutorial", 1);
-            nextScene = 0;
+            nextScene = 1;
         }
         SceneManager.LoadScene(nextScene);
     }

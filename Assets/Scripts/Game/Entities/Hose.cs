@@ -62,8 +62,8 @@ public class Hose : PressurisedEnitity
     private void Update()
     {
         //Temp
-        LineRenderer lr = GetComponent<LineRenderer>();
-        lr.SetPositions(new Vector3[]{ Socket0.position, Socket1.position });
+        //LineRenderer lr = GetComponent<LineRenderer>();
+        //lr.SetPositions(new Vector3[]{ Socket0.position, Socket1.position });
 
         Reel.Update();
         FixSpline();
@@ -89,6 +89,17 @@ public class Hose : PressurisedEnitity
             for (int i = 0; i < Reel.Sticks.Count; i+=2)
             {
                 HoseStick S(int Index) => Reel.Sticks[Index];
+
+                int ind = i / 2;
+
+                if (ind > 0 && ind <= Spline.GetPointCount())
+                {
+                    Vector2 Pos = Spline.GetPosition(ind - 1);
+                    if (Vector2.Distance(Pos, S(i).transform.position) <= 1.5f)
+                    {
+                        continue;
+                    }
+                }
 
                 Add(i / 2, S(i).transform.position);
                 if (i == 0)
@@ -128,7 +139,7 @@ public class Hose : PressurisedEnitity
         }
         
         Add(0, Socket0.position);
-        if (Vector3.Distance(Socket0.position, Socket1.position) > 2.0f)
+        if (Vector3.Distance(Socket0.position, Socket1.position) > 2.5f)
         {
             Add(Spline.GetPointCount(), Socket1.position);
 
@@ -137,14 +148,14 @@ public class Hose : PressurisedEnitity
             Vector3 Second = (Spline.GetPosition(1));
             Vector3 AlmostLast = (Spline.GetPosition(Spline.GetPointCount() - 2));
             // Add intermeediate points
-            if (Vector3.Distance(SocketPos0, Second) > 2.0f)
+            if (Vector3.Distance(SocketPos0, Second) > 2.5f)
             {
                 Vector3 Dir = (Second - SocketPos0).normalized;
                 Add(1, Socket0.transform.position + Dir);
                 Spline.SetLeftTangent(1, Dir);
                 Spline.SetRightTangent(1, Dir);
             }
-            if (Vector3.Distance(SocketPos1, AlmostLast) > 2.0f)
+            if (Vector3.Distance(SocketPos1, AlmostLast) > 2.5f)
             {
                 Vector3 Dir = (AlmostLast - SocketPos1).normalized;
                 Add(Spline.GetPointCount() - 1, Socket1.transform.position + Dir);
