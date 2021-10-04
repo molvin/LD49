@@ -29,7 +29,7 @@ public class SceneFaderPanelController : MonoBehaviour
     {
         fadeTimer += fadeIn ? Time.deltaTime : -Time.deltaTime;
         fadeTimer = Mathf.Clamp(fadeTimer, 0, fadeTime);
-        Debug.Log(animCurve.Evaluate(fadeTimer / fadeTime));
+        
         fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, animCurve.Evaluate(fadeTimer / fadeTime));
     }
 }

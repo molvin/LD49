@@ -26,7 +26,7 @@ public class ToolBarManager : MonoBehaviour
 
     GameObject toolbarObj;
 
-    Dictionary<Player.Item, GameObject> items = new Dictionary<Player.Item, GameObject>();
+    Dictionary<Player.Item, ToolbarIcon> items = new Dictionary<Player.Item, ToolbarIcon>();
 
     // Start is called before the first frame update
     public void Init()
@@ -105,26 +105,25 @@ public class ToolBarManager : MonoBehaviour
 
     public void DisableAllItems()
     {
-        foreach (GameObject item in items.Values)
+        foreach (ToolbarIcon item in items.Values)
         {
-            item.GetComponentInChildren<Outline>().enabled = false;
+            item.setHighlight(false);
         }
     }
 
     public void SetItemActive(Player.Item id)
     {
         DisableAllItems();
-        items[id].GetComponentInChildren<Outline>().enabled = true;
-        
+        items[id].setHighlight(true);
+
     }
 
     void AddIcon(Player.Item id, Sprite icon)
     {
         GameObject iconobj = (GameObject)Instantiate(Resources.Load(iconPath), toolbarObj.transform);
-        
-        //iconobj.GetComponentInChildren<Image>().sprite = icon;
-        iconobj.GetComponentInChildren<Text>().text = "0";
-        items.Add(id,iconobj);
+        ToolbarIcon iconScript =  iconobj.GetComponent<ToolbarIcon>();
+        iconScript.SetIconByItem(id);
+        items.Add(id, iconScript);
     }
 
     public void SetIconCount(Player.Item id, int count)
