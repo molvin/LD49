@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.U2D;
 
 public class Hose : PressurisedEnitity
 {
@@ -13,12 +14,15 @@ public class Hose : PressurisedEnitity
     public HoseStick HoseStickPrefab;
     public HoseJoint HoseJointPrefab;
 
+    private SpriteShapeController SpriteController;
+
     private Reel Reel;
 
     public void UpdateSocketPositions(Vector3 start, Vector3 end)
     {
         Socket0.position = start;
         Socket1.position = end;
+
     }
 
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
@@ -49,6 +53,8 @@ public class Hose : PressurisedEnitity
 
         Reel = new Reel();
         Reel.Initialize(this);
+        SpriteController = GetComponent<SpriteShapeController>();
+        SpriteController.spline.Clear();
     }
 
     private void Update()
@@ -58,17 +64,123 @@ public class Hose : PressurisedEnitity
         lr.SetPositions(new Vector3[]{ Socket0.position, Socket1.position });
 
         Reel.Update();
+        FixSpline();
+    }
+
+    private void FixSpline()
+    {
+        /*
+        0 - Tube
+        1 - Left Unsocket
+        2 - Right Unsocket
+        3 - Left Socket
+        4 - Right Socket
+        */
+        var Spline = SpriteController.spline;
+        Spline.Clear();
+
+        if (Reel.Joints.Count > 0)
+        {
+            for (int i = 0; i < Reel.Sticks.Count; i+=2)
+            {
+                HoseStick S(int Index) => Reel.Sticks[Index];
+
+                Add(i / 2, S(i).transform.position);
+                if (i == 0)
+                {
+                    //Spline.SetRightTangent(0, Socket0.position);
+                    //if (Reel.Sticks.Count > 1)
+                    //{
+                        //Spline.SetLeftTangent(
+                            //0, S(1).transform.position);
+                    //}
+                }
+                else if (i == Reel.Sticks.Count - 1)
+                {
+                    //Spline.SetLeftTangent(i / 2, Socket1.position);
+                    //Spline.SetRightTangent(
+                        //(i / 2),
+                        //S(i - 1).transform.position);
+                }
+                else
+                {
+                    Spline.SetRightTangent(
+                        i / 2,
+                        S(i).transform.right * Reel.StickLength);
+                    Spline.SetLeftTangent(
+                        i / 2,
+                        -S(i).transform.right * Reel.StickLength);
+                    //Vector3 LeftProjection = Vector3.Project(
+                        //S(i - 1).transform.position,
+                        //S(i).transform.right);
+                    //Vector3 RightProjection = Vector3.Project(
+                        //S(i + 1).transform.position,
+                        //S(i).transform.right);
+                    //Spline.SetLeftTangent(i / 2, LeftProjection);
+                    //Spline.SetRightTangent(i / 2, RightProjection);
+                }
+            }
+        }
+        
+        Add(0, Socket0.position);
+        Add(Spline.GetPointCount(), Socket1.position);
+
+        Vector3 SocketPos0 = T(Socket0.position);
+        Vector3 SocketPos1 = T(Socket1.position);
+        Vector3 Second = (Spline.GetPosition(1));
+        Vector3 AlmostLast = (Spline.GetPosition(Spline.GetPointCount() - 2));
+        // Add intermeediate points
+        if (Vector3.Distance(SocketPos0, Second) > 1.5f)
+        {
+            Vector3 Dir = (Second - SocketPos0).normalized;
+            Add(1, Socket0.transform.position + Dir);
+            Spline.SetLeftTangent(1, Dir);
+            Spline.SetRightTangent(1, Dir);
+        }
+        if (Vector3.Distance(SocketPos1, AlmostLast) > 1.5f)
+        {
+            Vector3 Dir = (AlmostLast - SocketPos1).normalized;
+            Add(Spline.GetPointCount() - 1, Socket1.transform.position + Dir);
+            Spline.SetLeftTangent(Spline.GetPointCount() - 2, Dir);
+            Spline.SetRightTangent(Spline.GetPointCount() - 2, Dir);
+        }
+
+        if (Spline.GetPointCount() == 2)
+        {
+            Spline.SetSpriteIndex(0, 2);
+            Spline.SetSpriteIndex(1, 3);
+        }
+
+        if (Spline.GetPointCount() > 2)
+        {
+            int LeftIndex = 0;
+            int RightIndex = Spline.GetPointCount() - 2;
+            int LeftSprite = Edges[0].Other ? 3 : 1;
+            int RightSprite = Edges[1].Other ? 4 : 2;
+
+            Spline.SetSpriteIndex(LeftIndex, LeftSprite);
+            Spline.SetSpriteIndex(RightIndex, RightSprite);
+        }
+
+        void Add(int I, Vector3 P)
+        {
+            SpriteController.spline.InsertPointAt(I, T(P));
+            SpriteController.spline.SetTangentMode(I, ShapeTangentMode.Continuous);
+            SpriteController.spline.SetSpriteIndex(I, 0);
+        }
+        Vector3 T(Vector3 P) => P - transform.position;
     }
 }
 
-class Reel
+public class Reel
 {
     public Hose Owner;
     private HoseStick SocketStick0;
     private HoseStick SocketStick1;
     private HoseJoint CurrentJoint;
     private bool ShouldCreateStick = true;
-    private float StickLength;
+    [HideInInspector]
+    public float StickLength;
     private float ActorRadius;
     private float JointRadius;
     private Player.StateData StateData => Player.Instance.HoseStateData;
@@ -77,14 +189,17 @@ class Reel
     private Vector3 ActorLocation(int HoseSocket) => HoseSocket == 0 ? Owner.Socket0.position : Owner.Socket1.position;
     private Vector3 ReelLocation(int HoseSocket) => HoseSocket != 0 ? Owner.Socket0.position : Owner.Socket1.position;
 
-    private List<HoseJoint> Joints = new List<HoseJoint>();
-    private List<HoseStick> Sticks = new List<HoseStick>();
-    private List<InterpolatePoint> Points = new List<InterpolatePoint>();
+    [HideInInspector]
+    public List<HoseJoint> Joints = new List<HoseJoint>();
+    [HideInInspector]
+    public List<HoseStick> Sticks = new List<HoseStick>();
+    [HideInInspector]
+    public List<InterpolatePoint> Points = new List<InterpolatePoint>();
 
     private GameObject StartSentinel;
     private GameObject EndSentinel;
 
-    class InterpolatePoint
+    public class InterpolatePoint
     {
         public Vector2 CurrentPosition;
         public Vector2 PreviousPosition;
@@ -101,6 +216,7 @@ class Reel
     }
     public void Update()
     {
+        CreatePoints();
         // EXIT
         if (StateData.StateExited)
         {
@@ -286,47 +402,45 @@ class Reel
         }
         else
         {
-            // Create points.
-            if (Joints.Count == 0)
-            {
-                // Don't even bother.
-                return;
-            }
-
-            //Vector3 StartSentinel = GetFurthestSocketLocationOnStick(Sticks[0], Joints[0].transform.position);
-            //Vector3 Dir = StartSentinel - Sticks[0].transform.position;
-            //StartSentinel += Dir.normalized * JointRadius;
-            //Points.Add(StartSentinel);
-
-            Vector3 SocketLocation0 = Owner.Socket0.transform.position;
-            Vector3 SocketLocation1 = Owner.Socket1.transform.position;
-            int X = Vector3.Distance(SocketLocation0, Sticks[0].transform.position)
-                < Vector3.Distance(SocketLocation1, Sticks[0].transform.position)
-                ? 0 : 1;
-
-            Points.Clear();
-            // Start sentinel
-            var StartPoint = new InterpolatePoint();
-            StartPoint.CurrentPosition = (X == 0 ? SocketLocation0 : SocketLocation1);
-            StartPoint.PreviousPosition = StartPoint.CurrentPosition;
-            Points.Add(StartPoint);
-
-            Joints.ForEach(Joint =>
-            {
-                var Point = new InterpolatePoint();
-                Point.CurrentPosition = Joint.transform.position;
-                Point.PreviousPosition = Point.CurrentPosition;
-                Points.Add(Point);
-            });
-
-            // End sentinel
-            var EndPoint = new InterpolatePoint();
-            EndPoint.CurrentPosition = (X == 0 ? SocketLocation1 : SocketLocation0);
-            EndPoint.PreviousPosition = EndPoint.CurrentPosition;
-            Points.Add(EndPoint);
         }
     }
 
+    private void CreatePoints()
+    {
+        // Create points.
+        if (Joints.Count == 0)
+        {
+            // Don't even bother.
+            return;
+        }
+
+        Vector3 SocketLocation0 = Owner.Socket0.transform.position;
+        Vector3 SocketLocation1 = Owner.Socket1.transform.position;
+        int X = Vector3.Distance(SocketLocation0, Sticks[0].transform.position)
+            < Vector3.Distance(SocketLocation1, Sticks[0].transform.position)
+            ? 0 : 1;
+
+        Points.Clear();
+        // Start sentinel
+        var StartPoint = new InterpolatePoint();
+        StartPoint.CurrentPosition = (X == 0 ? SocketLocation0 : SocketLocation1);
+        StartPoint.PreviousPosition = StartPoint.CurrentPosition;
+        Points.Add(StartPoint);
+
+        Joints.ForEach(Joint =>
+        {
+            var Point = new InterpolatePoint();
+            Point.CurrentPosition = Joint.transform.position;
+            Point.PreviousPosition = Point.CurrentPosition;
+            Points.Add(Point);
+        });
+
+        // End sentinel
+        var EndPoint = new InterpolatePoint();
+        EndPoint.CurrentPosition = (X == 0 ? SocketLocation1 : SocketLocation0);
+        EndPoint.PreviousPosition = EndPoint.CurrentPosition;
+        Points.Add(EndPoint);
+    }
     private void CreateSentinels()
     {
         DestroySentinels();
