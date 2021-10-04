@@ -592,6 +592,7 @@ MonoBehaviour:
   TimeToDestroy: 0
   NeedLeniency: 10
   IsSatisfied: 0
+  ShouldAddOnActivation: 1
 --- !u!1001 &2242640955809312991
 PrefabInstance:
   m_ObjectHideFlags: 0

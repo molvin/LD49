@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     //Editor variabels
     [Header("Unlocks | Factory Type")]
-    public int m_LevelTwoSpawnCount;
-    public int m_LevelThreeSpawnCount;
     public ParticleSystem Kablaam;
     private bool doKablaam;
 
@@ -40,7 +38,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField]
-    Demand m_DemandEntity;
+    FactoryManager m_FactoryEntity;
 
 
     //Hiden varables
@@ -105,7 +103,6 @@ public class GameManager : MonoBehaviour
 
     private void SpawnBuilding()
     {
-
         Vector3 spawn_pos = Vector3.negativeInfinity;
         for (int i = 0; i < 1000; i++)
         {
@@ -131,60 +128,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        
-
-        Entity spawned_entity = m_EntityManager.Add(m_DemandEntity, spawn_pos);
-        if (spawned_entity is Demand spawned_demand)
-        {
-            int max_color_index = 1;
-
-            int demands_count = 0;
-
-            foreach (Entity entity in m_EntityManager.Entities)
-            {
-                if (entity is Demand)
-                    demands_count++;
-            }
-
-            
-
-            foreach (int unlock_count in m_OrderdUnlocks)
-            {
-                if (unlock_count > demands_count)
-                    break;
-
-                Debug.Log("Unlock count: " + unlock_count + ", current demand count: " + demands_count);
-
-                max_color_index++;
-            }
-
-            int resource_variants_count = 1;
-
-            if (demands_count >= m_LevelTwoSpawnCount)
-                resource_variants_count++;
-            if (demands_count >= m_LevelThreeSpawnCount)
-                resource_variants_count++;
-
-            spawned_demand.Needs.Clear();
-
-            List<ResourceType> resource_pool = new List<ResourceType>();
-
-            for (int i = 1; i < max_color_index; i++)
-            {
-                resource_pool.Add((ResourceType)i);
-            }
-
-            for (int i = 0; i < resource_variants_count; i++)
-            {
-                if (resource_pool.Count == 0)
-                    break;
-
-                int resource_index = Random.Range(0, resource_pool.Count);
-                Demand.Need need = new Demand.Need { Type = resource_pool[resource_index], Value = Random.Range(m_MinDemand, m_MaxDemand) };
-                spawned_demand.Needs.Add(need);
-                resource_pool.RemoveAt(resource_index);
-            }
-        }
+        Instantiate(m_FactoryEntity, spawn_pos, Quaternion.identity);
     }
 
     private bool IsPointAccesable(Vector3 origin, float distance)
@@ -203,6 +147,50 @@ public class GameManager : MonoBehaviour
 
         return false;
 
+    }
+
+    public void GetNeeds(ref List<Demand.Need> needs, int resource_variants_count)
+    {
+            int max_color_index = 1;
+
+            int demands_count = 0;
+
+            foreach (Entity entity in m_EntityManager.Entities)
+            {
+                if (entity is Demand)
+                    demands_count++;
+            }
+
+            foreach (int unlock_count in m_OrderdUnlocks)
+            {
+                if (unlock_count > demands_count)
+                    break;
+
+              //  Debug.Log("Unlock count: " + unlock_count + ", current demand count: " + demands_count);
+
+                max_color_index++;
+            }
+
+            List<ResourceType> resource_pool = new List<ResourceType>();
+
+            for (int i = 1; i < max_color_index; i++)
+            {
+                ResourceType resource = (ResourceType)i;
+                if (needs.TrueForAll((need) => need.Type != resource))
+                    resource_pool.Add(resource);
+            }
+
+            for (int i = 0; i < resource_variants_count; i++)
+            {
+                if (resource_pool.Count == 0)
+                    break;
+
+                int resource_index = Random.Range(0, resource_pool.Count);
+                Demand.Need need = new Demand.Need { Type = resource_pool[resource_index], Value = Random.Range(m_MinDemand, m_MaxDemand) };
+                needs.Add(need);
+                resource_pool.RemoveAt(resource_index);
+            }
+        
     }
 
 }
