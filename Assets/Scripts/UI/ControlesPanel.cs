@@ -27,7 +27,7 @@ public class ControlesPanel : MonoBehaviour
         timer += isHidden ? Time.deltaTime : -Time.deltaTime;
         timer = Mathf.Clamp(timer, 0, animTime);
         float posModi = animCurve.Evaluate(timer / animTime);
-        this.transform.position = new Vector3(startPos.x + (1500 * posModi), startPos.y, startPos.z);
+        this.transform.position = new Vector3(startPos.x + (3000 * posModi), startPos.y, startPos.z);
     }
 
     public void SetHidden(bool hidden)
