@@ -133,7 +133,7 @@ MonoBehaviour:
   Offset: {x: 0, y: 0, z: -10}
   SmoothTime: 0.02
   NormalZoom: 15
-  FarZoom: 50
+  FarZoom: 35
   ZoomOutSmoothTime: 0.1
   ZoomInSmoothTime: 0.025
 --- !u!82 &2571101853589190311

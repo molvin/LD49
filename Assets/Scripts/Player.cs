@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
     public float DestructionRadius;
     public LayerMask EntityLayer;
     
+    public float HoseDropRadius;
+
     //Interact
     public struct InteractionData
     {
@@ -125,10 +127,7 @@ public class Player : MonoBehaviour
         Animator.SetBool("Dragging", CurrentState == State.Valve || CurrentState == State.Hose);
         InteractionIndicator.SetActive(false);
         DestructionCube.SetActive(false);
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log(footstepRight);
-        }
+
         foreach (var g in Ghosts) g.SetActive(false);
         if(CurrentState != State.Move)
         {
@@ -173,7 +172,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Destroy"))
             CurrentState = State.Destroy;
         if (Input.GetButtonDown("Interact"))
-            Interact();
+            Interact(InteractionRadius);
 
         Vector3 position = transform.position + SpriteHolder.up;
         var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
@@ -195,6 +194,21 @@ public class Player : MonoBehaviour
             InteractionIndicator.SetActive(true);
 
             InteractionIndicator.transform.position = closest.transform.position;
+        }
+
+
+        bool build = Mathf.Abs(Input.GetAxisRaw("Cycle")) > MinInput;
+        for (int i = 0; i < Items.Count; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
+                build = true;
+            }
+        }
+        if(build)
+        {
+            CurrentState = State.Build;
+            UpdateBuildState();
         }
     }
 
@@ -252,6 +266,8 @@ public class Player : MonoBehaviour
                 Place.transform.position = targetPosition;
                 Place.Play();
             }
+            CurrentState = State.Move;
+
         }
 
         if (Input.GetButtonDown("Build"))
@@ -305,16 +321,15 @@ public class Player : MonoBehaviour
             }
             Debug.Log("Destroying Item");
             GameManager.Instance.m_EntityManager.Destroy(closest);
-            //TODO: regain one item
+            CurrentState = State.Move;
         }
-
     }
 
-    private void Interact()
+    private void Interact(float radius)
     {
         //Overlap check infront of you
         Vector3 position = transform.position + SpriteHolder.up;
-        var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
+        var colliders = Physics2D.OverlapCircleAll(position, radius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
 
@@ -407,7 +422,7 @@ public class Player : MonoBehaviour
     private void UpdateHoseState()
     {
         Vector3 position = transform.position + SpriteHolder.up;
-        var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
+        var colliders = Physics2D.OverlapCircleAll(position, HoseDropRadius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
         Drag.Play();
@@ -443,7 +458,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Interact();
+            Interact(HoseDropRadius);
             if(CurrentState == State.Hose)
             {
                 foreach (var point in Interaction.Entity.InteractionPoints)

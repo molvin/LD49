@@ -72,7 +72,7 @@ public class Hose : PressurisedEnitity
         FixSpline();
         if (Type != ResourceType.None && Pressure > 0.0f)
         {
-            Renderer.color = Color.Lerp(ResourceColor.TypeColor(Type), Color.white, 0.5f);
+            Renderer.color = Color.Lerp(ResourceColor.TypeColor(Type), Color.white, 0.75f);
         }
         else
         {

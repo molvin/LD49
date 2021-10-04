@@ -47,6 +47,11 @@ public class Demand : Entity
                 IsSatisfied = false;
             }
 
+            if (!Indicators.ContainsKey(need.Type))
+            {
+                continue;
+            }
+
             var res = Indicators[need.Type];
             if (PressureLevels.ContainsKey(need.Type))
                 res.SetValue(PressureLevels[need.Type]);
@@ -62,22 +67,20 @@ public class Demand : Entity
         if (IsSatisfied)
         {
             LastSatisfiedTime = Time.time;
-            if (WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))
-                WarningSystem.Instance.CancelWarningObject(gameObject.GetInstanceID());
+            if (WarningSystem.Instance.ContainsWarning(Id))
+                WarningSystem.Instance.CancelWarningObject(Id);
         }    
         else
         {
             float time_under_need = GetTimeUnderNeed();
-            /*
             if (time_under_need > TimeToDestroy)
             {
                 GameManager.Instance.GameOver();
             }
-            else if(TimeToDestroy - (TimeToDestroy - time_under_need) > WarningSystem.Instance.WarningTime && !WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))  
+            else if(!WarningSystem.Instance.ContainsWarning(Id))  
             {
-                WarningSystem.Instance.CreateWarningObject(gameObject, gameObject.GetInstanceID(), TimeToDestroy - time_under_need);
+                WarningSystem.Instance.CreateWarningObject(gameObject, Id, TimeToDestroy - time_under_need);
             }
-            */
            
         }
 
