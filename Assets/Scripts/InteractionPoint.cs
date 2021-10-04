@@ -105,6 +105,7 @@ public class InteractionPoint : MonoBehaviour
                     if (handle.transform != transform.parent)
                         player.Interaction.OtherHandle = handle.transform;
 
+                player.transform.position = transform.position;
                 player.Interaction.StartPosition = player.transform.position;
                 player.Interaction.StartDistance = (transform.parent.position - player.transform.position).magnitude;
                 player.Interaction.PreviousPosition = player.transform.position;

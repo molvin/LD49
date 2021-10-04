@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     public float InteractionRadius = 3;
     public float InteractionDistance = 1;
     public LayerMask InteractionLayer;
+    public LayerMask BlockerLayer;
     public float CycleTickTime;
     private List<Item> Items;
     private float cycleTimer;
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
     }
     public InteractionData Interaction;
     public float DragSpeed = 0.5f;
+    public GameObject InteractionIndicator;
 
     private void Start()
     {
@@ -115,7 +117,7 @@ public class Player : MonoBehaviour
             return;
 
         Animator.SetBool("Dragging", CurrentState == State.Valve || CurrentState == State.Hose);
-
+        InteractionIndicator.SetActive(false);
         DestructionCube.SetActive(false);
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -162,6 +164,28 @@ public class Player : MonoBehaviour
             CurrentState = State.Destroy;
         if (Input.GetButtonDown("Interact"))
             Interact();
+
+        Vector3 position = transform.position + SpriteHolder.up;
+        var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
+        InteractionPoint closest = null;
+        float dist = 10000000000.0f;
+
+        foreach (var coll in colliders)
+        {
+            float d = (position - coll.transform.position).magnitude;
+            if (d < dist)
+            {
+                dist = d;
+                closest = coll.GetComponent<InteractionPoint>();
+            }
+        }
+
+        if (closest)
+        {
+            InteractionIndicator.SetActive(true);
+
+            InteractionIndicator.transform.position = closest.transform.position;
+        }
     }
 
     private void UpdateBuildState()
@@ -192,7 +216,7 @@ public class Player : MonoBehaviour
 
         var coll = Placeables[SelectedItem].GetComponent<BoxCollider2D>();
         Vector3 targetPosition = transform.position + SpriteHolder.up * PlaceDistance;
-        bool canPlace = !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer);
+        bool canPlace = !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer) && !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, BlockerLayer);
 
         Ghosts[SelectedItem].SetActive(true);
         Ghosts[SelectedItem].transform.position = targetPosition;
@@ -255,6 +279,7 @@ public class Player : MonoBehaviour
         }
 
     }
+
     private void Interact()
     {
         //Overlap check infront of you
@@ -330,9 +355,32 @@ public class Player : MonoBehaviour
 
     private void UpdateHoseState()
     {
+        Vector3 position = transform.position + SpriteHolder.up;
+        var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
+        InteractionPoint closest = null;
+        float dist = 10000000000.0f;
+
+        foreach (var coll in colliders)
+        {
+            float d = (position - coll.transform.position).magnitude;
+            if (d < dist)
+            {
+                dist = d;
+                closest = coll.GetComponent<InteractionPoint>();
+            }
+        }
+
+        if (closest && closest.InteractType == InteractionPoint.Interactable.Socket)
+        {
+            InteractionIndicator.SetActive(true);
+
+            InteractionIndicator.transform.position = closest.transform.position;
+        }
+
+
+
         Move();
         Hose Hose = Interaction.Entity as Hose;
-
         if (Input.GetButton("Interact"))
         {
             if (Interaction.Edge.Value.SelfSocket == 0)
@@ -362,35 +410,38 @@ public class Player : MonoBehaviour
 
     private void UpdateValveState()
     {
-        Velocity = Vector3.zero;
-        Valve valve = Interaction.Entity as Valve;
-
-        Vector3 direction = (Interaction.Handle.GetChild(0).position - Interaction.Entity.transform.position).normalized;
-        float distance = ((Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction)) / valve.MaxDistance;
-        Interaction.PreviousPosition = transform.position;
-        valve.Gate = Mathf.Lerp(0, 100, distance);
-        
-        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        float dot = Vector3.Dot(direction, input);
-
-        Animator.speed = 0.0f;
-        if (input.magnitude > MinInput && dot > 0.7f && distance < 1.0f)
+        if(Input.GetButton("Interact"))
         {
-            Velocity = direction * DragSpeed;
-            Animator.speed = 1.0f;
+            GetComponent<CircleCollider2D>().enabled = false;
+            Velocity = Vector3.zero;
+            Valve valve = Interaction.Entity as Valve;
+
+            Vector3 direction = (Interaction.Handle.GetChild(0).position - Interaction.Entity.transform.position).normalized;
+            float distance = ((Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction)) / valve.MaxDistance;
+            Interaction.PreviousPosition = transform.position;
+            valve.Gate = Mathf.Lerp(0, 100, distance);
+
+            Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            float dot = Vector3.Dot(direction, input);
+
+            Animator.speed = 0.0f;
+            if (input.magnitude > MinInput && dot > 0.7f && distance < 1.0f)
+            {
+                Velocity = direction * DragSpeed;
+                Animator.speed = 1.0f;
+            }
+            if (input.magnitude > MinInput && dot < -0.7f && distance > 0.0f)
+            {
+                Velocity = -direction * DragSpeed;
+                Animator.speed = 1.0f;
+            }
         }
-        if (input.magnitude > MinInput && dot < -0.7f && distance > 0.0f)
+        else
         {
-            Velocity = -direction * DragSpeed;
-            Animator.speed = 1.0f;
-        }
-
-        if (Input.GetButtonDown("Destroy") || Input.GetButtonDown("Interact"))
-        {
+            GetComponent<CircleCollider2D>().enabled = true;
             CurrentState = State.Move;
             Interaction.Clear();
         }
-
     }
 
     private void UpdateStateMachineData(ref StateData Data)
