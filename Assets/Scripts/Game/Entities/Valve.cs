@@ -7,6 +7,7 @@ public class Valve : PressurisedEnitity
     public float Gate;
     public GameObject[] Handles;
     public float MaxDistance;
+    public ResourceIndicator Indicator;
 
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
     {
@@ -39,5 +40,8 @@ public class Valve : PressurisedEnitity
     {
         Handles[0].transform.localPosition = -transform.right * MaxDistance * Gate / 100.0f;
         Handles[1].transform.localPosition = transform.right * MaxDistance * Gate / 100.0f;
+
+        Indicator.SetDemand(Gate, 100, Type);
+        Indicator.SetValue(Pressure);
     }
 }

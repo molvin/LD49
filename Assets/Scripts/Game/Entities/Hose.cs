@@ -17,6 +17,7 @@ public class Hose : PressurisedEnitity
     public HoseJoint HoseJointPrefab;
 
     private SpriteShapeController SpriteController;
+    private SpriteShapeRenderer Renderer;
 
     private Reel Reel;
 
@@ -57,6 +58,8 @@ public class Hose : PressurisedEnitity
         Reel.Initialize(this);
         SpriteController = GetComponent<SpriteShapeController>();
         SpriteController.spline.Clear();
+
+        Renderer = GetComponent<SpriteShapeRenderer>();
     }
 
     private void Update()
@@ -67,6 +70,14 @@ public class Hose : PressurisedEnitity
 
         Reel.Update();
         FixSpline();
+        if (Type != ResourceType.None && Pressure > 0.0f)
+        {
+            Renderer.color = Color.Lerp(ResourceColor.TypeColor(Type), Color.white, 0.5f);
+        }
+        else
+        {
+            Renderer.color = Color.white;
+        }
 
         Collider0.offset = transform.InverseTransformPoint(Socket0.transform.position);
         Collider1.offset = transform.InverseTransformPoint(Socket1.transform.position);
