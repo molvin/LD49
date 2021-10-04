@@ -314,12 +314,13 @@ public class Player : MonoBehaviour
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
-            Animator.GetComponent<SpriteRenderer>().flipX = CurrentState == State.Hose ? input.x > 0 : input.x < 0;
+            //Animator.GetComponent<SpriteRenderer>().flipX = CurrentState == State.Hose ? input.x > 0 : input.x < 0;
+            Animator.transform.localScale = input.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+            
             //Visual Rotation, now just save last input rotation for interaction checks
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
             if (footstepRight && !FootStepDustRight.isPlaying && !FootStepDustLeft.isPlaying)
             {
-                Debug.Log(FootStepDustRight);
                 FootStepDustRight.Play();
                 footstepRight = false;
             }

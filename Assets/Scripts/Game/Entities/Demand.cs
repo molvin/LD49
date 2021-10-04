@@ -66,34 +66,50 @@ public class Demand : Entity
         else
         {
             float time_under_need = GetTimeUnderNeed();
-
+            /*
             if (time_under_need > TimeToDestroy)
             {
                 GameManager.Instance.GameOver();
             }
-            else if(TimeToDestroy - (TimeToDestroy - time_under_need) > WarningSystem.Instance.WarningTime && !WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))
+            else if(TimeToDestroy - (TimeToDestroy - time_under_need) > WarningSystem.Instance.WarningTime && !WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))  
             {
                 WarningSystem.Instance.CreateWarningObject(gameObject, gameObject.GetInstanceID(), TimeToDestroy - time_under_need);
             }
+            */
            
         }
 
     }
 
-    internal void TransferConnectionsTo(Demand doner_demand)
+    internal void TransferConnectionsFrom(Demand doner_demand)
     {
         Debug.Log("Move connections to this");
+        Edges = new List<Edge>();
+        Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
+
+        for (int i = 0; i < InteractionPoints.Count; i++)
+        {
+            edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
+            Edges.Add(edge);
+        }
+
         var edges = doner_demand.Edges;
         for(int i = 0; i < edges.Count; i++)
         {
-            Edges[i] = edges[i];
-            if(Edges[i].Other)
+            edge = edges[i];
+            edge.Self = this;
+            Edges[edge.SelfSocket] = edge;
+            Edge otherEdge = edge.Other.Edges[edge.OtherSocket];
+            otherEdge.Other = this;
+            otherEdge.Self.Edges[otherEdge.SelfSocket] = otherEdge;
+            doner_demand.Edges.Clear();
+            if(Edges[edge.SelfSocket].Other)
             {
                 Hose hose = Edges[i].Other as Hose;
-                if (Edges[i].OtherSocket == 0)
-                    hose.Socket0.position = InteractionPoints[Edges[i].SelfSocket].transform.position;
-                if (Edges[i].OtherSocket == 1)
-                    hose.Socket1.position = InteractionPoints[Edges[i].SelfSocket].transform.position;
+                if (Edges[edge.SelfSocket].OtherSocket == 0)
+                    hose.Socket0.position = InteractionPoints[edge.SelfSocket].transform.position;
+                if (Edges[edge.SelfSocket].OtherSocket == 1)
+                    hose.Socket1.position = InteractionPoints[edge.SelfSocket].transform.position;
             }
         }
     }
