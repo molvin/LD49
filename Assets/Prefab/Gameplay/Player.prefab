@@ -414,7 +414,7 @@ MonoBehaviour:
   Placeables:
   - {fileID: 1567843312167693674, guid: 98fad03ad8a7be140a35b16ef746274c, type: 3}
   - {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
-  - {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
+  - {fileID: 6223273493329634849, guid: 68d0c1c6a212e954483ca6bff2fa1138, type: 3}
   PlaceDistance: 2
   InteractionRadius: 3
   InteractionDistance: 1

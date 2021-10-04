@@ -20,6 +20,7 @@ public class Demand : Entity
     protected ResourceWorldUI DemandUI;
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
+    protected Dictionary<ResourceType, ResourceIndicator> Indicators = new Dictionary<ResourceType, ResourceIndicator>();
 
     public override void Tick()
     {
@@ -85,11 +86,20 @@ public class Demand : Entity
         {
             PressureLevels.Add(Type, Pressure);
         }
+
+        Debug.Log($"{Type}, {PressureLevels[Type]}");
+        if(Indicators.TryGetValue(Type, out ResourceIndicator res))
+        {
+            Debug.Log("Setting");
+            res.SetValue(PressureLevels[Type]);
+        }
     }
 
     public override void Clear()
     {
-        PressureLevels.Clear(); 
+        PressureLevels.Clear();
+        foreach (var res in Indicators.Values)
+            res.SetValue(0.0f);
     }
     public override bool CanConnect(Edge TryEdge, Edge IncommingEdge)
     {
@@ -98,13 +108,25 @@ public class Demand : Entity
 
     void Awake()
     {
-        Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
-        LastSatisfiedTime = Time.time;
-        DemandUI = GetComponentInChildren<ResourceWorldUI>();
-
-        foreach(Need need in Needs)
+        //Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
+        Edges = new List<Edge>();
+        Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
+        for (int i = 0; i < InteractionPoints.Count; i++)
         {
-            DemandUI.SetDemand(need.Value, NeedLeniency);
+            edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
+            Edges.Add(edge);
+        }
+
+        LastSatisfiedTime = Time.time;
+        //DemandUI = GetComponentInChildren<ResourceWorldUI>();
+
+        int j = 0;
+        var indicators = GetComponentsInChildren<ResourceIndicator>();
+        foreach (Need need in Needs)
+        {
+           // DemandUI.SetDemand(need.Value, NeedLeniency
+            indicators[j].SetDemand(need.Value, NeedLeniency);
+            Indicators.Add(need.Type, indicators[j++]);
         }
     }
 
