@@ -123,10 +123,7 @@ public class Player : MonoBehaviour
         Animator.SetBool("Dragging", CurrentState == State.Valve || CurrentState == State.Hose);
         InteractionIndicator.SetActive(false);
         DestructionCube.SetActive(false);
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log(footstepRight);
-        }
+
         foreach (var g in Ghosts) g.SetActive(false);
         switch(CurrentState)
         {

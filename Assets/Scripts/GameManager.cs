@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
 
         if (!doKablaam)
         {
-            m_KablamParticleSystem = Instantiate(m_KablamParticleSystem, FindObjectOfType<Player>().gameObject.transform);
-            m_KablamParticleSystem.Play();
+//            m_KablamParticleSystem = Instantiate(m_KablamParticleSystem, FindObjectOfType<Player>().gameObject.transform);
+ //           m_KablamParticleSystem.Play();
             doKablaam = true;
         }
 
