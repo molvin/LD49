@@ -92,6 +92,10 @@ public class Player : MonoBehaviour
     {
 
         Rb = GetComponent<Rigidbody2D>();
+        //if(GameManager.Instance != null)
+        //{
+         
+        //}
         GameManager.Instance.m_EntityManager = new EntityManager();
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
         Ghosts = new GameObject[Items.Count];

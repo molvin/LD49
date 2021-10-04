@@ -13,6 +13,7 @@ public class ResourceIndicator : MonoBehaviour
     public float demoLeniency;
 
     public float animationTimeInSeconds = 0.3f;
+    public float speed = 2;
     private float timer;
     
 
@@ -24,6 +25,10 @@ public class ResourceIndicator : MonoBehaviour
 
     public SpriteRenderer demandMarker;
     public SpriteRenderer valueIndicator;
+
+    public SpriteRenderer mirrorDemandMarker;
+    public SpriteRenderer mirrorValueIndicator;
+
 
     private float maxValue = 100;
     private float leniency;
@@ -42,7 +47,9 @@ public class ResourceIndicator : MonoBehaviour
         if (timer < animationTimeInSeconds)
         {
             timer += Time.deltaTime;
-            SetVisualCurrentValue(Mathf.Lerp(valueAtStartOfAnim, targetValue, timer / animationTimeInSeconds) / 100);
+            SetVisualCurrentValue(Mathf.Lerp(currentValue, targetValue, timer * speed) / 100);
+            //SetVisualCurrentValue(targetValue / 100);
+
         }
     }
 
@@ -56,6 +63,9 @@ public class ResourceIndicator : MonoBehaviour
 
         Vector3 localPos = demandMarker.transform.localPosition;
         demandMarker.transform.localPosition = new Vector3(localPos.x, (demand / maxValue) * 2 -1, localPos.z);
+
+        Vector3 mirrorLocalPos = mirrorDemandMarker.transform.localPosition;
+        mirrorDemandMarker.transform.localPosition = new Vector3(mirrorLocalPos.x, (demand / maxValue) * 2 - 1, mirrorLocalPos.z);
         this.leniency = leniency;
     }
 
@@ -73,10 +83,16 @@ public class ResourceIndicator : MonoBehaviour
 
     private void SetVisualCurrentValue(float value)
     {
+        currentValue = value * 100;
         valueIndicator.transform.localScale = new Vector3(1,
               value
                , 0);
         valueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
+
+        mirrorValueIndicator.transform.localScale = new Vector3(1,
+            value
+             , 0);
+        mirrorValueIndicator.color = Mathf.Abs(value * 100f - demand) <= leniency ? Color.green : Color.red;
 
     }
 

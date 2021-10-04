@@ -303,6 +303,8 @@ MonoBehaviour:
   animationTimeInSeconds: 0.3
   demandMarker: {fileID: 2732784364231735046}
   valueIndicator: {fileID: 8315390266113625628}
+  mirrorDemandMarker: {fileID: 920074941299984757}
+  mirrorValueIndicator: {fileID: 8849733170414419009}
 --- !u!1 &5764508945476246372
 GameObject:
   m_ObjectHideFlags: 0
