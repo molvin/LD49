@@ -88,6 +88,14 @@ public class Demand : Entity
         for(int i = 0; i < edges.Count; i++)
         {
             Edges[i] = edges[i];
+            if(Edges[i].Other)
+            {
+                Hose hose = Edges[i].Other as Hose;
+                if (Edges[i].OtherSocket == 0)
+                    hose.Socket0.position = InteractionPoints[Edges[i].SelfSocket].transform.position;
+                if (Edges[i].OtherSocket == 1)
+                    hose.Socket1.position = InteractionPoints[Edges[i].SelfSocket].transform.position;
+            }
         }
     }
 
