@@ -893,7 +893,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3341369102597869047}
   m_Layer: 0
-  m_Name: AnimatedPistons Upper
+  m_Name: AnimatedPistonsUpper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1178,6 +1178,7 @@ GameObject:
   - component: {fileID: 6401618861521165525}
   - component: {fileID: 993232795}
   - component: {fileID: 4027593932587711687}
+  - component: {fileID: 7720841515088508962}
   m_Layer: 0
   m_Name: MediunBuilding
   m_TagString: Untagged
@@ -1244,6 +1245,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0.5144892, y: 0.08166492}
   m_Size: {x: 4.870916, y: 2.045311}
   m_Direction: 1
+--- !u!95 &7720841515088508962
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304847203395535899}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 78bf61fd3d7e6a8489c8b644580b94eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1907100678512223091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1251,6 +1271,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6401618861521165525}
     m_Modifications:
+    - target: {fileID: 1225984091986970081, guid: 3b7752e892615d248867893c681e375f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.654
+      objectReference: {fileID: 0}
     - target: {fileID: 3123399100738257664, guid: 3b7752e892615d248867893c681e375f, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1298,6 +1322,14 @@ PrefabInstance:
     - target: {fileID: 4146294078654786709, guid: 3b7752e892615d248867893c681e375f, type: 3}
       propertyPath: m_Name
       value: ResourceIndicator (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982183997563698319, guid: 3b7752e892615d248867893c681e375f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.654
+      objectReference: {fileID: 0}
+    - target: {fileID: 7954318427335426474, guid: 3b7752e892615d248867893c681e375f, type: 3}
+      propertyPath: demoValue
+      value: 0.654
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b7752e892615d248867893c681e375f, type: 3}
