@@ -7,6 +7,8 @@ public class Hose : PressurisedEnitity
 {
     public Transform Socket0;
     public Transform Socket1;
+    public HoseSentinel Sentinel0;
+    public HoseSentinel Sentinel1;
     [Header("Prefabs")]
     public HoseStick HoseStickPrefab;
     public HoseJoint HoseJointPrefab;
@@ -102,10 +104,6 @@ class Reel
         // EXIT
         if (StateData.StateExited)
         {
-            HingeJoint2D Hinge = Player.Instance.Hinge;
-            Hinge.connectedBody = null;
-            Hinge.enabled = false;
-
             if (CurrentJoint && ShouldCreateStick)
             {
                 Joints.Remove(CurrentJoint);
@@ -114,9 +112,20 @@ class Reel
                 CurrentJoint = null;
             }
 
-            FreezeBodies(true);
+            if (Sticks.Count > 0)
+            {
+                HingeJoint2D Hinge = Owner.Sentinel0.Hinge;
+                Hinge.connectedBody = Sticks[0].Rigidbody2D;
+                Hinge.enabled = true;
 
-            CreateSentinels();
+                Hinge = Owner.Sentinel1.Hinge;
+                Hinge.connectedBody = Sticks[Sticks.Count - 1].Rigidbody2D;
+                Hinge.enabled = true;
+            }
+
+            //FreezeBodies(true);
+
+            //CreateSentinels();
 
             return;
         }
@@ -129,11 +138,11 @@ class Reel
         // ENTER
         if (StateData.StateEntered)
         {
-            DestroySentinels();
-            FreezeBodies(false);
+            //DestroySentinels();
+            //FreezeBodies(false);
 
-            HingeJoint2D Hinge = Player.Instance.Hinge;
-            Hinge.enabled = true;
+            //HingeJoint2D Hinge = Player.Instance.Hinge;
+            //Hinge.enabled = true;
 
             ShouldCreateStick = true;
 
@@ -141,8 +150,8 @@ class Reel
             // Picking up existing.
             if (Stick)
             {
-                Hinge.connectedBody = Stick.Rigidbody2D;
-                Hinge.connectedAnchor = Stick.transform.position;
+                //Hinge.connectedBody = Stick.Rigidbody2D;
+                //Hinge.connectedAnchor = Stick.transform.position;
 
                 ShouldCreateStick = false;
             }
@@ -166,8 +175,6 @@ class Reel
             float Distance = Vector3.Distance(ReelLocation(HoseSocket), ActorLocation(HoseSocket));
             if (Distance >= StickLength + ActorRadius)
             {
-                Player.Instance.GetComponent<HingeJoint2D>().enabled = true;
-
                 Vector3 Vec = ActorLocation(HoseSocket) - ReelLocation(HoseSocket);
                 Vector3 Pos = ActorLocation(HoseSocket) - Vec.normalized * (StickLength * 0.5f + ActorRadius);
                 Quaternion Dir = Quaternion.FromToRotation(Vector3.right, Vec);
@@ -175,9 +182,10 @@ class Reel
                 SocketStick0 = Stick;
                 SocketStick1 = Stick;
 
-                HingeJoint2D Hinge = Player.Instance.Hinge;
-                Hinge.connectedBody = Stick.Rigidbody2D;
-                Hinge.connectedAnchor = Stick.transform.position;//GetClosestSocketLocationOnStick(CurrentStick, ActorLocation);
+                var Sentinel = HoseSocket == 0 ? Owner.Sentinel0 : Owner.Sentinel1;
+                Sentinel.Hinge.enabled = true;
+                Sentinel.Hinge.connectedBody = Stick.Rigidbody2D;
+                Sentinel.Hinge.connectedAnchor = Stick.transform.position;//GetClosestSocketLocationOnStick(CurrentStick, ActorLocation);
 
                 Assert.IsTrue(Sticks.Count == 0);
                 Assert.IsTrue(Joints.Count == 0);
@@ -192,8 +200,6 @@ class Reel
             float Distance = Vector3.Distance(ReelLocation(HoseSocket), JointLocation);
             if (Distance >= StickLength + CurrentJoint.Radius)
             {
-                Player.Instance.GetComponent<HingeJoint2D>().enabled = true;
-
                 Vector3 Vec = JointLocation - ReelLocation(HoseSocket);
                 Vector3 Pos = JointLocation - Vec.normalized * (StickLength * 0.5f + CurrentJoint.Radius);
                 Quaternion Dir = Quaternion.FromToRotation(Vector3.right, Vec);

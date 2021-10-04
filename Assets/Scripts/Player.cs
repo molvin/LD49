@@ -60,7 +60,6 @@ public class Player : MonoBehaviour
         StateEntered = false,
         StateExited = false
     };
-    public HingeJoint2D Hinge;
     
 
     //Destruction
