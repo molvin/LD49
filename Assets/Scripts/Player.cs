@@ -403,8 +403,6 @@ public class Player : MonoBehaviour
         {
             Velocity = Vector3.SmoothDamp(Velocity, Vector3.zero, ref acceleration, DecelerationTime);
             playerAudioSource.Pause();
-            Debug.Log("pausing");
-
         }
 
         //Rb.MovePosition(transform.position + Veloctiy * Time.deltaTime);
