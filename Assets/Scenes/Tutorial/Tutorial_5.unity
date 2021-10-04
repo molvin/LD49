@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2614,6 +2614,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 281355486, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 604486485982949020, guid: b092f5ef9125be843ab0fcffdd1b8f33, type: 3}
+    - target: {fileID: 281355486, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 281355486, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 281355486, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 720461540, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 604486485982949020, guid: b092f5ef9125be843ab0fcffdd1b8f33, type: 3}
+    - target: {fileID: 720461540, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 720461540, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 720461540, guid: 6883c425127f77849918da89ec7eb640, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 993232795, guid: 6883c425127f77849918da89ec7eb640, type: 3}
       propertyPath: TimeToDestroy
       value: 999
