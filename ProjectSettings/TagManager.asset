@@ -14,7 +14,7 @@ TagManager:
   - InteractionLayer
   - Player
   - Entity
-  - 
+  - InteractionBlocker
   - 
   - 
   - 

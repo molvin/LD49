@@ -8,10 +8,16 @@ public class TutorialGameManager : GameManager
 
     [Header("Interval")]
     public Demand[] demandsToCompleate;
+    private int lastTutorialScene = 7;
+    public SceneFaderPanelController fader;
 
+    private bool loadingNextScene = false;
     protected void Start()
     {
-         
+        if(fader == null)
+        {
+            fader = FindObjectOfType<SceneFaderPanelController>();
+        }
     }
 
     private void Update()
@@ -35,9 +41,27 @@ public class TutorialGameManager : GameManager
 
     private void NextLevel()
     {
-        Debug.Log("We done");
+        if (loadingNextScene)
+            return;
 
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.buildIndex + 1);
+        loadingNextScene = true;
+
+        StartCoroutine(NextLevelSoon());
+
+      
     }
+    private IEnumerator NextLevelSoon()
+    {
+        yield return new WaitForSeconds(0.5f);
+        fader.FadeIn(false);
+        yield return new WaitForSeconds(1.5f);
+        Scene currentScene = SceneManager.GetActiveScene();
+        int nextScene = currentScene.buildIndex + 1;
+        if (nextScene > lastTutorialScene)
+        {
+            nextScene = 0;
+        }
+        SceneManager.LoadScene(nextScene);
+    }
+
 }

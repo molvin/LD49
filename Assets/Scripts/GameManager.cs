@@ -10,10 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     //Editor variabels
     [Header("Unlocks | Factory Type")]
-    public ParticleSystem Kablaam;
-    private bool doKablaam;
-
-    [Header("Unlocks | Factory Type")]
     public int m_CyanSpawnCountUnlock     = 0;
     public int m_MagentaSpawnCountUnlock  = 1;
     public int m_YellowSpawnCountUnlock   = 2;
@@ -31,19 +27,23 @@ public class GameManager : MonoBehaviour
     public float m_MaxDemand;
 
     [Header("Distance")]
-    public float m_MinSpawnDistance;
-    public float m_MaxSpawnDistance;
+    public float m_MinSpawnDistanceOffset;
+    public float m_MaxSpawnDistanceOffset;
+    public float m_MaxSpawnDistancePerSpawn; 
 
-    public float m_ClosestSpawnDistance;
+    public float m_AvoidanceDistance;
 
 
     [SerializeField]
     FactoryManager m_FactoryEntity;
 
+    [Header("Kablam")]
+    public ParticleSystem m_KablamParticleSystem;
 
     //Hiden varables
     private float m_Timer = 0f;
     private List<int> m_OrderdUnlocks = new List<int>();
+    private bool doKablaam;
 
     public EntityManager m_EntityManager;
     protected void Awake()
@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
 
         if (!doKablaam)
         {
-            Kablaam = ParticleSystem.Instantiate(Kablaam, FindObjectOfType<Player>().gameObject.transform);
-            Kablaam.Play();
+            m_KablamParticleSystem = Instantiate(m_KablamParticleSystem, FindObjectOfType<Player>().gameObject.transform);
+            m_KablamParticleSystem.Play();
             doKablaam = true;
         }
 
@@ -111,11 +111,11 @@ public class GameManager : MonoBehaviour
             random_direction.z = 0;
             random_direction.Normalize();
 
-            float random_distance = Random.Range(m_MinSpawnDistance, m_MaxSpawnDistance);
+            float random_distance = Random.Range(m_MinSpawnDistanceOffset, m_MaxSpawnDistanceOffset + (m_MaxSpawnDistancePerSpawn * m_EntityManager.Entities.Count));
 
             Vector3 temp_pos = random_direction * random_distance;
 
-            if (IsPointAccesable(temp_pos, m_ClosestSpawnDistance))
+            if (IsPointAccesable(temp_pos, m_AvoidanceDistance))
             {
                 spawn_pos = temp_pos;
                 break;
@@ -133,6 +133,9 @@ public class GameManager : MonoBehaviour
 
     private bool IsPointAccesable(Vector3 origin, float distance)
     {
+        if (Physics2D.OverlapBox(origin, new Vector2(7, 7), 0))
+            return false;
+
         List<Vector3> positions = new List<Vector3>();
         foreach (Entity entity in m_EntityManager.Entities)
         {
@@ -140,6 +143,7 @@ public class GameManager : MonoBehaviour
             {
                 positions.Add(entity.transform.position);
             }
+
         }
 
         if (positions.Count == 0)
