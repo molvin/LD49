@@ -62,8 +62,8 @@ public class Demand : Entity
         if (IsSatisfied)
         {
             LastSatisfiedTime = Time.time;
-            if (WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))
-                WarningSystem.Instance.CancelWarningObject(gameObject.GetInstanceID());
+            if (WarningSystem.Instance.ContainsWarning(Id))
+                WarningSystem.Instance.CancelWarningObject(Id);
         }    
         else
         {
@@ -72,9 +72,9 @@ public class Demand : Entity
             {
                 GameManager.Instance.GameOver();
             }
-            else if(TimeToDestroy - (TimeToDestroy - time_under_need) > WarningSystem.Instance.WarningTime && !WarningSystem.Instance.ContainsWarning(gameObject.GetInstanceID()))  
+            else if(!WarningSystem.Instance.ContainsWarning(Id))  
             {
-                WarningSystem.Instance.CreateWarningObject(gameObject, gameObject.GetInstanceID(), TimeToDestroy - time_under_need);
+                WarningSystem.Instance.CreateWarningObject(gameObject, Id, TimeToDestroy - time_under_need);
             }
            
         }
