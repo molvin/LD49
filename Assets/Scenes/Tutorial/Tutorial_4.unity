@@ -568,8 +568,8 @@ MonoBehaviour:
   fader: {fileID: 0}
   infoPopupManager: {fileID: 0}
   infoMessageTitle: Combind splitter and valve
-  infoMessageBody: The two buildings requier different preasures, combind a spliter
-    and a value to meet thier requierments!
+  infoMessageBody: The two buildings require different pressures, combine a spliter
+    and a value to meet thier requirements!
   inforMessageImage: {fileID: 21300000, guid: 485f4483ac57ba6479c1613d03751d9f, type: 3}
 --- !u!1001 &759199428
 PrefabInstance:
