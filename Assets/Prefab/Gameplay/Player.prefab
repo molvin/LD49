@@ -303,7 +303,7 @@ MonoBehaviour:
   CurrentState: 0
   AccelerationTime: 0.05
   DecelerationTime: 0.02
-  MaxSpeed: 15
+  MaxSpeed: 11
   MinInput: 0.15
   Velocity: {x: 0, y: 0, z: 0}
   SpriteHolder: {fileID: 2049299638995214278}
@@ -315,8 +315,8 @@ MonoBehaviour:
   - {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
   - {fileID: 6223273493329634849, guid: 68d0c1c6a212e954483ca6bff2fa1138, type: 3}
   PlaceDistance: 2
-  InteractionRadius: 1
-  InteractionDistance: 0.5
+  InteractionRadius: 1.25
+  InteractionDistance: 0.3
   InteractionLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -367,7 +367,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 7
+  m_Mass: 5
   m_LinearDrag: 1
   m_AngularDrag: 1000000
   m_GravityScale: 0
