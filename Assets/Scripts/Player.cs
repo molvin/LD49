@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     public float CycleTickTime;
     private List<Item> Items;
     private float cycleTimer;
-    private GameObject[] Ghosts;
+    public GameObject[] Ghosts;
     public Hose HosePrefab;
     public ParticleSystem FootStepDustRight, FootStepDustLeft;
     private bool footstepRight;
@@ -98,19 +98,6 @@ public class Player : MonoBehaviour
         //}
         GameManager.Instance.m_EntityManager = new EntityManager();
         Items = ((Item[])System.Enum.GetValues(typeof(Item))).ToList();
-        Ghosts = new GameObject[Items.Count];
-        for(int i = 0; i < Items.Count; i++)
-        {
-            var ent = Instantiate(Placeables[i]);
-            var go = ent.gameObject;
-            Destroy(ent);
-            foreach (var coll in go.GetComponentsInChildren<Collider2D>())
-                Destroy(coll);
-            Ghosts[i] = go;
-            go.name += "-Ghost";
-            go.SetActive(false);
-        }
-
         GetComponentInChildren<ToolBarManager>().Init();
         FootStepDustRight = ParticleSystem.Instantiate(FootStepDustRight, this.transform);
         FootStepDustLeft = ParticleSystem.Instantiate(FootStepDustLeft, this.transform);
@@ -202,17 +189,22 @@ public class Player : MonoBehaviour
             }
         }
 
-        //Render Ghost
+
+        var coll = Placeables[SelectedItem].GetComponent<BoxCollider2D>();
         Vector3 targetPosition = transform.position + SpriteHolder.up * PlaceDistance;
+        bool canPlace = !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer);
+
         Ghosts[SelectedItem].SetActive(true);
         Ghosts[SelectedItem].transform.position = targetPosition;
-
-
-        if(Input.GetButtonDown("Interact"))
+        foreach (var rend in Ghosts[SelectedItem].GetComponentsInChildren<SpriteRenderer>())
         {
-            var coll = Placeables[SelectedItem].GetComponent<BoxCollider2D>();
-            if (!Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer))
-                GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
+            rend.color = canPlace ? Color.green : Color.red;
+        }
+
+
+        if(Input.GetButtonDown("Interact") && canPlace)
+        {
+            GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
         }
 
         if (Input.GetButtonDown("Build"))
