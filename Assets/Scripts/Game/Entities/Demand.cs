@@ -66,18 +66,16 @@ public class Demand : Entity
 
         if (IsSatisfied)
         {
-            Debug.Log("Statisfied"+ Id);
             LastSatisfiedTime = Time.time;
             if (WarningSystem.Instance.ContainsWarning(Id))
                 WarningSystem.Instance.CancelWarningObject(Id);
         }    
         else
         {
-            Debug.Log("Unstatisfied" + Id);
 
             float time_under_need = GetTimeUnderNeed();
             
-            if(!WarningSystem.Instance.ContainsWarning(Id))  
+            if(!WarningSystem.Instance.ContainsWarning(Id) && GetComponentInParent<FactoryManager>())  
             {
                 WarningSystem.Instance.CreateWarningObject(gameObject, Id, TimeToDestroy - time_under_need);
             }
