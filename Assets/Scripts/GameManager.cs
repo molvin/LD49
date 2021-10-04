@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
 
         if (!doKablaam)
         {
-            m_KablamParticleSystem = Instantiate(m_KablamParticleSystem, FindObjectOfType<Player>().gameObject.transform);
-            m_KablamParticleSystem.Play();
+//            m_KablamParticleSystem = Instantiate(m_KablamParticleSystem, FindObjectOfType<Player>().gameObject.transform);
+ //           m_KablamParticleSystem.Play();
             doKablaam = true;
         }
 
@@ -209,7 +209,6 @@ public class GameManager : MonoBehaviour
             if (entity is Demand)
                 demands_count++;
         }
-        Debug.Log("dem" + demands_count);
         foreach (int unlock_count in m_OrderdUnlocks)
             {
                 if (unlock_count > demands_count)

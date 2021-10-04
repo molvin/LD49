@@ -342,6 +342,7 @@ MonoBehaviour:
   EntityLayer:
     serializedVersion: 2
     m_Bits: 257
+  HoseDropRadius: 2.25
   DragSpeed: 0.5
   InteractionIndicator: {fileID: 4467641503746943087}
 --- !u!58 &2049299637924425350
