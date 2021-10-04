@@ -972,7 +972,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
       propertyPath: m_LevelTwoSpawnCount
-      value: 5
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: m_RedSpawnCountUnlock
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: m_BlueSpawnCountUnlock
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
       propertyPath: m_ClosestSpawnDistance
@@ -980,7 +988,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
       propertyPath: m_LevelThreeSpawnCount
-      value: 10
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: m_BlackSpawnCountUnlock
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: m_GreenSpawnCountUnlock
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: m_YellowSpawnCountUnlock
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: m_MagentaSpawnCountUnlock
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
       propertyPath: m_ResourceScaling.Array.size

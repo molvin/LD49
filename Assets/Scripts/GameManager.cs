@@ -129,36 +129,51 @@ public class GameManager : MonoBehaviour
         {
             int max_color_index = 1;
 
-            int demnands_count = 0;
+            int demands_count = 0;
 
             foreach (Entity entity in m_EntityManager.Entities)
             {
                 if (entity is Demand)
-                    demnands_count++;
+                    demands_count++;
             }
+
+            
 
             foreach (int unlock_count in m_OrderdUnlocks)
             {
-                if (unlock_count < demnands_count)
+                if (unlock_count > demands_count)
                     break;
+
+                Debug.Log("Unlock count: " + unlock_count + ", current demand count: " + demands_count);
 
                 max_color_index++;
             }
 
-            int type_count = 1;
+            int resource_variants_count = 1;
 
-            if (demnands_count >= m_LevelTwoSpawnCount)
-                type_count++;
-            if (demnands_count >= m_LevelThreeSpawnCount)
-                type_count++;
+            if (demands_count >= m_LevelTwoSpawnCount)
+                resource_variants_count++;
+            if (demands_count >= m_LevelThreeSpawnCount)
+                resource_variants_count++;
 
-            Debug.Log("Type count: " + type_count + "Demand count: " + demnands_count);
+            spawned_demand.Needs.Clear();
 
-            for (int i = 0; i < type_count; i++)
+            List<ResourceType> resource_pool = new List<ResourceType>();
+
+            for (int i = 1; i < max_color_index; i++)
             {
-                ResourceType resource_type = (ResourceType)Random.Range(1, 8);
-                Demand.Need need = new Demand.Need { Type = resource_type, Value = Random.Range(m_MinDemand, m_MaxDemand) };
+                resource_pool.Add((ResourceType)i);
+            }
+
+            for (int i = 0; i < resource_variants_count; i++)
+            {
+                if (resource_pool.Count == 0)
+                    break;
+
+                int resource_index = Random.Range(0, resource_pool.Count);
+                Demand.Need need = new Demand.Need { Type = resource_pool[resource_index], Value = Random.Range(m_MinDemand, m_MaxDemand) };
                 spawned_demand.Needs.Add(need);
+                resource_pool.RemoveAt(resource_index);
             }
         }
     }
