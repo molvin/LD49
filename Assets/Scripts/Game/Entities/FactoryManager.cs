@@ -50,6 +50,7 @@ public class FactoryManager : MonoBehaviour
         public List<Demand.Need> GetNeeds() { return m_Demand.Needs; }
         public void SetActive(bool active, List<Demand.Need> prerquisit_needs)
         {
+
             if (active)
             {
                 m_Demand.Clear();
@@ -58,11 +59,12 @@ public class FactoryManager : MonoBehaviour
 
                 GameManager.Instance.GetNeeds(ref m_Demand.Needs, m_NeedCount);
                 GameManager.Instance.m_EntityManager.Add(m_Demand, m_Factory.transform.position, false);
+
+                m_Factory.SetActive(active);
             }
             else
                 GameManager.Instance.m_EntityManager.Destroy(m_Demand);
 
-            m_Factory.SetActive(active);
         }
         public void TransferConnectionsFrom(FactoryWithNeeds doner_factory)
         {
