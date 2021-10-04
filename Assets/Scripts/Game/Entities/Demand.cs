@@ -47,6 +47,11 @@ public class Demand : Entity
                 IsSatisfied = false;
             }
 
+            if (!Indicators.ContainsKey(need.Type))
+            {
+                continue;
+            }
+
             var res = Indicators[need.Type];
             if (PressureLevels.ContainsKey(need.Type))
                 res.SetValue(PressureLevels[need.Type]);

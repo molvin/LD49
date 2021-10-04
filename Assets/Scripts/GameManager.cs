@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
                 spawn_pos = temp_pos;
                 break;
             }
+            if (i== 999) return;
         }
 
         if (spawn_pos == Vector3.negativeInfinity)
@@ -186,7 +187,7 @@ public class GameManager : MonoBehaviour
                     resource_pool.Add(resource);
             }
 
-            for (int i = 0; i < resource_variants_count; i++)
+            for (int i = needs.Count; i < resource_variants_count; i++)
             {
                 if (resource_pool.Count == 0)
                     break;
