@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11019b4aa8897a449c29f265e1c5f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Kablaam: {fileID: 8583192761324685517, guid: 55e6df36246d1a14e8cd9e34863b3835, type: 3}
   m_CyanSpawnCountUnlock: 0
   m_MagentaSpawnCountUnlock: 2
   m_YellowSpawnCountUnlock: 4
@@ -51,11 +50,13 @@ MonoBehaviour:
   m_GreenSpawnCountUnlock: 10
   m_BlueSpawnCountUnlock: 14
   m_BlackSpawnCountUnlock: 20
-  m_MinSpawnInteval: 35
-  m_MaxSpawnInteval: 50
+  m_MinSpawnInteval: 40
+  m_MaxSpawnInteval: 60
   m_MinDemand: 35
   m_MaxDemand: 65
-  m_MinSpawnDistance: 5
-  m_MaxSpawnDistance: 50
-  m_ClosestSpawnDistance: 10
+  m_MinSpawnDistanceOffset: 10
+  m_MaxSpawnDistanceOffset: 15
+  m_MaxSpawnDistancePerSpawn: 1
+  m_AvoidanceDistance: 7
   m_FactoryEntity: {fileID: 5340174754353776788, guid: a9a8afcd10d43f14387b38c86c0d51b0, type: 3}
+  m_KablamParticleSystem: {fileID: 0}
