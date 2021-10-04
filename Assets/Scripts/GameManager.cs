@@ -133,6 +133,9 @@ public class GameManager : MonoBehaviour
 
     private bool IsPointAccesable(Vector3 origin, float distance)
     {
+        if (Physics2D.OverlapBox(origin, new Vector2(7, 7), 0))
+            return false;
+
         List<Vector3> positions = new List<Vector3>();
         foreach (Entity entity in m_EntityManager.Entities)
         {
