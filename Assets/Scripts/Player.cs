@@ -116,6 +116,8 @@ public class Player : MonoBehaviour
         if (Time.timeScale == 0)
             return;
 
+        Animator.SetBool("Dragging", CurrentState == State.Valve || CurrentState == State.Hose);
+
         DestructionCube.SetActive(false);
 
         foreach (var g in Ghosts) g.SetActive(false);
@@ -194,7 +196,9 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonDown("Interact"))
         {
-            GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
+            var coll = Placeables[SelectedItem].GetComponent<BoxCollider2D>();
+            if (!Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer))
+                GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
         }
 
         if (Input.GetButtonDown("Build"))
@@ -281,7 +285,7 @@ public class Player : MonoBehaviour
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
-            Animator.GetComponent<SpriteRenderer>().flipX = input.x < 0;
+            Animator.GetComponent<SpriteRenderer>().flipX = CurrentState == State.Hose ? input.x > 0 : input.x < 0;
             //Visual Rotation, now just save last input rotation for interaction checks
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
         }
@@ -342,14 +346,16 @@ public class Player : MonoBehaviour
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         float dot = Vector3.Dot(direction, input);
 
+        Animator.speed = 0.0f;
         if (input.magnitude > MinInput && dot > 0.7f && distance < 1.0f)
         {
             Velocity = direction * DragSpeed;
+            Animator.speed = 1.0f;
         }
         if (input.magnitude > MinInput && dot < -0.7f && distance > 0.0f)
         {
             Velocity = -direction * DragSpeed;
-
+            Animator.speed = 1.0f;
         }
 
         if (Input.GetButtonDown("Destroy") || Input.GetButtonDown("Interact"))

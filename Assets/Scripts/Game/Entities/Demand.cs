@@ -16,6 +16,7 @@ public class Demand : Entity
     public float NeedLeniency = 10;
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
+    ResourceIndicator[] indicators;
 
     protected ResourceWorldUI DemandUI;
 
@@ -98,7 +99,16 @@ public class Demand : Entity
 
     void Awake()
     {
-        Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
+        //Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
+        Edges = new List<Edge>();
+        Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
+        for (int i = 0; i < InteractionPoints.Count; i++)
+        {
+            edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
+            Edges.Add(edge);
+        }
+        indicators = GetComponentsInChildren<ResourceIndicator>();
+
         LastSatisfiedTime = Time.time;
         DemandUI = GetComponentInChildren<ResourceWorldUI>();
 
