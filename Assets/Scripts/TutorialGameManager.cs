@@ -26,5 +26,14 @@ public class TutorialGameManager : GameManager
         {
             notSatified = !demand.IsSatisfied ? true : notSatified;
         }
+        if(!notSatified)
+        {
+            NextLevel();
+        }
+    }
+
+    private void NextLevel()
+    {
+        Debug.Log("We done");
     }
 }

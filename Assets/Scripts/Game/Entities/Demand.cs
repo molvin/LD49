@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class Demand : Entity
     public float NeedLeniency = 10;
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
+    public bool ShouldAddOnActivation = true;
 
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
@@ -79,6 +81,11 @@ public class Demand : Entity
 
     }
 
+    internal void TransferConnectionsTo(Demand doner_demand)
+    {
+        Debug.Log("Move connections to this");
+    }
+
     public void UpdatePressureLevel(ResourceType Type, float Pressure)
     {
         float CurrentLevel;
@@ -119,7 +126,10 @@ public class Demand : Entity
 
         LastSatisfiedTime = Time.time;
         //DemandUI = GetComponentInChildren<ResourceWorldUI>();
+    }
 
+    private void OnEnable()
+    {
         int j = 0;
         var indicators = GetComponentsInChildren<ResourceIndicator>();
         foreach (Need need in Needs)

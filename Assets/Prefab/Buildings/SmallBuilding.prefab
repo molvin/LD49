@@ -359,6 +359,7 @@ MonoBehaviour:
   TimeToDestroy: 0
   NeedLeniency: 10
   IsSatisfied: 0
+  ShouldAddOnActivation: 1
 --- !u!1 &8616354230428381001
 GameObject:
   m_ObjectHideFlags: 0
