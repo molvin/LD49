@@ -26,6 +26,15 @@ public class WarningSystem : MonoBehaviour
         }
     }
 
+    public void ClearAll()
+    {
+        foreach(var go in warnings.Values)
+        {
+            Destroy(go);
+        }
+        warnings.Clear();
+    }
+
     public void CreateWarningObject(GameObject target, int id, float time)
     {
         Debug.Log("CREATEING " + target);

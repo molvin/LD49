@@ -75,7 +75,7 @@ public class Demand : Entity
 
             float time_under_need = GetTimeUnderNeed();
             
-            if(!WarningSystem.Instance.ContainsWarning(Id) && GetComponentInParent<FactoryManager>())  
+            if(!WarningSystem.Instance.ContainsWarning(Id) && !GameManager.IsGameOver && GetComponentInParent<FactoryManager>())  
             {
                 WarningSystem.Instance.CreateWarningObject(gameObject, Id, TimeToDestroy - time_under_need);
             }

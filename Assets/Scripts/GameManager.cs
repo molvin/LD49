@@ -89,6 +89,8 @@ public class GameManager : MonoBehaviour
             doKablaam = true;
         }
 
+        WarningSystem.Instance.ClearAll();
+
         Debug.Log("Game Over!!");
         Time.timeScale = 0;
         //TODO: Play animation for end of level, return to main menu
