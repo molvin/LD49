@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -64187,8 +64187,8 @@ MonoBehaviour:
   fader: {fileID: 0}
   infoPopupManager: {fileID: 0}
   infoMessageTitle: Combind resources
-  infoMessageBody: This building requiers a combination to two resources, use a combinder
-    to combind the and meet the machines requierment
+  infoMessageBody: This building requires a combination of two resources, use a combiner
+    to combine the and meet the machines requirement
   inforMessageImage: {fileID: 4462532979315700216, guid: e2ebc4f1d59fd784a9cb9a4956c1e659, type: 3}
 --- !u!1001 &919279863
 PrefabInstance:
