@@ -47,7 +47,6 @@ public class Demand : Entity
             }
 
             var res = Indicators[need.Type];
-            Debug.Log("Setting");
             if (PressureLevels.ContainsKey(need.Type))
                 res.SetValue(PressureLevels[need.Type]);
             else
