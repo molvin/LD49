@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraLogic : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class CameraLogic : MonoBehaviour
 
     private Player Player;
     private Camera Camera;
+
+    public Image FadeImage;
+    public GameObject FadeText;
 
 
     private void Start()

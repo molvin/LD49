@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     private bool doKablaam;
 
     public EntityManager m_EntityManager;
+
     protected void Awake()
     {
         m_OrderdUnlocks.Add(m_CyanSpawnCountUnlock);
@@ -94,8 +95,30 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameOverRoutine());
         IEnumerator GameOverRoutine()
         {
-            yield return new WaitForSecondsRealtime(5.0f);  //TODO: Do zomomeout and stuff
+            float time = 20.0f + Time.realtimeSinceStartup;
+            float CamStart = Camera.main.orthographicSize;
+            var CamLogic = Camera.main.GetComponent<CameraLogic>();
+            float CamEnd = CamLogic.FarZoom;
 
+            CamLogic.FadeImage.gameObject.SetActive(true);
+
+            while (Time.realtimeSinceStartup < time)
+            {
+                float Factor = (time - Time.realtimeSinceStartup) / 20.0f; // 1 to 0
+                Camera.main.orthographicSize = Mathf.Lerp(CamEnd, CamStart, Factor);
+
+                if (Factor < 0.75 && !CamLogic.FadeText.activeSelf)
+                {
+                    CamLogic.FadeText.SetActive(true);
+                }
+                if (Input.GetButtonDown("Interact")) goto end;
+
+                yield return null;
+            }
+
+            for(;;) if (Input.GetButtonDown("Interact")) break; else yield return null;
+
+            end:
             SceneManager.LoadScene(0);
         }
 
