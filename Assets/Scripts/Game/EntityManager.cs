@@ -63,15 +63,12 @@ public class EntityManager
     {
         Entities.ForEach(e => e?.Clear());
 
-        List<Demand> Demands = Entities.Where(e => e != null && e is Demand).Select(e => e as Demand).ToList();
         List<Resource> Resources = Entities.Where(e => e is Resource).Select(e => e as Resource).ToList();
 
         void Recurr(Entity Entity, PressurisedEnitity Parent)
         {
             if (Entity == null)
-            {
                 return;
-            }
 
             if (Entity is Demand Demand)
             {
@@ -114,7 +111,7 @@ public class EntityManager
             Resource.Edges.ForEach(Edge => Recurr(Edge.Other, Resource));
         }
 
-        Entities.ForEach(e => e?.Tick());
+        Entities.ForEach(e => e.Tick());
     }
 
 
@@ -145,7 +142,17 @@ public class EntityManager
                 point.SetActive(true);
         }
 
-        Entities.Remove(entity);
-        GameObject.Destroy(entity.gameObject);
+        GameObject.DestroyImmediate(entity.gameObject);
+        int index = 0;
+        foreach (Entity entity_in_list in Entities)
+        {
+            if(entity_in_list == null)
+            {
+                Entities.RemoveAt(index);
+                break;
+            }
+            index++;
+        }
+
     }
 }

@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 6498287418015186982}
   - component: {fileID: 1471954121493008690}
   - component: {fileID: 1567843312167693674}
-  - component: {fileID: 4211802453049246996}
+  - component: {fileID: 5645263701288636444}
   m_Layer: 8
   m_Name: Valve
   m_TagString: Untagged
@@ -433,8 +433,8 @@ MonoBehaviour:
   - {fileID: 4100514782553154418}
   - {fileID: 3359532455390668462}
   MaxDistance: 1
---- !u!61 &4211802453049246996
-BoxCollider2D:
+--- !u!70 &5645263701288636444
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -446,19 +446,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 3}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.009858623, y: -0.4091351}
+  m_Size: {x: 1, y: 2.6549463}
+  m_Direction: 0
 --- !u!1 &2661680101868819752
 GameObject:
   m_ObjectHideFlags: 0

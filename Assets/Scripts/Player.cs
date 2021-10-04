@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     public GameObject[] Ghosts;
     public Hose HosePrefab;
-    public ParticleSystem FootStepDustRight, FootStepDustLeft;
+    public ParticleSystem FootStepDustRight, FootStepDustLeft, Place,  Drag, PickUp;
     private bool footstepRight;
     public StateData HoseStateData = new StateData
     {
@@ -103,7 +103,9 @@ public class Player : MonoBehaviour
         GetComponentInChildren<ToolBarManager>().Init();
         FootStepDustRight = ParticleSystem.Instantiate(FootStepDustRight, this.transform);
         FootStepDustLeft = ParticleSystem.Instantiate(FootStepDustLeft, this.transform);
-        
+        Place = ParticleSystem.Instantiate(Place, this.transform);
+        Drag = ParticleSystem.Instantiate(Drag, this.transform);
+        PickUp = ParticleSystem.Instantiate(PickUp, this.transform);
         FootStepDustRight.transform.localPosition = new Vector3(-0.8f, -0.94f, 0f);
         FootStepDustLeft.transform.localPosition = new Vector3(0.7f, -0.94f, 0f);
         footstepRight = false;
@@ -193,6 +195,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Destroy"))
         {
             CurrentState = State.Destroy;
+
             return;
         }
         float cycle = Input.GetAxisRaw("Cycle");
@@ -213,10 +216,17 @@ public class Player : MonoBehaviour
             }
         }
 
-
-        var coll = Placeables[SelectedItem].GetComponent<BoxCollider2D>();
+        var coll = Placeables[SelectedItem].GetComponent<Collider2D>();
+        Vector2 size = 
+            (coll is BoxCollider2D Bc) 
+                ? Bc.size 
+                : (coll is CircleCollider2D Ci) 
+                    ? new Vector2(Ci.radius, Ci.radius) 
+                    : (coll is CapsuleCollider2D Cc)
+                        ? Cc.size
+                        : throw new System.Exception();
         Vector3 targetPosition = transform.position + SpriteHolder.up * PlaceDistance;
-        bool canPlace = !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer) && !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, BlockerLayer);
+        bool canPlace = !Physics2D.OverlapBox(targetPosition, size, 0.0f, EntityLayer) && !Physics2D.OverlapBox(targetPosition, size, 0.0f, BlockerLayer);
 
         Ghosts[SelectedItem].SetActive(true);
         Ghosts[SelectedItem].transform.position = targetPosition;
@@ -229,6 +239,11 @@ public class Player : MonoBehaviour
         if(Input.GetButtonDown("Interact") && canPlace)
         {
             GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
+            if (!Place.isPlaying)
+            {
+                Place.transform.position = targetPosition;
+                Place.Play();
+            }
         }
 
         if (Input.GetButtonDown("Build"))
@@ -276,6 +291,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Interact"))
         {
+            if (!PickUp.isPlaying)
+            {
+                PickUp.Play();
+            }
             Debug.Log("Destroying Item");
             GameManager.Instance.m_EntityManager.Destroy(closest);
             //TODO: regain one item
@@ -380,6 +399,7 @@ public class Player : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
+        Drag.Play();
 
         foreach (var coll in colliders)
         {
@@ -423,6 +443,7 @@ public class Player : MonoBehaviour
                     point.SetActive(shouldBeActive);
                 }
                 Interaction.Clear();
+                Drag.Stop();
                 CurrentState = State.Move;
             }
         }

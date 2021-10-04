@@ -4,8 +4,15 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    public static int IdCounter = 0;
     public List<Edge> Edges;
     public List<GameObject> InteractionPoints;
+    public int Id;
+
+    public Entity()
+    {
+        Id = IdCounter++;
+    }
 
     public virtual void Tick() { }
 

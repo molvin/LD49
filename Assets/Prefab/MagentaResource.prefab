@@ -42,7 +42,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -72,7 +72,6 @@ GameObject:
   m_Component:
   - component: {fileID: 525750282137527184}
   - component: {fileID: 8129150490485527682}
-  - component: {fileID: 365777848}
   - component: {fileID: 4425154613707865710}
   m_Layer: 8
   m_Name: MagentaResource
@@ -112,32 +111,6 @@ MonoBehaviour:
   - {fileID: 807117147}
   Type: 2
   Pressure: 100
---- !u!61 &365777848
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8598795658063933039}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.72352993, y: 0.4168735}
-    oldSize: {x: 3.4375, y: 3.21875}
-    newSize: {x: 3.4375, y: 3.21875}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!212 &4425154613707865710
 SpriteRenderer:
   m_ObjectHideFlags: 0
