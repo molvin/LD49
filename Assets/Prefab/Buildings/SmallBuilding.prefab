@@ -496,7 +496,7 @@ MonoBehaviour:
   - {fileID: 253497187}
   Id: 30
   Needs: []
-  TimeToDestroy: 100
+  TimeToDestroy: 120
   NeedLeniency: 10
   IsSatisfied: 0
   ShouldAddOnActivation: 1
