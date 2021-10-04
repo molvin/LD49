@@ -251,25 +251,28 @@ public class Player : MonoBehaviour
         }
 
         //Overlap check infront of you
-        Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
+        Vector2 position = transform.position + SpriteHolder.up * DestructionOffset;
         var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
         Entity closest = null;
         float dist = 10000000000.0f;
         Debug.Log($"Found entities {colliders.Length}");
+        Vector2 Pos = Vector2.zero;
         foreach (var coll in colliders)
         {
-            float d = (position - coll.transform.position).magnitude;
+            Vector2 CollPos = (Vector2)coll.transform.position + coll.offset;
+            float d = (position - CollPos).magnitude;
             if (d < dist)
             {
                 dist = d;
                 closest = coll.GetComponent<Entity>();
+                Pos = CollPos;
             }
         }
         if (closest == null || closest is Resource || closest is Demand)
             return;
 
         DestructionCube.SetActive(true);
-        DestructionCube.transform.position = closest.transform.position;
+        DestructionCube.transform.position = Pos;
 
         if (Input.GetButtonDown("Interact"))
         {
@@ -287,6 +290,25 @@ public class Player : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
+
+        foreach (var coll in colliders)
+        {
+            float d = (position - coll.transform.position).magnitude;
+            if(d < dist)
+            {
+                var interact = coll.GetComponent<InteractionPoint>();
+                if (interact.IsHoseOnGround(this))
+                {
+                    closest = interact;
+                    dist = d;
+                }
+            }
+        }
+        if(closest != null)
+        {
+            closest.Interact(this);
+            return;
+        }
 
         foreach (var coll in colliders)
         {

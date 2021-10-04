@@ -22,6 +22,21 @@ public class InteractionPoint : MonoBehaviour
         ParentEntity = GetComponentInParent<Entity>();
     }
 
+    public bool IsHoseOnGround(Player player)
+    {
+        if (InteractType != Interactable.Hose)
+        {
+            return false;
+        }
+
+        if (!(player.CurrentState is Player.State.Move))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public void Interact(Player player)
     {
         switch(InteractType)

@@ -10,6 +10,8 @@ public class Hose : PressurisedEnitity
     public Transform Socket1;
     public HoseSentinel Sentinel0;
     public HoseSentinel Sentinel1;
+    public CircleCollider2D Collider0;
+    public CircleCollider2D Collider1;
     [Header("Prefabs")]
     public HoseStick HoseStickPrefab;
     public HoseJoint HoseJointPrefab;
@@ -65,6 +67,9 @@ public class Hose : PressurisedEnitity
 
         Reel.Update();
         FixSpline();
+
+        Collider0.offset = transform.InverseTransformPoint(Socket0.transform.position);
+        Collider1.offset = transform.InverseTransformPoint(Socket1.transform.position);
     }
 
     private void FixSpline()
@@ -303,6 +308,7 @@ public class Reel
                 Vector3 Pos = ActorLocation(HoseSocket) - Vec.normalized * (StickLength * 0.5f + ActorRadius);
                 Quaternion Dir = Quaternion.FromToRotation(Vector3.right, Vec);
                 HoseStick Stick = GameObject.Instantiate(Owner.HoseStickPrefab, Pos, Dir);
+                Stick.transform.SetParent(Owner.transform);
                 SocketStick0 = Stick;
                 SocketStick1 = Stick;
 
@@ -328,6 +334,7 @@ public class Reel
                 Vector3 Pos = JointLocation - Vec.normalized * (StickLength * 0.5f + CurrentJoint.Radius);
                 Quaternion Dir = Quaternion.FromToRotation(Vector3.right, Vec);
                 var Stick = GameObject.Instantiate(Owner.HoseStickPrefab, Pos, Dir);
+                Stick.transform.SetParent(Owner.transform);
                 if (HoseSocket == 0)
                 {
                     SocketStick1 = Stick;
@@ -366,6 +373,7 @@ public class Reel
             Vector3 Vec = EndLocation - ReelLocation(HoseSocket);
             Vector3 Pos = EndLocation - Vec.normalized * JointRadius;
             CurrentJoint = GameObject.Instantiate(Owner.HoseJointPrefab, Pos, Quaternion.identity);
+            CurrentJoint.transform.SetParent(Owner.transform);
 
             var Hinge = CurrentJoint.RightJoint;
             Hinge.enabled = true;
