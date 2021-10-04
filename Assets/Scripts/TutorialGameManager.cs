@@ -10,7 +10,11 @@ public class TutorialGameManager : GameManager
     public Demand[] demandsToCompleate;
     private int lastTutorialScene = 7;
     public SceneFaderPanelController fader;
+    public InfoPopupManager infoPopupManager;
 
+    public string infoMessageTitle;
+    [TextArea]
+    public string infoMessageBody;
     private bool loadingNextScene = false;
     protected void Start()
     {
@@ -18,6 +22,11 @@ public class TutorialGameManager : GameManager
         {
             fader = FindObjectOfType<SceneFaderPanelController>();
         }
+        if (infoPopupManager == null)
+        {
+            infoPopupManager = FindObjectOfType<InfoPopupManager>();
+        }
+        infoPopupManager.AddInfo(infoMessageTitle, infoMessageBody);
     }
 
     private void Update()

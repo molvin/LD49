@@ -1176,8 +1176,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6401618861521165525}
-  - component: {fileID: 993232793}
   - component: {fileID: 993232795}
+  - component: {fileID: 4027593932587711687}
   m_Layer: 0
   m_Name: MediunBuilding
   m_TagString: Untagged
@@ -1207,32 +1207,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &993232793
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7304847203395535899}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5144892, y: 0.08166492}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.8709164, y: 2.0453107}
-  m_EdgeRadius: 0
 --- !u!114 &993232795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,6 +1227,22 @@ MonoBehaviour:
   NeedLeniency: 10
   IsSatisfied: 0
   ShouldAddOnActivation: 1
+--- !u!70 &4027593932587711687
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7304847203395535899}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5144892, y: 0.08166492}
+  m_Size: {x: 4.870916, y: 2.045311}
+  m_Direction: 1
 --- !u!1001 &1907100678512223091
 PrefabInstance:
   m_ObjectHideFlags: 0

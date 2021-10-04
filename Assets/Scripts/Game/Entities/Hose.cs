@@ -123,26 +123,34 @@ public class Hose : PressurisedEnitity
         }
         
         Add(0, Socket0.position);
-        Add(Spline.GetPointCount(), Socket1.position);
+        if (Vector3.Distance(Socket0.position, Socket1.position) > 2.0f)
+        {
+            Add(Spline.GetPointCount(), Socket1.position);
 
-        Vector3 SocketPos0 = T(Socket0.position);
-        Vector3 SocketPos1 = T(Socket1.position);
-        Vector3 Second = (Spline.GetPosition(1));
-        Vector3 AlmostLast = (Spline.GetPosition(Spline.GetPointCount() - 2));
-        // Add intermeediate points
-        if (Vector3.Distance(SocketPos0, Second) > 1.5f)
-        {
-            Vector3 Dir = (Second - SocketPos0).normalized;
-            Add(1, Socket0.transform.position + Dir);
-            Spline.SetLeftTangent(1, Dir);
-            Spline.SetRightTangent(1, Dir);
+            Vector3 SocketPos0 = T(Socket0.position);
+            Vector3 SocketPos1 = T(Socket1.position);
+            Vector3 Second = (Spline.GetPosition(1));
+            Vector3 AlmostLast = (Spline.GetPosition(Spline.GetPointCount() - 2));
+            // Add intermeediate points
+            if (Vector3.Distance(SocketPos0, Second) > 2.0f)
+            {
+                Vector3 Dir = (Second - SocketPos0).normalized;
+                Add(1, Socket0.transform.position + Dir);
+                Spline.SetLeftTangent(1, Dir);
+                Spline.SetRightTangent(1, Dir);
+            }
+            if (Vector3.Distance(SocketPos1, AlmostLast) > 2.0f)
+            {
+                Vector3 Dir = (AlmostLast - SocketPos1).normalized;
+                Add(Spline.GetPointCount() - 1, Socket1.transform.position + Dir);
+                Spline.SetLeftTangent(Spline.GetPointCount() - 2, Dir);
+                Spline.SetRightTangent(Spline.GetPointCount() - 2, Dir);
+            }
         }
-        if (Vector3.Distance(SocketPos1, AlmostLast) > 1.5f)
+        
+        if (Spline.GetPointCount() == 1)
         {
-            Vector3 Dir = (AlmostLast - SocketPos1).normalized;
-            Add(Spline.GetPointCount() - 1, Socket1.transform.position + Dir);
-            Spline.SetLeftTangent(Spline.GetPointCount() - 2, Dir);
-            Spline.SetRightTangent(Spline.GetPointCount() - 2, Dir);
+            Spline.SetSpriteIndex(0, 2);
         }
 
         if (Spline.GetPointCount() == 2)

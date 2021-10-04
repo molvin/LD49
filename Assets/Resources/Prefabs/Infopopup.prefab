@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -28.3058}
-  m_SizeDelta: {x: 400, y: 56.6115}
+  m_AnchoredPosition: {x: 1.7605, y: -77.67638}
+  m_SizeDelta: {x: 491.4852, y: 52.5175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1878065690528540529
 CanvasRenderer:
@@ -78,7 +78,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Do a thing
+  m_Text: 'Do a thing
+
+    aa'
 --- !u!1 &3210386493605409542
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,8 +115,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 71.694}
-  m_SizeDelta: {x: 400, y: 143.39}
+  m_AnchoredPosition: {x: 1.7609, y: 124.03}
+  m_SizeDelta: {x: 491.49, y: 144.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4170832065629423187
 CanvasRenderer:
@@ -146,10 +148,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -196,7 +198,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -540}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5840720510894035807
 CanvasRenderer:
@@ -219,14 +221,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 00166ecf090ab5d4294126de4747ddfd, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -248,5 +250,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45628e4349b896449b241736168e661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoBody: {fileID: 6319600838902815890}
-  infoTitle: {fileID: 3767098525100873982}
+  infoBody: {fileID: 3767098525100873982}
+  infoTitle: {fileID: 6319600838902815890}
+  animCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8532945
+      value: 1.2215339
+      inSlope: -1.1764158
+      outSlope: -1.1764158
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99298096
+      value: 1.0212212
+      inSlope: -1.4136933
+      outSlope: -1.4136933
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5756532
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animTime: 1

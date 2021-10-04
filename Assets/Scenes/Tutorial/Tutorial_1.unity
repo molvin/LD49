@@ -332,7 +332,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d9fa367e44dbc49b5b7e90618e4e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Kablaam: {fileID: 8583192761324685517, guid: 55e6df36246d1a14e8cd9e34863b3835, type: 3}
   m_CyanSpawnCountUnlock: 0
   m_MagentaSpawnCountUnlock: 1
   m_YellowSpawnCountUnlock: 2
@@ -344,13 +343,18 @@ MonoBehaviour:
   m_MaxSpawnInteval: 0
   m_MinDemand: 0
   m_MaxDemand: 0
-  m_MinSpawnDistance: 0
-  m_MaxSpawnDistance: 0
-  m_ClosestSpawnDistance: 0
+  m_MinSpawnDistanceOffset: 0
+  m_MaxSpawnDistanceOffset: 0
+  m_MaxSpawnDistancePerSpawn: 0
+  m_AvoidanceDistance: 0
   m_FactoryEntity: {fileID: 0}
+  m_KablamParticleSystem: {fileID: 0}
   demandsToCompleate:
   - {fileID: 1673743152}
   fader: {fileID: 0}
+  infoPopupManager: {fileID: 0}
+  infoMessageTitle: Supply the machine
+  infoMessageBody: Connect the hose to the machine
 --- !u!224 &545357785 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 371140402476402298, guid: 6b0c91d57b6b6a04fa824de15016c3d4, type: 3}
@@ -1029,6 +1033,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 597722831, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2049299637145408492, guid: 2ba61d270c12d8f4884bd12f80dcf4c9, type: 3}
       propertyPath: orthographic
       value: 1
@@ -1111,6 +1119,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1232522793}
     m_Modifications:
+    - target: {fileID: 371140402476402296, guid: 6b0c91d57b6b6a04fa824de15016c3d4, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 371140402476402298, guid: 6b0c91d57b6b6a04fa824de15016c3d4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
