@@ -84,6 +84,11 @@ public class Demand : Entity
     internal void TransferConnectionsTo(Demand doner_demand)
     {
         Debug.Log("Move connections to this");
+        var edges = doner_demand.Edges;
+        for(int i = 0; i < edges.Count; i++)
+        {
+            Edges[i] = edges[i];
+        }
     }
 
     public void UpdatePressureLevel(ResourceType Type, float Pressure)
@@ -113,16 +118,22 @@ public class Demand : Entity
         return TryEdge.Other == null && IncommingEdge.Self != TryEdge.Self;
     }
 
+    
     void Awake()
     {
         //Edges = new List<Edge>{new Edge{ Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 } };
-        Edges = new List<Edge>();
-        Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
-        for (int i = 0; i < InteractionPoints.Count; i++)
+        if(Edges == null)
         {
-            edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
-            Edges.Add(edge);
+            Edges = new List<Edge>();
+            Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
+
+            for (int i = 0; i < InteractionPoints.Count; i++)
+            {
+                edge.SelfSocket = (InteractionPoints[i].GetComponent<InteractionPoint>()).Socket;
+                Edges.Add(edge);
+            }
         }
+
 
         LastSatisfiedTime = Time.time;
         //DemandUI = GetComponentInChildren<ResourceWorldUI>();
