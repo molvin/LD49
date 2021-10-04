@@ -43,7 +43,10 @@ public class FactoryManager : MonoBehaviour
         public bool IsSatisfied() { return m_Demand.IsSatisfied; }
         public bool IsEnabled() { return m_Factory && m_Factory.activeSelf; }
         public void TickSatesfaction(float delta_time) { m_SatesfactionTime += delta_time; }
-        public bool ShouldUpgrade() { return m_SatesfactionTime >= m_UpgradeThreshold; }
+        public bool ShouldUpgrade() 
+        { 
+            return m_SatesfactionTime >= m_UpgradeThreshold && GameManager.Instance.AvailableResources() > m_Demand.Needs.Count;
+        }
         public List<Demand.Need> GetNeeds() { return m_Demand.Needs; }
         public void SetActive(bool active, List<Demand.Need> prerquisit_needs)
         {
@@ -61,9 +64,9 @@ public class FactoryManager : MonoBehaviour
 
             m_Factory.SetActive(active);
         }
-        public void MoveConnectionsTo(FactoryWithNeeds doner_factory)
+        public void TransferConnectionsFrom(FactoryWithNeeds doner_factory)
         {
-            doner_factory.m_Demand.TransferConnectionsTo(doner_factory.m_Demand);
+            m_Demand.TransferConnectionsFrom(doner_factory.m_Demand);
         }
     }
 
@@ -103,7 +106,7 @@ public class FactoryManager : MonoBehaviour
             if (factory.ShouldUpgrade())
             {
                 FactoryWithNeeds next_factory = m_FactoriesWithNeeds[i + 1];
-                next_factory.MoveConnectionsTo(factory);
+                next_factory.TransferConnectionsFrom(factory);
 
                 factory.SetActive(false, new List<Demand.Need>());
                 next_factory.SetActive(true, factory.GetNeeds());

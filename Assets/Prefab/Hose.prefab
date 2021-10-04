@@ -204,11 +204,11 @@ SpriteShapeRenderer:
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Sprites:
-  - {fileID: -8955812619259062215, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
-  - {fileID: 8933607801220796041, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
-  - {fileID: -7956832237065629149, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
-  - {fileID: -8637159173488095169, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
-  - {fileID: 4680653795402065389, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
+  - {fileID: 4753258692078137619, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
+  - {fileID: 9045646400296435942, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
+  - {fileID: -6765242926017629268, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
+  - {fileID: -537749870668139058, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
+  - {fileID: 1561205615984820651, guid: b27164b65b055574f95f794bbee1a07f, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
@@ -560,7 +560,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 7
   m_LinearDrag: 1
   m_AngularDrag: 100000
   m_GravityScale: 1
@@ -589,10 +589,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!114 &4050120266454926444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871adb9a6cf9ca047ac491b597f65ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InterpolationSpeed: 10
+  InterpolationSpeed: 20
   Hinge: {fileID: 8990652229040133087}
   Socket: {fileID: 2058503112856507245}
 --- !u!1 &8611370829585790645
@@ -653,7 +653,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 7
   m_LinearDrag: 1
   m_AngularDrag: 100000
   m_GravityScale: 1
@@ -682,10 +682,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!114 &9129271641949461772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,6 +698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871adb9a6cf9ca047ac491b597f65ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InterpolationSpeed: 10
+  InterpolationSpeed: 20
   Hinge: {fileID: 3922156892520673884}
   Socket: {fileID: 2058503112378897778}

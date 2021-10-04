@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4982597073354719802}
   - component: {fileID: 7675096783742185075}
   - component: {fileID: 2366843704579490734}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HoseJoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8386067583766528611}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.25
 --- !u!50 &6391532459054938175
 Rigidbody2D:
   serializedVersion: 4
@@ -119,7 +119,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 100000
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 29f6f5fe54e7aa6479dd1f37f699c34d, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -144,10 +144,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!233 &7675096783742185075
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -168,10 +168,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -30
+    m_UpperAngle: 30
 --- !u!114 &2366843704579490734
 MonoBehaviour:
   m_ObjectHideFlags: 0
