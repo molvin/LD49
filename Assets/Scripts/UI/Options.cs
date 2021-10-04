@@ -27,8 +27,6 @@ public class Options : MonoBehaviour
 
     private Resolution[] resolutions;
     private FullScreenMode[] WindowModes;
-    public Dropdown resDropDown;
-    public Dropdown modeDropDown;
 
     Resolution selecterRes;
     FullScreenMode selecterMode;
@@ -56,68 +54,15 @@ public class Options : MonoBehaviour
         startPos = this.transform.position;
         timer = animTime;
 
-
-
-
-        SetupResolutionDropDown();
-        SetupWindowModeDropDown();
     }
     private void Update()
     {
         Animate();
     }
 
-    private void SetupWindowModeDropDown()
-    {
-        WindowModes = ((FullScreenMode[])System.Enum.GetValues(typeof(FullScreenMode)));
-        List<String> options = new List<string>();
-        foreach (FullScreenMode mode in this.WindowModes)
-        {
-            options.Add(mode.ToString());
-        }
-        modeDropDown.ClearOptions();
-        modeDropDown.AddOptions(options);
-        modeDropDown.SetValueWithoutNotify((int)Screen.fullScreenMode);
-        
-        modeDropDown.onValueChanged.AddListener(delegate
-        {
-            SetWindowMode();
-        });
+    
 
-    }
-    private void SetWindowMode()
-    {
-        selecterMode = this.WindowModes[modeDropDown.value];
-        Screen.SetResolution(selecterRes.width, selecterRes.height, selecterMode, selecterRes.refreshRate);
-
-    }
-    private void SetupResolutionDropDown()
-    {
-        this.resolutions = Screen.resolutions;
-        List<String> options = new List<string>();
-        foreach (Resolution res in this.resolutions)
-        {
-
-            options.Add(res.ToString());
-        }
-        resDropDown.ClearOptions();
-        resDropDown.AddOptions(options);
-        int index = options.FindIndex(a => a == Screen.currentResolution.ToString());
-        resDropDown.SetValueWithoutNotify(index);
-
-        resDropDown.onValueChanged.AddListener(delegate
-        {
-            SetResulution();
-        });
-    }
-   
-
-    private void SetResulution()
-    {
-        selecterRes = this.resolutions[resDropDown.value];
-        Screen.SetResolution(selecterRes.width,selecterRes.height, selecterMode, selecterRes.refreshRate);
-    }
-
+    
     private void Animate()
     {
         timer += isHidden ? Time.deltaTime : -Time.deltaTime;
@@ -140,8 +85,6 @@ public class Options : MonoBehaviour
         musicSlider.gameObject.SetActive(enable);
         SFXSlider.gameObject.SetActive(enable);
         UISlider.gameObject.SetActive(enable);
-        modeDropDown.gameObject.SetActive(enable);
-        resDropDown.gameObject.SetActive(enable);
         closeButton.gameObject.SetActive(enable);
 
 
