@@ -10,11 +10,6 @@ public class TutorialGameManager : GameManager
 
     protected void Start()
     {
-        
-        foreach (Demand demand in demandsToCompleate)
-        {
-            m_EntityManager.Add(demand, demand.transform.position);
-        }
          
     }
 
@@ -31,7 +26,5 @@ public class TutorialGameManager : GameManager
         {
             notSatified = !demand.IsSatisfied ? true : notSatified;
         }
-
-        Debug.Log(notSatified);
     }
 }
