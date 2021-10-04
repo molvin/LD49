@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0.99999905, b: 0.99999905, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -539,7 +539,7 @@ MonoBehaviour:
   infoPopupManager: {fileID: 0}
   infoMessageTitle: Add a Valve
   infoMessageBody: This building only requiers 50% pressure, place a valve between
-    the building and the source to regulate the pressure. Press B to enable build
+    the building and the source to regulate the pressure. Press E to enable build
     menu, press Q to enable destruction menu
   inforMessageImage: {fileID: 5065631796070425490, guid: e2ebc4f1d59fd784a9cb9a4956c1e659, type: 3}
 --- !u!1001 &587639597
