@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,6 +81,11 @@ public class Demand : Entity
 
     }
 
+    internal void TransferConnectionsTo(Demand doner_demand)
+    {
+        Debug.Log("Move connections to this");
+    }
+
     public void UpdatePressureLevel(ResourceType Type, float Pressure)
     {
         float CurrentLevel;
@@ -129,7 +135,7 @@ public class Demand : Entity
         foreach (Need need in Needs)
         {
            // DemandUI.SetDemand(need.Value, NeedLeniency
-            indicators[j].SetDemand(need.Value, NeedLeniency);
+            indicators[j].SetDemand(need.Value, NeedLeniency, need.Type);
             Indicators.Add(need.Type, indicators[j++]);
         }
     }

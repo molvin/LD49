@@ -28,16 +28,18 @@ public class ResourceIndicator : MonoBehaviour
 
     public SpriteRenderer mirrorDemandMarker;
     public SpriteRenderer mirrorValueIndicator;
+    public SpriteRenderer[] backGroundSprites;
 
 
     private float maxValue = 100;
     private float leniency;
 
+    public ResourceType ResourceType;
 
     private void OnValidate()
     {
         maxValue = 100;
-        SetDemand(demoDemand * 100, demoLeniency);
+        SetDemand(demoDemand * 100, demoLeniency, ResourceType);
 
         SetVisualCurrentValue(demoValue);
     }
@@ -53,19 +55,25 @@ public class ResourceIndicator : MonoBehaviour
         }
     }
 
-    public void SetDemand(float value, float leniency)
+    public void SetDemand(float value, float leniency, ResourceType type)
     {
         if (value < 0 || value > maxValue)
         {
             throw new System.Exception("0-"+ maxValue+" please bitchboy! you gave me " + value);
         }
         demand = value;
+        ResourceType = type;
 
         Vector3 localPos = demandMarker.transform.localPosition;
         demandMarker.transform.localPosition = new Vector3(localPos.x, (demand / maxValue) * 2 -1, localPos.z);
 
         Vector3 mirrorLocalPos = mirrorDemandMarker.transform.localPosition;
         mirrorDemandMarker.transform.localPosition = new Vector3(mirrorLocalPos.x, (demand / maxValue) * 2 - 1, mirrorLocalPos.z);
+
+        foreach(var backgroundSprite in backGroundSprites)
+        {
+            backgroundSprite.color = ResourceColor.TypeColor(type);
+        }
         this.leniency = leniency;
     }
 
