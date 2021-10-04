@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class InfoPopup : MonoBehaviour
 {
@@ -15,10 +16,18 @@ public class InfoPopup : MonoBehaviour
     private float animTimer = 0;
     private bool hide = false;
     private Vector3 startScale;
+
+    private AudioSource audioSource;
+    string clipPath = "Audio/MaximizeZwoosh";
+
     // Start is called before the first frame update
     public void Start()
     {
+        audioSource = this.GetComponent<AudioSource>();
         startScale = this.transform.localScale;
+        AudioClip clip = Resources.Load<AudioClip>(clipPath);
+        audioSource.PlayOneShot(clip);
+
     }
     public void Init(string title, string body, Sprite sprite)
     {
@@ -35,6 +44,8 @@ public class InfoPopup : MonoBehaviour
         if (Input.GetButtonDown("Interact") && hide == false)
         {
             hide = true;
+            AudioClip clip = Resources.Load<AudioClip>(clipPath);
+            audioSource.PlayOneShot(clip);
             StartCoroutine(DestroyAfterAnim());
         }
 
