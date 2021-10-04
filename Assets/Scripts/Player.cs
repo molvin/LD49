@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     public GameObject[] Ghosts;
     public Hose HosePrefab;
-    public ParticleSystem FootStepDustRight, FootStepDustLeft;
+    public ParticleSystem FootStepDustRight, FootStepDustLeft, Place,  Drag, PickUp;
     private bool footstepRight;
     public StateData HoseStateData = new StateData
     {
@@ -103,7 +103,9 @@ public class Player : MonoBehaviour
         GetComponentInChildren<ToolBarManager>().Init();
         FootStepDustRight = ParticleSystem.Instantiate(FootStepDustRight, this.transform);
         FootStepDustLeft = ParticleSystem.Instantiate(FootStepDustLeft, this.transform);
-        
+        Place = ParticleSystem.Instantiate(Place, this.transform);
+        Drag = ParticleSystem.Instantiate(Drag, this.transform);
+        PickUp = ParticleSystem.Instantiate(PickUp, this.transform);
         FootStepDustRight.transform.localPosition = new Vector3(-0.8f, -0.94f, 0f);
         FootStepDustLeft.transform.localPosition = new Vector3(0.7f, -0.94f, 0f);
         footstepRight = false;
@@ -193,6 +195,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Destroy"))
         {
             CurrentState = State.Destroy;
+
             return;
         }
         float cycle = Input.GetAxisRaw("Cycle");
@@ -229,6 +232,10 @@ public class Player : MonoBehaviour
         if(Input.GetButtonDown("Interact") && canPlace)
         {
             GameManager.Instance.m_EntityManager.Add(Placeables[SelectedItem], targetPosition);
+            if (!Place.isPlaying)
+            {
+                Place.Play();
+            }
         }
 
         if (Input.GetButtonDown("Build"))
@@ -242,6 +249,10 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Destroy"))
         {
             CurrentState = State.Move;
+            if (!PickUp.isPlaying)
+            {
+                PickUp.Play();
+            }
             return;
         }
         if (Input.GetButtonDown("Build"))
@@ -380,6 +391,7 @@ public class Player : MonoBehaviour
         var colliders = Physics2D.OverlapCircleAll(position, InteractionRadius, InteractionLayer);
         InteractionPoint closest = null;
         float dist = 10000000000.0f;
+        Drag.Play();
 
         foreach (var coll in colliders)
         {
@@ -423,6 +435,7 @@ public class Player : MonoBehaviour
                     point.SetActive(shouldBeActive);
                 }
                 Interaction.Clear();
+                Drag.Stop();
                 CurrentState = State.Move;
             }
         }
