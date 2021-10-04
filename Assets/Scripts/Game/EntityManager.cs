@@ -13,7 +13,8 @@ public enum ResourceType
     Red = 0b110,
     Green = 0b101,
     Blue = 0b011,
-    Black = 0b111
+    Black = 0b111,
+    Count
 }
 
 public struct Edge
