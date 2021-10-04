@@ -56,6 +56,7 @@ public class EntityManager
             Entities.Add(Entity);
 
        //
+        Entities[Entities.Count - 1].Id = Entity.IdCounter++;
         return Entities[Entities.Count - 1];
     }
 
@@ -141,6 +142,10 @@ public class EntityManager
             foreach (var point in hose.InteractionPoints)
                 point.SetActive(true);
         }
+
+        
+        if (WarningSystem.Instance.ContainsWarning(entity.Id))
+            WarningSystem.Instance.CancelWarningObject(entity.Id);
 
         GameObject.DestroyImmediate(entity.gameObject);
         int index = 0;

@@ -28,6 +28,7 @@ public class WarningSystem : MonoBehaviour
 
     public void CreateWarningObject(GameObject target, int id, float time)
     {
+        Debug.Log("CREATEING " + target);
         GameObject obj = (GameObject)Instantiate(Resources.Load(prefabPath), parentCanvas);
         obj.GetComponent<WarningObject>().constructor(target.transform, time);
         warnings.Add(id, obj);

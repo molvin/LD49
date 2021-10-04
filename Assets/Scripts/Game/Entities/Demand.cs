@@ -66,22 +66,27 @@ public class Demand : Entity
 
         if (IsSatisfied)
         {
+            Debug.Log("Statisfied"+ Id);
             LastSatisfiedTime = Time.time;
             if (WarningSystem.Instance.ContainsWarning(Id))
                 WarningSystem.Instance.CancelWarningObject(Id);
         }    
         else
         {
+            Debug.Log("Unstatisfied" + Id);
+
             float time_under_need = GetTimeUnderNeed();
-            if (time_under_need > TimeToDestroy)
-            {
-                GameManager.Instance.GameOver();
-            }
-            else if(!WarningSystem.Instance.ContainsWarning(Id))  
+            
+            if(!WarningSystem.Instance.ContainsWarning(Id))  
             {
                 WarningSystem.Instance.CreateWarningObject(gameObject, Id, TimeToDestroy - time_under_need);
             }
            
+            if (time_under_need > TimeToDestroy)
+            {
+                GameManager.Instance.GameOver();
+            }
+            
         }
 
     }
@@ -89,6 +94,7 @@ public class Demand : Entity
     internal void TransferConnectionsFrom(Demand doner_demand)
     {
         Debug.Log("Move connections to this");
+    
         Edges = new List<Edge>();
         Edge edge = new Edge { Self = this, SelfSocket = 0, Other = null, OtherSocket = -1 };
 
