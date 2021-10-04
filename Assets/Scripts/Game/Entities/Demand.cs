@@ -27,6 +27,7 @@ public class Demand : Entity
     {
         base.Tick();
 
+
         //If no time has changed don't care about the need
         if (Time.time == LastSatisfiedTime)
             return;
@@ -56,6 +57,7 @@ public class Demand : Entity
         }
 
 
+        GetComponent<Animator>().SetBool("Happy", IsSatisfied);
 
         if (IsSatisfied)
         {
