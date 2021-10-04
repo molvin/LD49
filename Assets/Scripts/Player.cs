@@ -213,10 +213,17 @@ public class Player : MonoBehaviour
             }
         }
 
-
-        var coll = Placeables[SelectedItem].GetComponent<BoxCollider2D>();
+        var coll = Placeables[SelectedItem].GetComponent<Collider2D>();
+        Vector2 size = 
+            (coll is BoxCollider2D Bc) 
+                ? Bc.size 
+                : (coll is CircleCollider2D Ci) 
+                    ? new Vector2(Ci.radius, Ci.radius) 
+                    : (coll is CapsuleCollider2D Cc)
+                        ? Cc.size
+                        : throw new System.Exception();
         Vector3 targetPosition = transform.position + SpriteHolder.up * PlaceDistance;
-        bool canPlace = !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, EntityLayer) && !Physics2D.OverlapBox(targetPosition, coll.size, 0.0f, BlockerLayer);
+        bool canPlace = !Physics2D.OverlapBox(targetPosition, size, 0.0f, EntityLayer) && !Physics2D.OverlapBox(targetPosition, size, 0.0f, BlockerLayer);
 
         Ghosts[SelectedItem].SetActive(true);
         Ghosts[SelectedItem].transform.position = targetPosition;
