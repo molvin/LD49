@@ -331,6 +331,9 @@ MonoBehaviour:
   HosePrefab: {fileID: 2058503112061502657, guid: 8aa6dd1186768274787e9203f99031e8, type: 3}
   FootStepDustRight: {fileID: 1564885329245430659, guid: ffd72f9019f3a5d469163a3301fb1af8, type: 3}
   FootStepDustLeft: {fileID: 1564885329245430659, guid: ffd72f9019f3a5d469163a3301fb1af8, type: 3}
+  Place: {fileID: 2182967516787687258, guid: 2654561c26265f547a0165f0a4a4d8ea, type: 3}
+  Drag: {fileID: 6241007335665101854, guid: 29e0ed251a80c6b43858c1f8f7ebd20a, type: 3}
+  PickUp: {fileID: 579712429551830252, guid: 09c04b4231f81f4489a138e5c475a951, type: 3}
   DestructionCube: {fileID: 610733300}
   DestructionOffset: 1
   DestructionRadius: 3

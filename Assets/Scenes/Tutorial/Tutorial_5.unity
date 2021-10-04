@@ -456,7 +456,7 @@ MonoBehaviour:
   fader: {fileID: 0}
   infoPopupManager: {fileID: 0}
   infoMessageTitle: Bigger building
-  infoMessageBody: This building requeirs resources from multiple sources
+  infoMessageBody: This building requires resources from multiple sources
   inforMessageImage: {fileID: -4900077339660789354, guid: b092f5ef9125be843ab0fcffdd1b8f33, type: 3}
 --- !u!1 &576115451
 GameObject:
