@@ -97,6 +97,7 @@ public class Hose : PressurisedEnitity
 
         if (Reel.Joints.Count > 0)
         {
+            int continues = 0;
             for (int i = 0; i < Reel.Sticks.Count; i+=2)
             {
                 HoseStick S(int Index) => Reel.Sticks[Index];
@@ -108,11 +109,13 @@ public class Hose : PressurisedEnitity
                     Vector2 Pos = Spline.GetPosition(ind - 1);
                     if (Vector2.Distance(Pos, S(i).transform.position) <= 1.5f)
                     {
+                        continues++;
                         continue;
                     }
                 }
 
-                Add(i / 2, S(i).transform.position);
+                // TODO
+                Add(i / 2 - continues, S(i).transform.position);
                 if (i == 0)
                 {
                     //Spline.SetRightTangent(0, Socket0.position);
