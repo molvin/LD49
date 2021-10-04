@@ -157,12 +157,12 @@ TextureImporter:
       name: Toolbar_Manu_Icons_New_0
       rect:
         serializedVersion: 2
-        x: 66
-        y: 636
-        width: 126
-        height: 245
+        x: 8
+        y: 642
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: Toolbar_Manu_Icons_New_1
       rect:
         serializedVersion: 2
-        x: 268
-        y: 653
-        width: 234
-        height: 227
+        x: 263
+        y: 640
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,7 +204,7 @@ TextureImporter:
         width: 251
         height: 161
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -220,12 +220,12 @@ TextureImporter:
       name: Toolbar_Manu_Icons_New_3
       rect:
         serializedVersion: 2
-        x: 23
-        y: 382
-        width: 227
-        height: 201
+        x: 24
+        y: 362
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -246,7 +246,7 @@ TextureImporter:
         width: 152
         height: 248
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -267,7 +267,7 @@ TextureImporter:
         width: 222
         height: 225
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -288,7 +288,7 @@ TextureImporter:
         width: 216
         height: 208
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -309,7 +309,7 @@ TextureImporter:
         width: 222
         height: 172
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -325,12 +325,12 @@ TextureImporter:
       name: Toolbar_Manu_Icons_New_8
       rect:
         serializedVersion: 2
-        x: 537
-        y: 40
-        width: 356
-        height: 313
+        x: 544
+        y: 19
+        width: 350
+        height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

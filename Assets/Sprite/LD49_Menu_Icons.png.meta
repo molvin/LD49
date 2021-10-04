@@ -145,12 +145,12 @@ TextureImporter:
       name: LD49_Menu_Icons_0
       rect:
         serializedVersion: 2
-        x: 137
+        x: 84
         y: 686
-        width: 123
-        height: 257
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -166,13 +166,13 @@ TextureImporter:
       name: LD49_Menu_Icons_1
       rect:
         serializedVersion: 2
-        x: 347
-        y: 708
-        width: 251
-        height: 261
+        x: 357
+        y: 686
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 52}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -187,13 +187,13 @@ TextureImporter:
       name: LD49_Menu_Icons_2
       rect:
         serializedVersion: 2
-        x: 688
-        y: 711
-        width: 238
-        height: 177
+        x: 686
+        y: 678
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 16}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -208,12 +208,12 @@ TextureImporter:
       name: LD49_Menu_Icons_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 451
-        width: 212
-        height: 199
+        x: 83
+        y: 430
+        width: 240
+        height: 240
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,7 +234,7 @@ TextureImporter:
         width: 718
         height: 251
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
