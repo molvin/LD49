@@ -746,6 +746,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 227949582, guid: 72c6f6e3756ad6f43a48237eed4973aa, type: 3}
+      propertyPath: TimeToDestroy
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 227949582, guid: 72c6f6e3756ad6f43a48237eed4973aa, type: 3}
       propertyPath: Needs.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1102,6 +1106,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3915012865266809858, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
+      propertyPath: Kablaam
+      value: 
+      objectReference: {fileID: 8583192761324685517, guid: 55e6df36246d1a14e8cd9e34863b3835, type: 3}
     - target: {fileID: 3915012865266809859, guid: dfc3ac54db12d4d4b959fd429710d054, type: 3}
       propertyPath: m_Name
       value: GameManager
