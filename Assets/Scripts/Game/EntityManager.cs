@@ -7,14 +7,14 @@ using System.Linq;
 public enum ResourceType
 {
     None,
-    Cyan,
-    Magenta,
-    Yellow,
-    Red,
-    Green,
-    Blue,
-    Black,
-    Count,
+    Cyan = 0b001,
+    Magenta = 0b010,
+    Yellow = 0b100,
+    Red = 0b110,
+    Green = 0b101,
+    Blue = 0b011,
+    Black = 0b111,
+    Count
 }
 
 public struct Edge
@@ -72,6 +72,20 @@ public class EntityManager
             }
             //else if (Entity is Combinator Combinator)
             else if (Entity is Resource){}
+            else if (Entity is Combiner Combiner)
+            {
+                if(Combiner.Type == ResourceType.None)
+                {
+                    Combiner.Type = Parent.Type;
+                    Combiner.Pressure = Parent.Pressure;
+                }
+                else
+                {
+                    Combiner.Type = Combiner.Type | Parent.Type;
+                    Combiner.Pressure = Mathf.Min(Parent.Pressure, Combiner.Pressure);
+                    Recurr(Combiner.Edges[0].Other, Combiner);
+                }
+            }
             else if (Entity is PressurisedEnitity Pressurised)
             {
                 if ((Pressurised.Type != ResourceType.None && Pressurised.Type != Parent.Type) || Pressurised.Pressure >= Parent.Pressure)

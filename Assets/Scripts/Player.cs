@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
     private float cycleTimer;
     private GameObject[] Ghosts;
     public Hose HosePrefab;
+    public ParticleSystem FootStepDustRight, FootStepDustLeft;
+    private bool footstepRight;
     public StateData HoseStateData = new StateData
     {
         State = State.Hose,
@@ -107,6 +109,12 @@ public class Player : MonoBehaviour
         }
 
         GetComponentInChildren<ToolBarManager>().Init();
+        FootStepDustRight = ParticleSystem.Instantiate(FootStepDustRight, this.transform);
+        FootStepDustLeft = ParticleSystem.Instantiate(FootStepDustLeft, this.transform);
+        
+        FootStepDustRight.transform.localPosition = new Vector3(-0.8f, -0.94f, 0f);
+        FootStepDustLeft.transform.localPosition = new Vector3(0.7f, -0.94f, 0f);
+        footstepRight = false;
     }
 
     private void Update()
@@ -117,7 +125,10 @@ public class Player : MonoBehaviour
             return;
 
         DestructionCube.SetActive(false);
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log(footstepRight);
+        }
         foreach (var g in Ghosts) g.SetActive(false);
         switch(CurrentState)
         {
@@ -163,6 +174,11 @@ public class Player : MonoBehaviour
 
     private void UpdateBuildState()
     {
+        if (Input.GetButtonDown("Destroy"))
+        {
+            CurrentState = State.Destroy;
+            return;
+        }
         float cycle = Input.GetAxisRaw("Cycle");
         if (Mathf.Abs(cycle) > MinInput && cycleTimer > CycleTickTime)
         {
@@ -205,8 +221,13 @@ public class Player : MonoBehaviour
             CurrentState = State.Move;
             return;
         }
+        if (Input.GetButtonDown("Build"))
+        {
+            CurrentState = State.Build;
+            return;
+        }
 
-       //Overlap check infront of you
+        //Overlap check infront of you
         Vector3 position = transform.position + SpriteHolder.up * DestructionOffset;
         var colliders = Physics2D.OverlapCircleAll(position, DestructionRadius, EntityLayer);
         Entity closest = null;
@@ -233,6 +254,7 @@ public class Player : MonoBehaviour
             GameManager.Instance.m_EntityManager.Destroy(closest);
             //TODO: regain one item
         }
+
     }
     private void Interact()
     {
@@ -270,8 +292,25 @@ public class Player : MonoBehaviour
         if (input.sqrMagnitude > MinInput * MinInput)
         { 
             Velocity = Vector3.SmoothDamp(Velocity, input.normalized * MaxSpeed, ref acceleration, AccelerationTime);
-            //Visual Rotation
+            Animator.GetComponent<SpriteRenderer>().flipX = input.x < 0;
+            //Visual Rotation, now just save last input rotation for interaction checks
             SpriteHolder.localRotation = Quaternion.FromToRotation(Vector3.up, input.normalized);
+            if (footstepRight && !FootStepDustRight.isPlaying && !FootStepDustLeft.isPlaying)
+            {
+                Debug.Log(FootStepDustRight);
+                FootStepDustRight.Play();
+                footstepRight = false;
+            }
+            else
+            {
+                if (!FootStepDustLeft.isPlaying && !FootStepDustRight.isPlaying)
+                {
+                    FootStepDustLeft.Play();
+                    footstepRight = true;
+                }
+
+            }
+            
         }
         else
         {
