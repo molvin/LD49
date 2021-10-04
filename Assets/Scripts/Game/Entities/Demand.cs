@@ -16,6 +16,7 @@ public class Demand : Entity
     public float NeedLeniency = 10;
     protected float LastSatisfiedTime;
     public bool IsSatisfied;
+    public bool ShouldAddOnActivation = true;
 
 
     protected Dictionary<ResourceType, float> PressureLevels = new Dictionary<ResourceType, float>();
@@ -119,7 +120,10 @@ public class Demand : Entity
 
         LastSatisfiedTime = Time.time;
         //DemandUI = GetComponentInChildren<ResourceWorldUI>();
+    }
 
+    private void OnEnable()
+    {
         int j = 0;
         var indicators = GetComponentsInChildren<ResourceIndicator>();
         foreach (Need need in Needs)

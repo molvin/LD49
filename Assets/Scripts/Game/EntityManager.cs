@@ -43,12 +43,19 @@ public class EntityManager
         Reset();
     }
 
-    public Entity Add(Entity Entity, Vector3 WorldLocation)
+    public Entity Add(Entity Entity, Vector3 WorldLocation, bool should_instanciate = true)
     {
-        Entities.Add(GameObject.Instantiate(
-            Entity,
-            WorldLocation,
-            Quaternion.identity));
+        if (should_instanciate)
+        {
+           Entities.Add(GameObject.Instantiate(
+           Entity,
+           WorldLocation,
+           Quaternion.identity));
+        }
+        else
+            Entities.Add(Entity);
+
+       //
         return Entities[Entities.Count - 1];
     }
 
