@@ -74,6 +74,15 @@ TextureImporter:
   - first:
       213: -4365898008368547565
     second: Buildings_23
+  - first:
+      213: -4705755604085201022
+    second: Buildings_24
+  - first:
+      213: 989384213347057825
+    second: Buildings_25
+  - first:
+      213: 2351045119836930529
+    second: Buildings_26
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -698,6 +707,69 @@ TextureImporter:
       bones: []
       spriteID: 3197b9594e63963c0800000000000000
       internalID: -4365898008368547565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buildings_24
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 176
+        width: 41
+        height: 81
+      alignment: 9
+      pivot: {x: 0.5159164, y: 0.6127954}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 287a2b2d53cc1beb0800000000000000
+      internalID: -4705755604085201022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buildings_25
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 144
+        width: 104
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.8172372}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a04ee633bffabd00800000000000000
+      internalID: 989384213347057825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buildings_26
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 176
+        width: 40
+        height: 40
+      alignment: 9
+      pivot: {x: 0.49999848, y: 0.45105475}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e1cbc2841790a020800000000000000
+      internalID: 2351045119836930529
       vertices: []
       indices: 
       edges: []
