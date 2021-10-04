@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 3277614525950895094}
   - component: {fileID: 5573653920931309912}
   - component: {fileID: -5971197620337388695}
+  - component: {fileID: 1154419772729813061}
+  - component: {fileID: 3394647331227149953}
   m_Layer: 8
   m_Name: Hose
   m_TagString: Untagged
@@ -59,6 +61,8 @@ MonoBehaviour:
   Socket1: {fileID: 2058503112856507245}
   Sentinel0: {fileID: 9129271641949461772}
   Sentinel1: {fileID: 4050120266454926444}
+  Collider0: {fileID: 1154419772729813061}
+  Collider1: {fileID: 3394647331227149953}
   HoseStickPrefab: {fileID: 6874849641001274216, guid: 928763475ce4a214eba73665d2dec309, type: 3}
   HoseJointPrefab: {fileID: 2366843704579490734, guid: d2519f95680255643834111856250129, type: 3}
 --- !u!120 &3277614525950895094
@@ -391,6 +395,38 @@ MonoBehaviour:
   m_EnableTangents: 0
   m_GeometryCached: 0
   m_UTess2D: 0
+--- !u!58 &1154419772729813061
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058503112061502659}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!58 &3394647331227149953
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058503112061502659}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &2058503112378897779
 GameObject:
   m_ObjectHideFlags: 0
