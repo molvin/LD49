@@ -98,7 +98,7 @@ public class FactoryManager : MonoBehaviour
         {
             FactoryWithNeeds factory = m_FactoriesWithNeeds[i];
 
-            if (!factory.IsEnabled() || !factory.IsSatisfied() || GameManager.Instance.AvailableResources() < factory.GetNeeds().Count)
+            if (!factory.IsEnabled() || !factory.IsSatisfied() || GameManager.Instance.AvailableResources() <= factory.GetNeeds().Count)
                 continue;
 
             factory.TickSatesfaction(Time.deltaTime);
