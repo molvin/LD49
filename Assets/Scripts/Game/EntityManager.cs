@@ -7,9 +7,13 @@ using System.Linq;
 public enum ResourceType
 {
     None,
+    Cyan,
+    Magenta,
+    Yellow,
     Red,
     Green,
     Blue,
+    Black
 }
 
 public struct Edge

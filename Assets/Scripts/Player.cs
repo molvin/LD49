@@ -121,6 +121,9 @@ public class Player : MonoBehaviour
     {
         Instance = this;
 
+        if (Time.timeScale == 0)
+            return;
+
         DestructionCube.SetActive(false);
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -347,10 +350,7 @@ public class Player : MonoBehaviour
         Valve valve = Interaction.Entity as Valve;
 
         Vector3 direction = (Interaction.Handle.GetChild(0).position - Interaction.Entity.transform.position).normalized;
-        float distance = (Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction);
-        Interaction.Handle.localPosition = direction * distance;
-        Interaction.OtherHandle.localPosition = -direction * distance;
-
+        float distance = ((Interaction.Handle.localPosition).magnitude + Vector3.Dot(transform.position - Interaction.PreviousPosition, direction)) / valve.MaxDistance;
         Interaction.PreviousPosition = transform.position;
         valve.Gate = Mathf.Lerp(0, 100, distance);
         
@@ -388,6 +388,11 @@ public class Player : MonoBehaviour
             Data.WasInState = false;
             Data.StateEntered = false;
             Data.StateExited = true;
+        }
+        else
+        {
+            Data.StateEntered = false;
+            Data.StateExited = false;
         }
     }
 }

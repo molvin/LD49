@@ -1,58 +1,52 @@
 fileFormatVersion: 2
-guid: b092f5ef9125be843ab0fcffdd1b8f33
+guid: 7f0b15a80b348684d821e39037c476da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8078966772632430244
-    second: Buildings_0
+      213: 1921356878924719751
+    second: R3
   - first:
-      213: -3985759516408998331
-    second: Buildings_1
+      213: -2220578802713912117
+    second: R4
   - first:
-      213: -7011020414044352858
-    second: Buildings_2
+      213: 2159463405793675759
+    second: R5
   - first:
-      213: -5075879681021990956
-    second: Buildings_3
+      213: 3714080236059909447
+    second: R7
   - first:
-      213: -1327783827800691072
-    second: piston
+      213: 1518528144325722261
+    second: R8
   - first:
-      213: -7343887744995045752
-    second: pis4
+      213: 7610754938145435617
+    second: R1
   - first:
-      213: -2639815033004070117
-    second: Buildings_6
+      213: -1963547367004878631
+    second: R2
   - first:
-      213: 604486485982949020
-    second: Buildings_7
+      213: -1066561298931602275
+    second: R6
   - first:
-      213: -5866773171951616500
-    second: pis3
+      213: -2461430260366684230
+    second: P1
   - first:
-      213: -211571347060018459
-    second: Buildings_9
+      213: -1448402246553560399
+    second: P2
   - first:
-      213: -916306205918321181
-    second: pis2
+      213: 6201038430410817064
+    second: P3
   - first:
-      213: 307378628346685212
-    second: BigTopp
+      213: 564605620300819597
+    second: P4
   - first:
-      213: -7771551786898442093
-    second: pis1
+      213: 2261568927312003230
+    second: P5
   - first:
-      213: -1616879993858795356
-    second: Buildings_13
+      213: 7511453647641225534
+    second: P6
   - first:
-      213: -1578805528120144468
-    second: BigBottom
-  - first:
-      213: 3178892129885836689
-    second: Buildings_15
-  - first:
-      213: 3120588808847494269
-    second: Buildings_16
+      213: 5525800788121123605
+    second: Idle
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -178,358 +172,316 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buildings_0
+      name: R3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 414
-        width: 32
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 144
+        y: 244
+        width: 72
+        height: 58
+      alignment: 9
+      pivot: {x: 0.4835133, y: -0.18220626}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c595f05468eb1ef80800000000000000
-      internalID: -8078966772632430244
+      spriteID: 786af0fc6e70aaa10800000000000000
+      internalID: 1921356878924719751
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Buildings_1
+      name: R4
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 240
+        width: 64
+        height: 68
+      alignment: 9
+      pivot: {x: 0.46290493, y: -0.093519546}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc9974185bee21e0800000000000000
+      internalID: -2220578802713912117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R5
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 229
+        width: 53
+        height: 76
+      alignment: 9
+      pivot: {x: 0.43654186, y: 0.09130458}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe989c7b684f7fd10800000000000000
+      internalID: 2159463405793675759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R7
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 246
+        width: 63
+        height: 55
+      alignment: 9
+      pivot: {x: 0.5408238, y: -0.19064109}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74d56a1fb401b8330800000000000000
+      internalID: 3714080236059909447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R8
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 244
+        width: 59
+        height: 64
+      alignment: 9
+      pivot: {x: 0.48323396, y: -0.15843582}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 590c7ff3d45e21510800000000000000
+      internalID: 1518528144325722261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R1
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 228
+        width: 57
+        height: 69
+      alignment: 9
+      pivot: {x: 0.3542235, y: 0.0785151}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ef65b0fa45de9960800000000000000
+      internalID: 7610754938145435617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R2
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 230
+        width: 51
+        height: 68
+      alignment: 9
+      pivot: {x: 0.43405315, y: 0.05195079}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d84502b21410c4e0800000000000000
+      internalID: -1963547367004878631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R6
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 231
+        width: 50
+        height: 68
+      alignment: 9
+      pivot: {x: 0.33381408, y: 0.05195079}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9ca0064620d231f0800000000000000
+      internalID: -1066561298931602275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P1
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 162
+        width: 78
+        height: 50
+      alignment: 9
+      pivot: {x: 0.62464726, y: 0.030328674}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf427b283e37ddd0800000000000000
+      internalID: -2461430260366684230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P2
       rect:
         serializedVersion: 2
         x: 96
-        y: 384
-        width: 32
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5461f4856dcbfa8c0800000000000000
-      internalID: -3985759516408998331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buildings_2
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 386
-        width: 28
-        height: 60
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6aecfd3541ad3be90800000000000000
-      internalID: -7011020414044352858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buildings_3
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 351
-        width: 132
-        height: 99
-      alignment: 9
-      pivot: {x: 0.5, y: -0.335}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d7af02c25ade89b0800000000000000
-      internalID: -5075879681021990956
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: piston
-      rect:
-        serializedVersion: 2
-        x: 513
-        y: 396
-        width: 26
-        height: 44
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 08e6e6db4a3c29de0800000000000000
-      internalID: -1327783827800691072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pis4
-      rect:
-        serializedVersion: 2
-        x: 544
-        y: 396
-        width: 34
-        height: 42
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88ec9396105451a90800000000000000
-      internalID: -7343887744995045752
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buildings_6
-      rect:
-        serializedVersion: 2
-        x: 608
-        y: 366
-        width: 101
+        y: 163
+        width: 61
         height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.49747568, y: 0.048278198}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1b6e0db63e7d5bd0800000000000000
-      internalID: -2639815033004070117
+      spriteID: 1ba1c4aa4dd36ebe0800000000000000
+      internalID: -1448402246553560399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Buildings_7
+      name: P3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 352
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 186
+        y: 160
+        width: 66
+        height: 52
+      alignment: 9
+      pivot: {x: 0.48413548, y: 0.05702239}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9ea98c9141936800800000000000000
-      internalID: 604486485982949020
+      spriteID: 82ebe2319938e0650800000000000000
+      internalID: 6201038430410817064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pis3
+      name: P4
       rect:
         serializedVersion: 2
-        x: 544
-        y: 344
-        width: 34
+        x: 260
+        y: 162
+        width: 58
         height: 49
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0e380432e8059ea0800000000000000
-      internalID: -5866773171951616500
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buildings_9
-      rect:
-        serializedVersion: 2
-        x: 735
-        y: 306
-        width: 73
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5e236d51bf8501df0800000000000000
-      internalID: -211571347060018459
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pis2
-      rect:
-        serializedVersion: 2
-        x: 545
-        y: 291
-        width: 34
-        height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3e5a0ca4c50a843f0800000000000000
-      internalID: -916306205918321181
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BigTopp
-      rect:
-        serializedVersion: 2
-        x: 268
-        y: 114
-        width: 229
-        height: 129
       alignment: 9
-      pivot: {x: 0.5, y: -0.3736024}
+      pivot: {x: 0.64957666, y: 0.05126922}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c17a622eb37044400800000000000000
-      internalID: 307378628346685212
+      spriteID: d8c283cf1d1e5d700800000000000000
+      internalID: 564605620300819597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pis1
+      name: P5
       rect:
         serializedVersion: 2
-        x: 544
-        y: 211
-        width: 34
-        height: 77
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 324
+        y: 163
+        width: 64
+        height: 50
+      alignment: 9
+      pivot: {x: 0.5186286, y: 0.032106325}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 398bd5443d6e52490800000000000000
-      internalID: -7771551786898442093
+      spriteID: e904e7305f4b26f10800000000000000
+      internalID: 2261568927312003230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Buildings_13
+      name: P6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 384
-        width: 32
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 407
+        y: 160
+        width: 62
+        height: 50
+      alignment: 9
+      pivot: {x: 0.49999902, y: 0.0572522}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a85c915630bf89e0800000000000000
-      internalID: -1616879993858795356
+      spriteID: e39a77e8b4b0e3860800000000000000
+      internalID: 7511453647641225534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BigBottom
+      name: Idle
       rect:
         serializedVersion: 2
-        x: 268
-        y: 18
-        width: 229
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 12
+        y: 63
+        width: 80
+        height: 70
+      alignment: 9
+      pivot: {x: 0.42334184, y: 0.025627682}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cadc9feacb4f61ae0800000000000000
-      internalID: -1578805528120144468
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buildings_15
-      rect:
-        serializedVersion: 2
-        x: 318
-        y: 286
-        width: 132
-        height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1955125bc81bd1c20800000000000000
-      internalID: 3178892129885836689
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buildings_16
-      rect:
-        serializedVersion: 2
-        x: 608
-        y: 304
-        width: 101
-        height: 62
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d7c0a61fcfe8e4b20800000000000000
-      internalID: 3120588808847494269
+      spriteID: 51b78833a869fac40800000000000000
+      internalID: 5525800788121123605
       vertices: []
       indices: 
       edges: []
@@ -537,7 +489,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 53a4e057f576029429f349e3852dcd17
+    spriteID: 0f4204ec679319d458cc3321ec9ae1c4
     internalID: 0
     vertices: []
     indices: 

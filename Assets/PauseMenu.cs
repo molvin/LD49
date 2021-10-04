@@ -24,11 +24,11 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("Start"))
         {
             Paused = !Paused;
-            Time.timeScale = Paused ? 0.0f : 1.0f;
             Parent.SetActive(Paused);
+            Time.timeScale = Paused ? 0.0f : 1.0f;
         }
     }
 

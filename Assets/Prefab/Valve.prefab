@@ -47,7 +47,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.2
 --- !u!114 &8415563903426850028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +230,11 @@ MonoBehaviour:
   - {fileID: 772932767885593338}
   Type: 0
   Pressure: 0
-  Gate: 3
+  Gate: 0
+  Handles:
+  - {fileID: 4100514782553154418}
+  - {fileID: 3359532455390668462}
+  MaxDistance: 2
 --- !u!61 &4211802453049246996
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -838,7 +842,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.2
 --- !u!114 &1341392980318235898
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -103,8 +104,13 @@ public class GameManager : MonoBehaviour
         m_EntityManager.Tick();
     }
 
+    public static bool IsGameOver = false;
     public void GameOver()
     {
+        if (IsGameOver)
+            return;
+        IsGameOver = true;
+
         if (!doKablaam)
         {
             Kablaam = ParticleSystem.Instantiate(Kablaam, FindObjectOfType<Player>().gameObject.transform);
@@ -114,7 +120,15 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Game Over!!");
         Time.timeScale = 0;
-        
+        //TODO: Play animation for end of level, return to main menu
+        StartCoroutine(GameOverRoutine());
+        IEnumerator GameOverRoutine()
+        {
+            yield return new WaitForSecondsRealtime(5.0f);  //TODO: Do zomomeout and stuff
+
+            SceneManager.LoadScene(0);
+        }
+
     }
 
     private void SpawnBuilding(ResourceScaling scaling)
