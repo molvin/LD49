@@ -69,6 +69,7 @@ public class TutorialGameManager : GameManager
         int nextScene = currentScene.buildIndex + 1;
         if (nextScene > lastTutorialScene)
         {
+            PlayerPrefs.SetInt("playedTutorial", 1);
             nextScene = 0;
         }
         SceneManager.LoadScene(nextScene);

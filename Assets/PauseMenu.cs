@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     public Button resumeButton;
     public Button optionsButton;
     public Button exitButton;
+    public Button skipTutorialButton;
 
 
     public void Start()
@@ -19,6 +20,8 @@ public class PauseMenu : MonoBehaviour
         Parent.SetActive(false);
         resumeButton.onClick.AddListener(unPause);
         exitButton.onClick.AddListener(backToMainMenu);
+        skipTutorialButton.onClick.AddListener(SkipTutorial);
+        skipTutorialButton.enabled = GameManager.Instance.GetType() == typeof(TutorialGameManager);
 
     }
 
@@ -31,7 +34,11 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = Paused ? 0.0f : 1.0f;
         }
     }
-
+    private void SkipTutorial()
+    {
+        PlayerPrefs.SetInt("playedTutorial", 1);
+        SceneManager.LoadScene(0);
+    }
     private void unPause()
     {
         Paused = false;

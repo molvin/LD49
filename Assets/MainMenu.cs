@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour
     public Button StartButton;
     public Button ExitButton;
     public Button OptionsButton;
+    public Button PlayTutorialButton;
+
 
     public AnimationCurve fadeOutCurve;
     public float fadeOutTime = 2;
@@ -17,8 +19,8 @@ public class MainMenu : MonoBehaviour
     {
         StartButton.onClick.AddListener(StartGame);
         ExitButton.onClick.AddListener(ExitGame);
+        PlayTutorialButton.gameObject.SetActive(PlayerPrefs.GetInt("playedTutorial") == 1);
         
-
     }
 
     private void StartGame()
@@ -49,7 +51,7 @@ public class MainMenu : MonoBehaviour
             yield return null;
         }
         
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(PlayerPrefs.GetInt("playedTutorial") == 0? 2 : 1);
     }
 
 }
