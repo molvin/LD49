@@ -37,6 +37,7 @@ public class PauseMenu : MonoBehaviour
     private void SkipTutorial()
     {
         PlayerPrefs.SetInt("playedTutorial", 1);
+        unPause();
         SceneManager.LoadScene(0);
     }
     private void unPause()

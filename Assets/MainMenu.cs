@@ -20,7 +20,8 @@ public class MainMenu : MonoBehaviour
         StartButton.onClick.AddListener(StartGame);
         ExitButton.onClick.AddListener(ExitGame);
         PlayTutorialButton.gameObject.SetActive(PlayerPrefs.GetInt("playedTutorial") == 1);
-        
+        PlayTutorialButton.onClick.AddListener(StartTutAfterDelay);
+        Time.timeScale = 1;
     }
 
     private void StartGame()
@@ -34,7 +35,7 @@ public class MainMenu : MonoBehaviour
         AppHelper.Quit();
     }
 
-
+    
     private void StartAfterDelay()
     {
         StartCoroutine("StartAfterSeconds", fadeOutTime);
@@ -51,7 +52,26 @@ public class MainMenu : MonoBehaviour
             yield return null;
         }
         
-        SceneManager.LoadScene(PlayerPrefs.GetInt("playedTutorial") == 0? 2 : 1);
+        SceneManager.LoadScene(PlayerPrefs.GetInt("playedTutorial") == 0 ? 2 : 1);
+    }
+
+    private void StartTutAfterDelay()
+    {
+        StartCoroutine("StartTutAfterSeconds", fadeOutTime);
+    }
+    IEnumerator StartTutAfterSeconds(float seconds)
+    {
+        float startTime = Time.deltaTime;
+        float timer = 0;
+        while (seconds > timer)
+        {
+            timer += Time.deltaTime;
+            float factor = fadeOutCurve.Evaluate(timer / seconds);
+            fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, factor);
+            yield return null;
+        }
+
+        SceneManager.LoadScene(2);
     }
 
 }
