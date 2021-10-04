@@ -250,3 +250,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoBody: {fileID: 6319600838902815890}
   infoTitle: {fileID: 3767098525100873982}
+  animCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8532945
+      value: 1.2215339
+      inSlope: -1.1764158
+      outSlope: -1.1764158
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99298096
+      value: 1.0212212
+      inSlope: -1.4136933
+      outSlope: -1.4136933
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5756532
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animTime: 1

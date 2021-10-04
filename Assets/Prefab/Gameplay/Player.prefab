@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 597722834}
   - component: {fileID: 597722833}
   - component: {fileID: 597722832}
+  - component: {fileID: 8665651342907963974}
   m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
@@ -153,6 +154,18 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   animTime: 1
+--- !u!114 &8665651342907963974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597722831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8393858e10524604096762950d80e946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &610733300
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +303,7 @@ MonoBehaviour:
   CurrentState: 0
   AccelerationTime: 0.05
   DecelerationTime: 0.02
-  MaxSpeed: 15
+  MaxSpeed: 11
   MinInput: 0.15
   Velocity: {x: 0, y: 0, z: 0}
   SpriteHolder: {fileID: 2049299638995214278}
@@ -302,8 +315,8 @@ MonoBehaviour:
   - {fileID: 806268144731122190, guid: 9272166745b73f24dba6cd5b01e61a16, type: 3}
   - {fileID: 6223273493329634849, guid: 68d0c1c6a212e954483ca6bff2fa1138, type: 3}
   PlaceDistance: 2
-  InteractionRadius: 1
-  InteractionDistance: 0.5
+  InteractionRadius: 1.25
+  InteractionDistance: 0.3
   InteractionLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -354,7 +367,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 7
+  m_Mass: 5
   m_LinearDrag: 1
   m_AngularDrag: 1000000
   m_GravityScale: 0

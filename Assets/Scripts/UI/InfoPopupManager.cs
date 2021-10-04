@@ -10,7 +10,9 @@ public class InfoPopupManager : MonoBehaviour
 
     public void AddInfo(string title, string body)
     {
-        GameObject obj = (GameObject)Instantiate(Resources.Load(infoPopupPrefabPath));
+        GameObject obj = (GameObject)Instantiate(Resources.Load(infoPopupPrefabPath), this.transform);
         obj.GetComponent<InfoPopup>().Init(title, body);
     }
+
+
 }

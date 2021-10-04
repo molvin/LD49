@@ -21,7 +21,6 @@ public class SceneFaderPanelController : MonoBehaviour
     }
     public void FadeIn(bool fade)
     {
-        Debug.Log("FAAAADE");
         fadeIn = fade;
     }
     
