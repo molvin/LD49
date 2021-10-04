@@ -44,7 +44,6 @@ public class InteractionPoint : MonoBehaviour
             case Interactable.Socket:
                 if(player.CurrentState is Player.State.Hose)
                 {
-
                     //Player is holding a hose, try to connect it
                     Edge edge = ParentEntity.GetEdge(transform.position);
                     bool success = ParentEntity.TryConnect(edge, player.Interaction.Edge.Value);
@@ -56,6 +55,7 @@ public class InteractionPoint : MonoBehaviour
                             (player.Interaction.Entity as Hose).Socket1.position = transform.position;
                         player.Interaction.Clear();
                         player.CurrentState = Player.State.Move;
+                        player.Drag.Stop();
                     }
                 }
                 else if(player.CurrentState is Player.State.Move)
@@ -85,6 +85,7 @@ public class InteractionPoint : MonoBehaviour
                         player.Interaction.Clear();
                         player.Interaction.Entity = hose;
                         player.Interaction.Edge = hose.Edges[1];
+                        player.Drag.Play();
                     }
                     else
                     {
@@ -97,6 +98,8 @@ public class InteractionPoint : MonoBehaviour
                         player.Interaction.Entity = hose;
                         player.Interaction.Edge = hose.Edges[edge.OtherSocket];
                         player.CurrentState = Player.State.Hose;
+                        player.Drag.Play();
+
                         foreach (var point in hose.InteractionPoints)
                             point.SetActive(false);
 

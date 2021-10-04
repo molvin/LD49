@@ -72,7 +72,7 @@ public class ResourceIndicator : MonoBehaviour
 
         foreach(var backgroundSprite in backGroundSprites)
         {
-            var c = ResourceColor.TypeColor(type) * 0.75f;
+            var c = ResourceColor.TypeColor(type) * 0.85f;
             c.a = 1.0f;
             backgroundSprite.color = c;
         }
